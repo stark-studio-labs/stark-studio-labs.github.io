@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog — Stark Studio Labs</title>
+  <meta name="description" content="Dev logs, technical deep-dives, and behind-the-scenes posts from the Stark Studio Labs team. Building the future of Sims 4 modding.">
+  <meta name="theme-color" content="#0d1117">
+  <meta property="og:title" content="Blog — Stark Studio Labs">
+  <meta property="og:description" content="Dev logs, deep-dives, and behind-the-scenes posts about building modern Sims 4 tools.">
+  <meta property="og:type" content="website">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
+  <script src="script.js" defer></script>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="nav nav-scrolled-always" id="nav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">
+        <span class="nav-icon">⚡</span>
+        <span class="nav-wordmark">Stark Studio Labs</span>
+      </a>
+      <div class="nav-links" id="navLinks">
+        <a href="docs.html">Docs</a>
+        <a href="blog.html" class="nav-active">Blog</a>
+        <a href="research.html">Research</a>
+        <a href="index.html#products">Products</a>
+        <a href="index.html#roadmap">Roadmap</a>
+        <a href="https://github.com/stark-studio-labs" class="nav-gh" target="_blank" rel="noopener">
+          <svg width="20" height="20" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+        </a>
+      </div>
+      <button class="nav-mobile-toggle" id="nav-toggle" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- BLOG HERO -->
+  <section class="blog-hero">
+    <div class="blog-hero-content">
+      <span class="section-tag">From the Lab</span>
+      <h1 class="section-title">Engineering notes, deep-dives, and the occasional rant about tuning XML.</h1>
+      <p class="section-sub">We build in public. These posts document what we're building, why we're building it, and the hard problems along the way.</p>
+    </div>
+  </section>
+
+  <!-- BLOG GRID -->
+  <section class="section" id="posts">
+    <div class="blog-page-grid">
+
+      <!-- Post 1 -->
+      <article class="blog-page-card reveal">
+        <div class="blog-page-img blog-page-img--framework">
+          <div class="blog-page-img-pattern"></div>
+          <span class="blog-soon">Coming Soon</span>
+        </div>
+        <div class="blog-page-body">
+          <div class="blog-page-meta">
+            <span class="blog-page-date">April 7, 2026</span>
+            <span class="blog-page-tag">Framework</span>
+          </div>
+          <h2 class="blog-page-title">Building a Modern Sims 4 Framework</h2>
+          <p class="blog-page-excerpt">S4CL was a gift to the community, but modding in 2026 shouldn't feel like 2018. We're replacing inheritance hierarchies with decorators, string-based lookups with type-safe injection, and global state with scoped event buses. Here's the architecture behind the Stark Framework and why every design decision was made with mod authors in mind.</p>
+          <div class="blog-page-footer">
+            <span class="blog-page-read">Read post</span>
+            <span class="blog-page-time">12 min read</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- Post 2 -->
+      <article class="blog-page-card reveal">
+        <div class="blog-page-img blog-page-img--economy">
+          <div class="blog-page-img-pattern"></div>
+          <span class="blog-soon">Coming Soon</span>
+        </div>
+        <div class="blog-page-body">
+          <div class="blog-page-meta">
+            <span class="blog-page-date">April 14, 2026</span>
+            <span class="blog-page-tag">Gameplay</span>
+          </div>
+          <h2 class="blog-page-title">Inside the Economy Sim</h2>
+          <p class="blog-page-excerpt">The Sims 4 has no economy. Simoleons appear from nowhere and disappear into the void. We're building a full supply-demand simulation: dynamic pricing, market cycles, real estate that appreciates, businesses that compete, and Sims that make financial decisions based on their traits and needs. This post walks through the economic model, the agent-based simulation loop, and how it all integrates with the base game without breaking the magic.</p>
+          <div class="blog-page-footer">
+            <span class="blog-page-read">Read post</span>
+            <span class="blog-page-time">15 min read</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- Post 3 -->
+      <article class="blog-page-card reveal">
+        <div class="blog-page-img blog-page-img--ai">
+          <div class="blog-page-img-pattern"></div>
+          <span class="blog-soon">Coming Soon</span>
+        </div>
+        <div class="blog-page-body">
+          <div class="blog-page-meta">
+            <span class="blog-page-date">April 21, 2026</span>
+            <span class="blog-page-tag">Intelligence</span>
+          </div>
+          <h2 class="blog-page-title">AI-Powered Sims: How It Works</h2>
+          <p class="blog-page-excerpt">Every Sim gets a local language model. No cloud. No subscription. No data leaving your machine. Smart Sims uses compact LLMs to give Sims persistent memory, contextual reasoning, and conversations that actually make sense. This deep-dive covers the inference pipeline, memory architecture, personality modeling, and how we keep it all running at 60fps on consumer hardware.</p>
+          <div class="blog-page-footer">
+            <span class="blog-page-read">Read post</span>
+            <span class="blog-page-time">18 min read</span>
+          </div>
+        </div>
+      </article>
+
+    </div>
+
+    <!-- Newsletter CTA -->
+    <div class="blog-subscribe reveal">
+      <div class="blog-subscribe-content">
+        <h3>Stay in the loop.</h3>
+        <p>Follow us on <a href="https://x.com/starkstudiolabs" target="_blank" rel="noopener">X / Twitter</a> or join the <a href="https://discord.gg/starkstudiolabs" target="_blank" rel="noopener">Discord</a> for new post notifications and behind-the-scenes dev updates.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-grid">
+      <div class="footer-col footer-brand">
+        <a href="index.html" class="footer-logo">
+          <span class="nav-icon">⚡</span>
+          <span>Stark Studio Labs</span>
+        </a>
+        <p class="footer-tagline">The Sims 4 deserves better tools. We're building them.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Products</h4>
+        <a href="https://github.com/stark-studio-labs/sims4-mod-manager" target="_blank" rel="noopener">Mod Manager</a>
+        <a href="https://github.com/stark-studio-labs/sims4-mod-builder" target="_blank" rel="noopener">Mod Builder</a>
+        <a href="https://github.com/stark-studio-labs/sims4-smart-sims" target="_blank" rel="noopener">Smart Sims</a>
+        <a href="https://github.com/stark-studio-labs/sims4-stark-devkit" target="_blank" rel="noopener">DevKit</a>
+        <a href="https://github.com/stark-studio-labs/sims4-stark-framework" target="_blank" rel="noopener">Framework</a>
+      </div>
+      <div class="footer-col">
+        <h4>Community</h4>
+        <a href="https://github.com/stark-studio-labs" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://discord.gg/starkstudiolabs" target="_blank" rel="noopener">Discord</a>
+        <a href="https://x.com/starkstudiolabs" target="_blank" rel="noopener">X / Twitter</a>
+        <a href="https://patreon.com/starkstudiolabs" target="_blank" rel="noopener">Patreon</a>
+      </div>
+      <div class="footer-col">
+        <h4>Resources</h4>
+        <a href="docs.html">Docs</a>
+        <a href="blog.html">Blog</a>
+        <a href="research.html">Research</a>
+        <a href="mailto:studio@starklabs.dev">Contact</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Stark Studio Labs. All projects MIT licensed.</p>
+    </div>
+  </footer>
+
+</body>
+</html>

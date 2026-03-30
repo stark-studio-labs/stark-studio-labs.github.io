@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Developer Hub — Stark Studio Labs</title>
+  <meta name="description" content="Documentation, tutorials, and API reference for the Stark Framework, DevKit, and modding platform. Get started building Sims 4 mods in 60 seconds.">
+  <meta name="theme-color" content="#0d1117">
+  <meta property="og:title" content="Developer Hub — Stark Studio Labs">
+  <meta property="og:description" content="Modern developer tools for The Sims 4. Documentation, tutorials, and API reference.">
+  <meta property="og:type" content="website">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
+  <script src="script.js" defer></script>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="nav nav-scrolled-always" id="nav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">
+        <span class="nav-icon">⚡</span>
+        <span class="nav-wordmark">Stark Studio Labs</span>
+      </a>
+      <div class="nav-links" id="navLinks">
+        <a href="docs.html" class="nav-active">Docs</a>
+        <a href="blog.html">Blog</a>
+        <a href="research.html">Research</a>
+        <a href="index.html#products">Products</a>
+        <a href="index.html#roadmap">Roadmap</a>
+        <a href="https://github.com/stark-studio-labs" class="nav-gh" target="_blank" rel="noopener">
+          <svg width="20" height="20" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+        </a>
+      </div>
+      <button class="nav-mobile-toggle" id="nav-toggle" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- DOCS LAYOUT -->
+  <div class="docs-layout">
+
+    <!-- SIDEBAR -->
+    <aside class="docs-sidebar" id="docs-sidebar">
+      <div class="docs-sidebar-inner">
+        <div class="docs-sidebar-section">
+          <h4 class="docs-sidebar-heading">Getting Started</h4>
+          <a href="#quickstart" class="docs-sidebar-link active">Quick Start</a>
+          <a href="#installation" class="docs-sidebar-link">Installation</a>
+          <a href="#hello-world" class="docs-sidebar-link">Hello World</a>
+        </div>
+        <div class="docs-sidebar-section">
+          <h4 class="docs-sidebar-heading">Framework</h4>
+          <a href="#framework-overview" class="docs-sidebar-link">Overview</a>
+          <a href="#event-bus" class="docs-sidebar-link">Event Bus</a>
+          <a href="#dependency-injection" class="docs-sidebar-link">Dependency Injection</a>
+          <a href="#lifecycle" class="docs-sidebar-link">Mod Lifecycle</a>
+        </div>
+        <div class="docs-sidebar-section">
+          <h4 class="docs-sidebar-heading">DevKit</h4>
+          <a href="#cli-reference" class="docs-sidebar-link">CLI Reference</a>
+          <a href="#scaffolding" class="docs-sidebar-link">Scaffolding</a>
+          <a href="#hot-reload" class="docs-sidebar-link">Hot Reload</a>
+          <a href="#packaging" class="docs-sidebar-link">Packaging</a>
+        </div>
+        <div class="docs-sidebar-section">
+          <h4 class="docs-sidebar-heading">Tutorials</h4>
+          <a href="#tutorial-first-mod" class="docs-sidebar-link">Your First Mod</a>
+          <a href="#tutorial-events" class="docs-sidebar-link">Working with Events</a>
+          <a href="#tutorial-services" class="docs-sidebar-link">Injecting Services</a>
+        </div>
+      </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="docs-main">
+
+      <!-- GETTING STARTED -->
+      <section id="quickstart" class="docs-section">
+        <div class="docs-section-eyebrow">Getting Started</div>
+        <h1 class="docs-section-title">Get started in 60 seconds.</h1>
+        <p class="docs-section-intro">From zero to a running mod in three commands. The Stark DevKit handles Python setup, dependency management, and game path detection automatically.</p>
+
+        <div class="docs-terminal" id="installation">
+          <div class="code-block">
+            <div class="code-header">
+              <div class="code-dots">
+                <span class="dot dot-red"></span>
+                <span class="dot dot-yellow"></span>
+                <span class="dot dot-green"></span>
+              </div>
+              <span class="code-filename">Terminal</span>
+            </div>
+            <pre class="code-body"><code><span class="hl-keyword">$</span> <span class="hl-func">pip install stark-devkit</span>
+<span class="hl-module"># Successfully installed stark-devkit-1.0.0</span>
+
+<span class="hl-keyword">$</span> <span class="hl-func">stark init my-first-mod</span>
+<span class="hl-module"># ✓ Created my-first-mod/ with starter template</span>
+
+<span class="hl-keyword">$</span> <span class="hl-func">cd my-first-mod && stark dev</span>
+<span class="hl-type"># ⚡ Hot-reload server running — drop into The Sims 4</span></code></pre>
+          </div>
+        </div>
+
+        <div class="docs-callout">
+          <div class="docs-callout-icon">&#x1F4A1;</div>
+          <div class="docs-callout-content">
+            <strong>Requirements:</strong> Python 3.9+, The Sims 4 installed. The DevKit auto-detects your game directory on Windows, macOS, and Linux.
+          </div>
+        </div>
+      </section>
+
+      <!-- HELLO WORLD -->
+      <section id="hello-world" class="docs-section">
+        <h2 class="docs-section-title">Hello World</h2>
+        <p class="docs-section-intro">Here's the simplest possible Stark mod. The <code>@mod</code> decorator registers your class, and <code>@on_load</code> fires when the game loads it.</p>
+
+        <div class="code-block">
+          <div class="code-header">
+            <div class="code-dots">
+              <span class="dot dot-red"></span>
+              <span class="dot dot-yellow"></span>
+              <span class="dot dot-green"></span>
+            </div>
+            <span class="code-filename">my_first_mod.py</span>
+          </div>
+          <pre class="code-body"><code><span class="hl-keyword">from</span> <span class="hl-module">stark_framework</span> <span class="hl-keyword">import</span> <span class="hl-func">mod</span>, <span class="hl-func">on_load</span>, <span class="hl-func">log</span>
+
+<span class="hl-decorator">@mod</span>(<span class="hl-string">"hello_world"</span>, version=<span class="hl-string">"1.0.0"</span>)
+<span class="hl-keyword">class</span> <span class="hl-type">HelloWorld</span>:
+
+    <span class="hl-decorator">@on_load</span>
+    <span class="hl-keyword">def</span> <span class="hl-func">start</span>(<span class="hl-keyword">self</span>):
+        log.info(<span class="hl-string">"Hello from Stark Framework!"</span>)
+        log.info(<span class="hl-string">f"Mod loaded: </span><span class="hl-string">{self.meta.name} v{self.meta.version}</span><span class="hl-string">"</span>)</code></pre>
+        </div>
+
+        <p class="docs-paragraph">Run <code>stark dev</code> and launch The Sims 4. Open the in-game console (<code>Ctrl+Shift+C</code>) and you'll see your log messages. That's it — your first mod is live.</p>
+      </section>
+
+      <!-- FRAMEWORK -->
+      <section id="framework-overview" class="docs-section">
+        <div class="docs-section-eyebrow">Framework</div>
+        <h2 class="docs-section-title">The Stark Framework</h2>
+        <p class="docs-section-intro">A modern, typed modding framework built from the ground up. Decorators handle the boilerplate. Type hints give you autocomplete. The event bus lets you react to anything in the game.</p>
+
+        <div class="docs-feature-grid">
+          <div class="docs-feature-card">
+            <div class="docs-feature-icon">&#x1F3AF;</div>
+            <h3>Event-Driven</h3>
+            <p>Subscribe to any game event with a decorator. Sim interactions, zone loads, object placement — everything is hookable.</p>
+          </div>
+          <div class="docs-feature-card">
+            <div class="docs-feature-icon">&#x1F527;</div>
+            <h3>Dependency Injection</h3>
+            <p>Access EA's internal services directly with <code>@inject</code>. No more hunting through decompiled code to find service handles.</p>
+          </div>
+          <div class="docs-feature-card">
+            <div class="docs-feature-icon">&#x1F9E9;</div>
+            <h3>Type-Safe APIs</h3>
+            <p>Full type annotations for every game object. Your IDE tells you what's available before you even start typing.</p>
+          </div>
+          <div class="docs-feature-card">
+            <div class="docs-feature-icon">&#x26A1;</div>
+            <h3>Hot Reload</h3>
+            <p>Change code, save, see results immediately in the running game. No restart required. Development at the speed of thought.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- EVENT BUS -->
+      <section id="event-bus" class="docs-section">
+        <h2 class="docs-section-title">Event Bus</h2>
+        <p class="docs-section-intro">The event bus is the heart of the Stark Framework. Register listeners for any game event and react with custom logic.</p>
+
+        <div class="code-block">
+          <div class="code-header">
+            <div class="code-dots">
+              <span class="dot dot-red"></span>
+              <span class="dot dot-yellow"></span>
+              <span class="dot dot-green"></span>
+            </div>
+            <span class="code-filename">events_example.py</span>
+          </div>
+          <pre class="code-body"><code><span class="hl-keyword">from</span> <span class="hl-module">stark_framework</span> <span class="hl-keyword">import</span> <span class="hl-func">mod</span>, <span class="hl-func">on_event</span>, <span class="hl-func">log</span>
+<span class="hl-keyword">from</span> <span class="hl-module">stark_framework.sims</span> <span class="hl-keyword">import</span> <span class="hl-type">Sim</span>, <span class="hl-type">Lot</span>, <span class="hl-type">Interaction</span>
+
+<span class="hl-decorator">@mod</span>(<span class="hl-string">"event_demo"</span>, version=<span class="hl-string">"1.0.0"</span>)
+<span class="hl-keyword">class</span> <span class="hl-type">EventDemo</span>:
+
+    <span class="hl-decorator">@on_event</span>(<span class="hl-string">"sim.spawned"</span>)
+    <span class="hl-keyword">def</span> <span class="hl-func">on_sim_spawned</span>(<span class="hl-keyword">self</span>, sim: <span class="hl-type">Sim</span>):
+        log.info(<span class="hl-string">f"Welcome to the world, </span><span class="hl-string">{sim.name}</span><span class="hl-string">!"</span>)
+
+    <span class="hl-decorator">@on_event</span>(<span class="hl-string">"zone.loaded"</span>)
+    <span class="hl-keyword">def</span> <span class="hl-func">on_zone_loaded</span>(<span class="hl-keyword">self</span>, lot: <span class="hl-type">Lot</span>):
+        log.info(<span class="hl-string">f"Loaded lot: </span><span class="hl-string">{lot.name}</span><span class="hl-string"> ({lot.lot_type})"</span>)
+        <span class="hl-keyword">for</span> sim <span class="hl-keyword">in</span> lot.get_sims():
+            sim.add_buff(<span class="hl-string">"happy"</span>, duration=<span class="hl-number">120</span>)
+
+    <span class="hl-decorator">@on_event</span>(<span class="hl-string">"sim.interaction.complete"</span>)
+    <span class="hl-keyword">def</span> <span class="hl-func">on_interaction_done</span>(<span class="hl-keyword">self</span>, sim: <span class="hl-type">Sim</span>, interaction: <span class="hl-type">Interaction</span>):
+        <span class="hl-keyword">if</span> interaction.is_social <span class="hl-keyword">and</span> interaction.outcome == <span class="hl-string">"positive"</span>:
+            sim.relationships.boost(interaction.target, <span class="hl-number">10</span>)</code></pre>
+        </div>
+
+        <div class="docs-callout">
+          <div class="docs-callout-icon">&#x1F4CB;</div>
+          <div class="docs-callout-content">
+            <strong>Available events:</strong> <code>sim.spawned</code>, <code>sim.died</code>, <code>sim.interaction.start</code>, <code>sim.interaction.complete</code>, <code>zone.loaded</code>, <code>zone.unloaded</code>, <code>object.placed</code>, <code>object.removed</code>, <code>household.funds.changed</code>, and many more. Full list in the API reference.
+          </div>
+        </div>
+      </section>
+
+      <!-- DEPENDENCY INJECTION -->
+      <section id="dependency-injection" class="docs-section">
+        <h2 class="docs-section-title">Dependency Injection</h2>
+        <p class="docs-section-intro">Access any of EA's internal game services directly using the <code>@inject</code> decorator. No more digging through decompiled source to find service handles.</p>
+
+        <div class="code-block">
+          <div class="code-header">
+            <div class="code-dots">
+              <span class="dot dot-red"></span>
+              <span class="dot dot-yellow"></span>
+              <span class="dot dot-green"></span>
+            </div>
+            <span class="code-filename">injection_example.py</span>
+          </div>
+          <pre class="code-body"><code><span class="hl-keyword">from</span> <span class="hl-module">stark_framework</span> <span class="hl-keyword">import</span> <span class="hl-func">mod</span>, <span class="hl-func">inject</span>, <span class="hl-func">on_event</span>
+
+<span class="hl-decorator">@mod</span>(<span class="hl-string">"service_demo"</span>, version=<span class="hl-string">"1.0.0"</span>)
+<span class="hl-keyword">class</span> <span class="hl-type">ServiceDemo</span>:
+
+    <span class="hl-decorator">@inject</span>(<span class="hl-string">"services.sim_info_manager"</span>)
+    <span class="hl-keyword">def</span> <span class="hl-func">get_all_sims</span>(<span class="hl-keyword">self</span>, manager):
+        <span class="hl-keyword">return</span> [sim <span class="hl-keyword">for</span> sim <span class="hl-keyword">in</span> manager.get_all() <span class="hl-keyword">if</span> sim.is_human]
+
+    <span class="hl-decorator">@inject</span>(<span class="hl-string">"services.lot_manager"</span>)
+    <span class="hl-keyword">def</span> <span class="hl-func">get_current_lot</span>(<span class="hl-keyword">self</span>, lot_mgr):
+        <span class="hl-keyword">return</span> lot_mgr.get_active_lot()
+
+    <span class="hl-decorator">@on_event</span>(<span class="hl-string">"zone.loaded"</span>)
+    <span class="hl-keyword">def</span> <span class="hl-func">on_zone</span>(<span class="hl-keyword">self</span>, lot):
+        sims = <span class="hl-keyword">self</span>.get_all_sims()
+        <span class="hl-keyword">self</span>.log(<span class="hl-string">f"</span><span class="hl-string">{len(sims)} human Sims on lot</span><span class="hl-string">"</span>)</code></pre>
+        </div>
+      </section>
+
+      <!-- MOD LIFECYCLE -->
+      <section id="lifecycle" class="docs-section">
+        <h2 class="docs-section-title">Mod Lifecycle</h2>
+        <p class="docs-section-intro">Every Stark mod goes through a predictable lifecycle. Hook into any phase to set up resources, persist state, or clean up gracefully.</p>
+
+        <div class="docs-lifecycle">
+          <div class="docs-lifecycle-step">
+            <div class="docs-lifecycle-num">1</div>
+            <div class="docs-lifecycle-content">
+              <h4>Register</h4>
+              <p>The <code>@mod</code> decorator registers your class with the framework. Metadata (name, version, author) is captured automatically.</p>
+            </div>
+          </div>
+          <div class="docs-lifecycle-step">
+            <div class="docs-lifecycle-num">2</div>
+            <div class="docs-lifecycle-content">
+              <h4>Initialize</h4>
+              <p><code>@on_load</code> fires when the game loads your mod. Set up state, register custom interactions, preload assets.</p>
+            </div>
+          </div>
+          <div class="docs-lifecycle-step">
+            <div class="docs-lifecycle-num">3</div>
+            <div class="docs-lifecycle-content">
+              <h4>Run</h4>
+              <p>Your event handlers and injected methods are live. The framework manages the event loop and service resolution.</p>
+            </div>
+          </div>
+          <div class="docs-lifecycle-step">
+            <div class="docs-lifecycle-num">4</div>
+            <div class="docs-lifecycle-content">
+              <h4>Teardown</h4>
+              <p><code>@on_unload</code> fires when the game exits or your mod is disabled. Clean up state, save persistent data, release resources.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- DEVKIT CLI -->
+      <section id="cli-reference" class="docs-section">
+        <div class="docs-section-eyebrow">DevKit</div>
+        <h2 class="docs-section-title">CLI Reference</h2>
+        <p class="docs-section-intro">The Stark DevKit CLI is your one-stop toolchain for creating, developing, testing, and shipping Sims 4 mods.</p>
+
+        <div class="docs-cli-grid">
+          <div class="docs-cli-card" id="scaffolding">
+            <div class="docs-cli-cmd"><code>stark init &lt;name&gt;</code></div>
+            <p class="docs-cli-desc">Scaffold a new mod project with the starter template. Includes typed imports, event hooks, and a pre-configured build pipeline.</p>
+            <div class="docs-cli-flags">
+              <span class="docs-cli-flag"><code>--template</code> Choose starter, advanced, or blank</span>
+              <span class="docs-cli-flag"><code>--author</code> Set author metadata</span>
+            </div>
+          </div>
+          <div class="docs-cli-card" id="hot-reload">
+            <div class="docs-cli-cmd"><code>stark dev</code></div>
+            <p class="docs-cli-desc">Start the hot-reload development server. Changes to your mod files are detected and pushed to the running game in real time.</p>
+            <div class="docs-cli-flags">
+              <span class="docs-cli-flag"><code>--port</code> Set dev server port (default: 3847)</span>
+              <span class="docs-cli-flag"><code>--verbose</code> Enable detailed logging</span>
+            </div>
+          </div>
+          <div class="docs-cli-card">
+            <div class="docs-cli-cmd"><code>stark test</code></div>
+            <p class="docs-cli-desc">Run your mod's test suite. The framework provides mock Sim objects and game service stubs for fast, reliable testing.</p>
+            <div class="docs-cli-flags">
+              <span class="docs-cli-flag"><code>--coverage</code> Show code coverage report</span>
+              <span class="docs-cli-flag"><code>--watch</code> Re-run tests on file change</span>
+            </div>
+          </div>
+          <div class="docs-cli-card" id="packaging">
+            <div class="docs-cli-cmd"><code>stark build</code></div>
+            <p class="docs-cli-desc">Compile and package your mod into a distributable <code>.ts4script</code> + <code>.package</code> bundle ready for users to install.</p>
+            <div class="docs-cli-flags">
+              <span class="docs-cli-flag"><code>--minify</code> Minify Python output</span>
+              <span class="docs-cli-flag"><code>--target</code> Set Sims 4 version target</span>
+            </div>
+          </div>
+          <div class="docs-cli-card">
+            <div class="docs-cli-cmd"><code>stark lint</code></div>
+            <p class="docs-cli-desc">Check your mod for common issues: deprecated tuning references, missing resource keys, conflicting overrides.</p>
+            <div class="docs-cli-flags">
+              <span class="docs-cli-flag"><code>--fix</code> Auto-fix safe issues</span>
+            </div>
+          </div>
+          <div class="docs-cli-card">
+            <div class="docs-cli-cmd"><code>stark publish</code></div>
+            <p class="docs-cli-desc">Publish your mod to the Stark mod registry. Handles versioning, changelog generation, and dependency resolution.</p>
+            <div class="docs-cli-flags">
+              <span class="docs-cli-flag"><code>--dry-run</code> Preview without publishing</span>
+              <span class="docs-cli-flag"><code>--tag</code> Set release channel</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TUTORIALS -->
+      <section id="tutorial-first-mod" class="docs-section">
+        <div class="docs-section-eyebrow">Tutorials</div>
+        <h2 class="docs-section-title">Your First Mod</h2>
+        <p class="docs-section-intro">A step-by-step walkthrough from an empty folder to a working mod that modifies Sim behavior. Estimated time: 10 minutes.</p>
+
+        <div class="docs-steps">
+          <div class="docs-step">
+            <div class="docs-step-badge">Step 1</div>
+            <h3>Create your project</h3>
+            <p>Open your terminal and scaffold a new mod project.</p>
+            <div class="code-block code-block-compact">
+              <pre class="code-body"><code><span class="hl-keyword">$</span> <span class="hl-func">stark init confidence-boost --template starter</span>
+<span class="hl-keyword">$</span> <span class="hl-func">cd confidence-boost</span></code></pre>
+            </div>
+          </div>
+          <div class="docs-step" id="tutorial-events">
+            <div class="docs-step-badge">Step 2</div>
+            <h3>Write your event handler</h3>
+            <p>Open <code>src/main.py</code> and add an event listener for social interactions.</p>
+            <div class="code-block code-block-compact">
+              <pre class="code-body"><code><span class="hl-decorator">@on_event</span>(<span class="hl-string">"sim.interaction.complete"</span>)
+<span class="hl-keyword">def</span> <span class="hl-func">boost_confidence</span>(<span class="hl-keyword">self</span>, sim: <span class="hl-type">Sim</span>, interaction: <span class="hl-type">Interaction</span>):
+    <span class="hl-keyword">if</span> interaction.is_social:
+        sim.add_buff(<span class="hl-string">"confident"</span>, duration=<span class="hl-number">480</span>)
+        <span class="hl-keyword">self</span>.log(<span class="hl-string">f"</span><span class="hl-string">{sim.name} gained confidence!</span><span class="hl-string">"</span>)</code></pre>
+            </div>
+          </div>
+          <div class="docs-step" id="tutorial-services">
+            <div class="docs-step-badge">Step 3</div>
+            <h3>Test and ship</h3>
+            <p>Run the dev server to test in-game, then build for distribution.</p>
+            <div class="code-block code-block-compact">
+              <pre class="code-body"><code><span class="hl-keyword">$</span> <span class="hl-func">stark dev</span>         <span class="hl-module"># Hot-reload into the running game</span>
+<span class="hl-keyword">$</span> <span class="hl-func">stark test</span>        <span class="hl-module"># Run the test suite</span>
+<span class="hl-keyword">$</span> <span class="hl-func">stark build</span>       <span class="hl-module"># Package for distribution</span></code></pre>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-grid">
+      <div class="footer-col footer-brand">
+        <a href="index.html" class="footer-logo">
+          <span class="nav-icon">⚡</span>
+          <span>Stark Studio Labs</span>
+        </a>
+        <p class="footer-tagline">The Sims 4 deserves better tools. We're building them.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Products</h4>
+        <a href="https://github.com/stark-studio-labs/sims4-mod-manager" target="_blank" rel="noopener">Mod Manager</a>
+        <a href="https://github.com/stark-studio-labs/sims4-mod-builder" target="_blank" rel="noopener">Mod Builder</a>
+        <a href="https://github.com/stark-studio-labs/sims4-smart-sims" target="_blank" rel="noopener">Smart Sims</a>
+        <a href="https://github.com/stark-studio-labs/sims4-stark-devkit" target="_blank" rel="noopener">DevKit</a>
+        <a href="https://github.com/stark-studio-labs/sims4-stark-framework" target="_blank" rel="noopener">Framework</a>
+      </div>
+      <div class="footer-col">
+        <h4>Community</h4>
+        <a href="https://github.com/stark-studio-labs" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://discord.gg/starkstudiolabs" target="_blank" rel="noopener">Discord</a>
+        <a href="https://x.com/starkstudiolabs" target="_blank" rel="noopener">X / Twitter</a>
+        <a href="https://patreon.com/starkstudiolabs" target="_blank" rel="noopener">Patreon</a>
+      </div>
+      <div class="footer-col">
+        <h4>Resources</h4>
+        <a href="docs.html">Docs</a>
+        <a href="blog.html">Blog</a>
+        <a href="research.html">Research</a>
+        <a href="mailto:studio@starklabs.dev">Contact</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Stark Studio Labs. All projects MIT licensed.</p>
+    </div>
+  </footer>
+
+</body>
+</html>

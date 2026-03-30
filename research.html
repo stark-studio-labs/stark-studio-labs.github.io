@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Research &amp; Innovation — Stark Studio Labs</title>
+  <meta name="description" content="Our approach to modern game modding architecture, intelligent gameplay systems, and community-driven open source development.">
+  <meta name="theme-color" content="#0d1117">
+  <meta property="og:title" content="Research & Innovation — Stark Studio Labs">
+  <meta property="og:description" content="Modern architecture, intelligent gameplay, and community-driven development for The Sims 4.">
+  <meta property="og:type" content="website">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
+  <script src="script.js" defer></script>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="nav nav-scrolled-always" id="nav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">
+        <span class="nav-icon">⚡</span>
+        <span class="nav-wordmark">Stark Studio Labs</span>
+      </a>
+      <div class="nav-links" id="navLinks">
+        <a href="docs.html">Docs</a>
+        <a href="blog.html">Blog</a>
+        <a href="research.html" class="nav-active">Research</a>
+        <a href="index.html#products">Products</a>
+        <a href="index.html#roadmap">Roadmap</a>
+        <a href="https://github.com/stark-studio-labs" class="nav-gh" target="_blank" rel="noopener">
+          <svg width="20" height="20" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+        </a>
+      </div>
+      <button class="nav-mobile-toggle" id="nav-toggle" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- RESEARCH HERO -->
+  <section class="research-hero">
+    <div class="research-hero-bg"></div>
+    <div class="research-hero-content">
+      <span class="section-tag">Research &amp; Innovation</span>
+      <h1 class="section-title">We think deeply about how games should work.</h1>
+      <p class="section-sub">The Sims 4 modding ecosystem is stuck in 2014. We're applying modern software engineering, simulation theory, and machine learning to build something fundamentally better.</p>
+    </div>
+  </section>
+
+  <!-- MODERN ARCHITECTURE -->
+  <section class="section" id="architecture">
+    <div class="section-header reveal">
+      <span class="section-tag">Pillar 1</span>
+      <h2 class="section-title">Modern Architecture</h2>
+      <p class="section-sub">The Sims 4 modding ecosystem runs on patterns from a decade ago. We're bringing it up to speed with how software is actually built today.</p>
+    </div>
+
+    <div class="research-columns">
+      <div class="research-insight reveal">
+        <div class="research-insight-header">
+          <h3>The Problem</h3>
+        </div>
+        <p>Most Sims 4 mods are built on S4CL or raw injection — deep inheritance hierarchies, string-based service lookups, global mutable state, and manual XML tuning. The barrier to entry is high, debugging is painful, and mod conflicts are the norm.</p>
+      </div>
+      <div class="research-insight reveal">
+        <div class="research-insight-header">
+          <h3>Our Approach</h3>
+        </div>
+        <p>The Stark Framework replaces inheritance with composition. Decorators handle registration and lifecycle. A scoped event bus replaces global callbacks. Typed dependency injection gives mod authors direct, discoverable access to game services. The result: mods that are easier to write, easier to debug, and less likely to conflict with each other.</p>
+      </div>
+    </div>
+
+    <div class="research-principles">
+      <div class="research-principle reveal">
+        <div class="research-principle-num">01</div>
+        <h4>Event-Driven by Default</h4>
+        <p>Every game action emits a typed event. Mods subscribe to exactly what they need, with automatic cleanup when the mod unloads. No polling, no monkey-patching, no orphaned callbacks.</p>
+      </div>
+      <div class="research-principle reveal">
+        <div class="research-principle-num">02</div>
+        <h4>Zero Boilerplate</h4>
+        <p>A working mod is 10 lines of code. The framework handles registration, lifecycle management, error boundaries, and logging. Mod authors focus on gameplay logic, not infrastructure.</p>
+      </div>
+      <div class="research-principle reveal">
+        <div class="research-principle-num">03</div>
+        <h4>Conflict-Free by Design</h4>
+        <p>Scoped namespaces, priority-based event ordering, and runtime conflict detection mean mods work together instead of fighting each other. The days of "disable half your mods to find the broken one" are ending.</p>
+      </div>
+      <div class="research-principle reveal">
+        <div class="research-principle-num">04</div>
+        <h4>Developer Experience First</h4>
+        <p>Full type annotations. IDE autocomplete for every game object. Hot-reload into a running game. A real test framework with mock objects. Development should feel modern, not archaeological.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- AI-POWERED GAMEPLAY -->
+  <section class="section section-dark" id="ai-gameplay">
+    <div class="section-header reveal">
+      <span class="section-tag">Pillar 2</span>
+      <h2 class="section-title">Intelligent Gameplay</h2>
+      <p class="section-sub">Game characters shouldn't be state machines. We're exploring how local language models can give Sims the ability to reason, remember, and evolve.</p>
+    </div>
+
+    <div class="research-columns">
+      <div class="research-insight reveal">
+        <div class="research-insight-header">
+          <h3>The Vision</h3>
+        </div>
+        <p>Imagine a Sim that remembers their childhood rival, holds a grudge for in-game years, and finally confronts them at a party. That's the kind of emergent behavior that makes simulation games transcendent — and it requires more than behavior trees and weighted random choices.</p>
+      </div>
+      <div class="research-insight reveal">
+        <div class="research-insight-header">
+          <h3>How We're Getting There</h3>
+        </div>
+        <p>Smart Sims runs compact language models entirely on the player's machine. Each Sim maintains a persistent memory store — relationships, experiences, preferences — that feeds into a reasoning loop. The model evaluates the current context, considers the Sim's personality and history, and produces decisions that feel intentional rather than random.</p>
+      </div>
+    </div>
+
+    <div class="research-areas">
+      <div class="research-area-card reveal">
+        <div class="research-area-icon">&#x1F9E0;</div>
+        <h3>Persistent Memory</h3>
+        <p>Sims build long-term memories of events, relationships, and places. These memories decay naturally over time but can be reinforced by repetition — just like real memory. A Sim remembers who helped them, who wronged them, and where they had their best meal.</p>
+      </div>
+      <div class="research-area-card reveal">
+        <div class="research-area-icon">&#x1F4AC;</div>
+        <h3>Contextual Dialogue</h3>
+        <p>Conversations are generated from context, not pulled from a fixed pool. A Sim talking to their best friend sounds different than a Sim meeting a stranger. Mood, location, time of day, and recent events all shape what they say and how they say it.</p>
+      </div>
+      <div class="research-area-card reveal">
+        <div class="research-area-icon">&#x1F3AD;</div>
+        <h3>Personality Modeling</h3>
+        <p>Traits aren't just stat modifiers. Each trait influences the reasoning model's decision weights. A "mean" Sim doesn't just do mean things randomly — they have motives, preferences, and patterns that make their behavior feel consistent and believable.</p>
+      </div>
+      <div class="research-area-card reveal">
+        <div class="research-area-icon">&#x1F4CA;</div>
+        <h3>Economic Modeling</h3>
+        <p>A full supply-demand simulation running in the background. Dynamic pricing, market cycles, business competition, and real estate appreciation. Sims make financial decisions based on their traits, needs, and the state of the economy around them.</p>
+      </div>
+      <div class="research-area-card reveal">
+        <div class="research-area-icon">&#x26A1;</div>
+        <h3>Performance First</h3>
+        <p>All inference runs locally on consumer hardware. We use quantized models, aggressive caching, and asynchronous inference to keep the game running at full speed. Intelligence shouldn't cost frames.</p>
+      </div>
+      <div class="research-area-card reveal">
+        <div class="research-area-icon">&#x1F512;</div>
+        <h3>Privacy by Design</h3>
+        <p>No cloud. No API calls. No data leaving the player's machine. Every model runs locally, every memory is stored locally, every conversation is generated locally. Your game stays yours.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMMUNITY-DRIVEN -->
+  <section class="section" id="community-driven">
+    <div class="section-header reveal">
+      <span class="section-tag">Pillar 3</span>
+      <h2 class="section-title">Community-Driven Development</h2>
+      <p class="section-sub">Open source isn't a license. It's a development philosophy. Every design decision, architecture choice, and roadmap shift happens in public.</p>
+    </div>
+
+    <div class="research-values">
+      <div class="research-value reveal">
+        <div class="research-value-bar" style="--bar-color: var(--accent);"></div>
+        <div class="research-value-content">
+          <h3>Build in Public</h3>
+          <p>Every repository is open from day one. No proprietary tools, no closed betas, no "open core" tricks. The code is the documentation. If it's not in the repo, it doesn't exist.</p>
+        </div>
+      </div>
+      <div class="research-value reveal">
+        <div class="research-value-bar" style="--bar-color: var(--green);"></div>
+        <div class="research-value-content">
+          <h3>Modder-First Design</h3>
+          <p>Every API is designed for the person who's going to use it, not the person who built it. We interview mod authors, study existing mods, and iterate on developer experience until it feels effortless. If a modder needs to read decompiled EA code to use our framework, we've failed.</p>
+        </div>
+      </div>
+      <div class="research-value reveal">
+        <div class="research-value-bar" style="--bar-color: var(--purple);"></div>
+        <div class="research-value-content">
+          <h3>Interoperability Over Lock-In</h3>
+          <p>Stark mods work alongside existing mods. The framework doesn't demand exclusivity. We provide migration paths for S4CL mods, compatibility layers for popular mod packs, and documentation for every integration point. The ecosystem grows together or not at all.</p>
+        </div>
+      </div>
+      <div class="research-value reveal">
+        <div class="research-value-bar" style="--bar-color: var(--gold);"></div>
+        <div class="research-value-content">
+          <h3>Sustainable Funding</h3>
+          <p>Patreon funds development. Every dollar goes to tooling, testing infrastructure, and documentation. We publish quarterly financial reports so supporters know exactly where their money goes. The tools are free forever — the funding ensures they keep improving.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Impact Stats -->
+    <div class="research-stats reveal">
+      <div class="research-stat">
+        <span class="research-stat-value">13</span>
+        <span class="research-stat-label">Open Source Repos</span>
+      </div>
+      <div class="research-stat-divider"></div>
+      <div class="research-stat">
+        <span class="research-stat-value">MIT</span>
+        <span class="research-stat-label">Licensed, Forever</span>
+      </div>
+      <div class="research-stat-divider"></div>
+      <div class="research-stat">
+        <span class="research-stat-value">6</span>
+        <span class="research-stat-label">Gameplay Layers</span>
+      </div>
+      <div class="research-stat-divider"></div>
+      <div class="research-stat">
+        <span class="research-stat-value">0</span>
+        <span class="research-stat-label">Cloud Dependencies</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section section-dark">
+    <div class="research-cta reveal">
+      <h2 class="section-title">Want to go deeper?</h2>
+      <p class="section-sub">Explore the code, read the dev blog, or join the community. Everything we build is public and everything we learn is shared.</p>
+      <div class="hero-actions" style="opacity: 1; animation: none;">
+        <a href="https://github.com/stark-studio-labs" class="btn btn-primary" target="_blank" rel="noopener">Explore on GitHub</a>
+        <a href="docs.html" class="btn btn-ghost">Read the Docs</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-grid">
+      <div class="footer-col footer-brand">
+        <a href="index.html" class="footer-logo">
+          <span class="nav-icon">⚡</span>
+          <span>Stark Studio Labs</span>
+        </a>
+        <p class="footer-tagline">The Sims 4 deserves better tools. We're building them.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Products</h4>
+        <a href="https://github.com/stark-studio-labs/sims4-mod-manager" target="_blank" rel="noopener">Mod Manager</a>
+        <a href="https://github.com/stark-studio-labs/sims4-mod-builder" target="_blank" rel="noopener">Mod Builder</a>
+        <a href="https://github.com/stark-studio-labs/sims4-smart-sims" target="_blank" rel="noopener">Smart Sims</a>
+        <a href="https://github.com/stark-studio-labs/sims4-stark-devkit" target="_blank" rel="noopener">DevKit</a>
+        <a href="https://github.com/stark-studio-labs/sims4-stark-framework" target="_blank" rel="noopener">Framework</a>
+      </div>
+      <div class="footer-col">
+        <h4>Community</h4>
+        <a href="https://github.com/stark-studio-labs" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://discord.gg/starkstudiolabs" target="_blank" rel="noopener">Discord</a>
+        <a href="https://x.com/starkstudiolabs" target="_blank" rel="noopener">X / Twitter</a>
+        <a href="https://patreon.com/starkstudiolabs" target="_blank" rel="noopener">Patreon</a>
+      </div>
+      <div class="footer-col">
+        <h4>Resources</h4>
+        <a href="docs.html">Docs</a>
+        <a href="blog.html">Blog</a>
+        <a href="research.html">Research</a>
+        <a href="mailto:studio@starklabs.dev">Contact</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Stark Studio Labs. All projects MIT licensed.</p>
+    </div>
+  </footer>
+
+</body>
+</html>
