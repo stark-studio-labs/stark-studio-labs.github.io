@@ -37,7 +37,7 @@
   }
   </script>
   <link rel="stylesheet" href="styles.css">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><polygon points='50,5 10,42 50,95 90,42' fill='%234ade80'/></svg>">
   <script src="script.js" defer></script>
 
   <!-- Google Analytics -->
@@ -53,12 +53,12 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --black: #000;
-      --surface: #0a0a0a;
-      --white: #f5f5f7;
+      --black: #0d1117;
+      --surface: #161b22;
+      --white: #e6edf3;
       --white-dim: rgba(245,245,247,0.6);
       --white-dimmer: rgba(245,245,247,0.35);
-      --emerald: #34d399;
+      --emerald: #4ade80;
       --purple: #a78bfa;
       --border: rgba(255,255,255,0.08);
       --border-hover: rgba(255,255,255,0.16);
@@ -119,9 +119,9 @@
     .hero-section { position: relative; min-height: 100vh; display: flex; align-items: center; justify-content: center; overflow: hidden; background: var(--black); }
     .hero-gradient {
       position: absolute; inset: 0;
-      background: radial-gradient(ellipse 80% 60% at 50% -10%, rgba(52,211,153,0.12) 0%, transparent 60%),
+      background: radial-gradient(ellipse 80% 60% at 50% -10%, rgba(74,222,128,0.12) 0%, transparent 60%),
                   radial-gradient(ellipse 60% 50% at 80% 50%, rgba(167,139,250,0.07) 0%, transparent 50%),
-                  radial-gradient(ellipse 40% 40% at 10% 70%, rgba(52,211,153,0.05) 0%, transparent 50%);
+                  radial-gradient(ellipse 40% 40% at 10% 70%, rgba(74,222,128,0.05) 0%, transparent 50%);
       pointer-events: none;
     }
     .hero-noise {
@@ -160,7 +160,7 @@
     @keyframes scrollPulse { 0%, 100% { opacity: 0.3; transform: translateY(0); } 50% { opacity: 0.8; transform: translateY(8px); } }
 
     /* SECTIONS */
-    .section-dark { background: var(--black); } .section-light { background: var(--surface); } .section-community { background: #060606; }
+    .section-dark { background: var(--black); } .section-light { background: var(--surface); } .section-community { background: #0d1117; }
     .container { max-width: 1200px; margin: 0 auto; padding: 140px 48px; }
     .section-header { text-align: center; max-width: 720px; margin: 0 auto 80px; }
     .section-eyebrow { display: inline-block; font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--emerald); margin-bottom: 20px; }
@@ -203,13 +203,14 @@
     .tier-featured { background: rgba(167,139,250,0.06); border-color: rgba(167,139,250,0.3); }
     .tier-featured:hover { background: rgba(167,139,250,0.1); }
     .tier-popular { position: absolute; top: -13px; left: 50%; transform: translateX(-50%); font-size: 11px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; background: var(--purple); color: #fff; padding: 4px 14px; border-radius: 100px; white-space: nowrap; }
+    .tier-unlisted { position: absolute; top: -13px; left: 50%; transform: translateX(-50%); font-size: 11px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; background: rgba(255,255,255,0.12); color: rgba(255,255,255,0.7); padding: 4px 14px; border-radius: 100px; white-space: nowrap; border: 1px solid rgba(255,255,255,0.2); }
     .plumbob { width: 32px; height: 32px; margin: 0 auto 16px; clip-path: polygon(50% 0%, 100% 35%, 50% 100%, 0% 35%); }
     .plumbob-green { background: linear-gradient(135deg, #34d399, #059669); }
     .plumbob-blue { background: linear-gradient(135deg, #60a5fa, #2563eb); }
     .plumbob-purple { background: linear-gradient(135deg, #a78bfa, #7c3aed); }
     .plumbob-gold { background: linear-gradient(135deg, #fbbf24, #d97706); }
     .plumbob-diamond { background: linear-gradient(135deg, #e0f2fe, #7dd3fc); }
-    .plumbob-crystal { background: linear-gradient(135deg, #f0fdf4, #34d399, #a78bfa); }
+    .plumbob-platinum { background: linear-gradient(135deg, #f0fdf4, #34d399, #a78bfa); }
     .tier-name { font-size: 16px; font-weight: 700; letter-spacing: -0.02em; color: var(--white); margin-bottom: 8px; }
     .tier-price { font-size: 32px; font-weight: 700; letter-spacing: -0.04em; color: var(--white); margin-bottom: 14px; }
     .tier-price span { font-size: 16px; font-weight: 400; color: var(--white-dim); }
@@ -281,7 +282,7 @@
   <nav class="nav" id="nav">
     <div class="nav-inner">
       <a href="#" class="nav-logo">
-        <span class="nav-icon">⚡</span>
+        <span class="nav-icon"><svg width="18" height="18" viewBox="0 0 100 100"><polygon points="50,5 10,42 50,95 90,42" fill="#4ade80"/></svg></span>
         <span class="nav-wordmark">Stark Labs</span>
       </a>
       <div class="nav-links" id="navLinks">
@@ -331,21 +332,21 @@
       </div>
       <div class="pain-grid">
         <div class="pain-card reveal">
-          <span class="pain-icon">💔</span>
+          <span class="pain-icon"><svg width="32" height="32" viewBox="0 0 30 30" fill="none"><path d="M15 26 C5 18 2 13 2 9 C2 5.7 5 3 8.5 3 C10.5 3 12.5 4 15 6.5 C17.5 4 19.5 3 21.5 3 C25 3 28 5.7 28 9 C28 13 25 18 15 26Z" stroke="#f85149" stroke-width="1.5" fill="none"/><line x1="15" y1="8" x2="15" y2="20" stroke="#f85149" stroke-width="1.5" stroke-dasharray="2 2"/></svg></span>
           <p class="pain-problem">"Every update breaks half my mods."</p>
           <span class="pain-arrow">↓</span>
           <p class="pain-solution">We auto-update so you never worry.</p>
           <p class="pain-desc">Our mods are built to survive game patches. When EA updates, we update within hours -- not weeks.</p>
         </div>
         <div class="pain-card reveal">
-          <span class="pain-icon">😵</span>
+          <span class="pain-icon"><svg width="32" height="32" viewBox="0 0 30 30" fill="none"><circle cx="15" cy="15" r="12" stroke="#d29922" stroke-width="1.5"/><line x1="10" y1="10" x2="13" y2="13" stroke="#d29922" stroke-width="1.5"/><line x1="13" y1="10" x2="10" y2="13" stroke="#d29922" stroke-width="1.5"/><line x1="17" y1="10" x2="20" y2="13" stroke="#d29922" stroke-width="1.5"/><line x1="20" y1="10" x2="17" y2="13" stroke="#d29922" stroke-width="1.5"/><circle cx="15" cy="20" r="3" stroke="#d29922" stroke-width="1.5" fill="none"/></svg></span>
           <p class="pain-problem">"100+ settings and I have no idea what to pick."</p>
           <span class="pain-arrow">↓</span>
           <p class="pain-solution">3 presets: Casual, Standard, Simulation.</p>
           <p class="pain-desc">Pick a vibe and play. Every mod comes with smart defaults. Tweak later if you want, but you never have to.</p>
         </div>
         <div class="pain-card reveal">
-          <span class="pain-icon">⚔️</span>
+          <span class="pain-icon"><svg width="32" height="32" viewBox="0 0 30 30" fill="none"><line x1="5" y1="5" x2="25" y2="25" stroke="#f85149" stroke-width="1.5"/><line x1="25" y1="5" x2="5" y2="25" stroke="#f85149" stroke-width="1.5"/><circle cx="15" cy="15" r="4" stroke="#4ade80" stroke-width="1.5" fill="none"/></svg></span>
           <p class="pain-problem">"My mods keep fighting each other."</p>
           <span class="pain-arrow">↓</span>
           <p class="pain-solution">All our mods work together seamlessly.</p>
@@ -365,37 +366,37 @@
       </div>
       <div class="mods-grid">
         <div class="mod-card reveal">
-          <span class="mod-icon-lg">💰</span>
+          <span class="mod-icon-lg"><svg width="36" height="36" viewBox="0 0 30 30" fill="none"><ellipse cx="15" cy="8" rx="10" ry="4" fill="none" stroke="#2ea043" stroke-width="1.5"/><path d="M5 8 v6 c0 2.2 4.5 4 10 4 s10-1.8 10-4 V8" fill="none" stroke="#2ea043" stroke-width="1.5"/><ellipse cx="15" cy="14" rx="10" ry="4" fill="none" stroke="#2ea043" stroke-width="1.5"/><path d="M5 14 v5 c0 2.2 4.5 4 10 4 s10-1.8 10-4 v-5" fill="none" stroke="#2ea043" stroke-width="1.5"/></svg></span>
           <h3 class="mod-name">Economy</h3>
           <p class="mod-desc">Run a real economy -- banks, stocks, businesses, taxes. Your Sims build wealth, go broke, and feel the consequences of every financial decision.</p>
           <span class="mod-badge badge-dev">In Development</span>
         </div>
         <div class="mod-card reveal">
-          <span class="mod-icon-lg">🏛️</span>
+          <span class="mod-icon-lg"><svg width="36" height="36" viewBox="0 0 30 30" fill="none"><rect x="3" y="24" width="24" height="2.5" rx="1.2" fill="#8957e5" opacity="0.8"/><rect x="6" y="10" width="4" height="14" rx="1" fill="none" stroke="#8957e5" stroke-width="1.5"/><rect x="13" y="7" width="4" height="17" rx="1" fill="none" stroke="#8957e5" stroke-width="1.5"/><rect x="20" y="13" width="4" height="11" rx="1" fill="none" stroke="#8957e5" stroke-width="1.5"/><path d="M3 10 L15 4 L27 10" stroke="#8957e5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg></span>
           <h3 class="mod-name">Politics</h3>
           <p class="mod-desc">Run for mayor. Win elections. Pass laws that actually change gameplay. Watch your neighborhood transform based on who's in power.</p>
           <span class="mod-badge badge-research">Research</span>
         </div>
         <div class="mod-card reveal">
-          <span class="mod-icon-lg">💬</span>
+          <span class="mod-icon-lg"><svg width="36" height="36" viewBox="0 0 30 30" fill="none"><circle cx="15" cy="7" r="3.5" stroke="#e05d44" stroke-width="1.5"/><circle cx="6" cy="22" r="3" stroke="#e05d44" stroke-width="1.5"/><circle cx="24" cy="22" r="3" stroke="#e05d44" stroke-width="1.5"/><line x1="15" y1="10.5" x2="8" y2="19.2" stroke="#e05d44" stroke-width="1.2" stroke-opacity="0.7"/><line x1="15" y1="10.5" x2="22" y2="19.2" stroke="#e05d44" stroke-width="1.2" stroke-opacity="0.7"/><line x1="9" y1="22" x2="21" y2="22" stroke="#e05d44" stroke-width="1.2" stroke-opacity="0.5"/></svg></span>
           <h3 class="mod-name">Social</h3>
           <p class="mod-desc">Relationships that feel real -- attraction, reputation, gossip. Sims remember grudges, form cliques, and spread rumors that actually matter.</p>
           <span class="mod-badge badge-planned">Planned</span>
         </div>
         <div class="mod-card reveal">
-          <span class="mod-icon-lg">🎭</span>
+          <span class="mod-icon-lg"><svg width="36" height="36" viewBox="0 0 30 30" fill="none"><path d="M3 22 C6 22 7 10 10 10 C13 10 14 18 17 18 C20 18 21 8 24 6 C26 5 27 8 27 8" stroke="#d4a017" stroke-width="1.8" stroke-linecap="round" fill="none"/><circle cx="24" cy="6" r="2.5" fill="#d4a017" opacity="0.9"/></svg></span>
           <h3 class="mod-name">Drama</h3>
           <p class="mod-desc">Life events with consequences -- not just random chaos. Betrayals, rivalries, and unlikely alliances that generate stories worth telling.</p>
           <span class="mod-badge badge-planned">Planned</span>
         </div>
         <div class="mod-card reveal">
-          <span class="mod-icon-lg">🧠</span>
+          <span class="mod-icon-lg"><svg width="36" height="36" viewBox="0 0 30 30" fill="none"><circle cx="5" cy="10" r="2.5" stroke="#1f9ada" stroke-width="1.5" fill="none"/><circle cx="5" cy="20" r="2.5" stroke="#1f9ada" stroke-width="1.5" fill="none"/><circle cx="15" cy="7" r="2.5" stroke="#1f9ada" stroke-width="1.5" fill="none"/><circle cx="15" cy="15" r="2.5" stroke="#1f9ada" stroke-width="1.5" fill="none"/><circle cx="15" cy="23" r="2.5" stroke="#1f9ada" stroke-width="1.5" fill="none"/><circle cx="25" cy="15" r="2.5" fill="#1f9ada" opacity="0.9"/><line x1="7.5" y1="10" x2="12.5" y2="7" stroke="#1f9ada" stroke-width="1" stroke-opacity="0.5"/><line x1="7.5" y1="10" x2="12.5" y2="15" stroke="#1f9ada" stroke-width="1" stroke-opacity="0.5"/><line x1="7.5" y1="10" x2="12.5" y2="23" stroke="#1f9ada" stroke-width="1" stroke-opacity="0.3"/><line x1="7.5" y1="20" x2="12.5" y2="7" stroke="#1f9ada" stroke-width="1" stroke-opacity="0.3"/><line x1="7.5" y1="20" x2="12.5" y2="15" stroke="#1f9ada" stroke-width="1" stroke-opacity="0.5"/><line x1="7.5" y1="20" x2="12.5" y2="23" stroke="#1f9ada" stroke-width="1" stroke-opacity="0.5"/><line x1="17.5" y1="7" x2="22.5" y2="15" stroke="#1f9ada" stroke-width="1" stroke-opacity="0.6"/><line x1="17.5" y1="15" x2="22.5" y2="15" stroke="#1f9ada" stroke-width="1.5" stroke-opacity="0.8"/><line x1="17.5" y1="23" x2="22.5" y2="15" stroke="#1f9ada" stroke-width="1" stroke-opacity="0.6"/></svg></span>
           <h3 class="mod-name">Smart Sims</h3>
           <p class="mod-desc">Sims that remember, plan, and hold grudges. AI-powered reasoning gives every Sim persistent memory and decisions that match their personality.</p>
           <span class="mod-badge badge-dev">In Development</span>
         </div>
         <div class="mod-card reveal">
-          <span class="mod-icon-lg">✨</span>
+          <span class="mod-icon-lg"><svg width="36" height="36" viewBox="0 0 30 30" fill="none"><line x1="4" y1="9" x2="26" y2="9" stroke="#388bfd" stroke-width="1.5" stroke-linecap="round"/><line x1="4" y1="15" x2="26" y2="15" stroke="#388bfd" stroke-width="1.5" stroke-linecap="round"/><line x1="4" y1="21" x2="26" y2="21" stroke="#388bfd" stroke-width="1.5" stroke-linecap="round"/><circle cx="10" cy="9" r="3" fill="#0d1117" stroke="#388bfd" stroke-width="1.5"/><circle cx="20" cy="15" r="3" fill="#0d1117" stroke="#388bfd" stroke-width="1.5"/><circle cx="13" cy="21" r="3" fill="#0d1117" stroke="#388bfd" stroke-width="1.5"/></svg></span>
           <h3 class="mod-name">Quality of Life</h3>
           <p class="mod-desc">The fixes EA should have made -- better performance, cleaner UI, smarter autonomy. Hundreds of tweaks that make the game feel polished.</p>
           <span class="mod-badge badge-dev">In Development</span>
@@ -444,9 +445,9 @@
         <div class="tier reveal" data-tier="green">
           <div class="plumbob plumbob-green"></div>
           <h3 class="tier-name">Green</h3>
-          <div class="tier-price">$3 <span>/mo</span></div>
-          <p class="tier-perks">Early supporter badge. Name in credits. Our eternal gratitude.</p>
-          <a href="https://patreon.com/starkstudiolabs" class="btn btn-tier" target="_blank" rel="noopener">Join Tier</a>
+          <div class="tier-price">Free</div>
+          <p class="tier-perks">All public mod releases, always. Changelog access, community posts, and announcements. No strings attached.</p>
+          <a href="https://patreon.com/starkstudiolabs" class="btn btn-tier" target="_blank" rel="noopener">Join Free</a>
         </div>
         <div class="tier reveal" data-tier="blue">
           <div class="plumbob plumbob-blue"></div>
@@ -471,17 +472,19 @@
           <a href="https://patreon.com/starkstudiolabs" class="btn btn-tier" target="_blank" rel="noopener">Join Tier</a>
         </div>
         <div class="tier reveal" data-tier="diamond">
+          <div class="tier-unlisted">Unlisted · 25 seats</div>
           <div class="plumbob plumbob-diamond"></div>
           <h3 class="tier-name">Diamond</h3>
           <div class="tier-price">$50 <span>/mo</span></div>
-          <p class="tier-perks">Studio patron. Direct feature requests. Name a gameplay system.</p>
+          <p class="tier-perks">Studio patron. One custom feature request per month. Alpha build access. Direct line to the team.</p>
           <a href="https://patreon.com/starkstudiolabs" class="btn btn-tier" target="_blank" rel="noopener">Join Tier</a>
         </div>
-        <div class="tier reveal" data-tier="crystal">
-          <div class="plumbob plumbob-crystal"></div>
-          <h3 class="tier-name">Crystal</h3>
+        <div class="tier reveal" data-tier="platinum">
+          <div class="tier-unlisted">Unlisted · 10 seats</div>
+          <div class="plumbob plumbob-platinum"></div>
+          <h3 class="tier-name">Platinum</h3>
           <div class="tier-price">$100 <span>/mo</span></div>
-          <p class="tier-perks">Inner circle. Co-design sessions. Custom mod consultation. The works.</p>
+          <p class="tier-perks">Founding Member. Quarterly dev calls. Permanent credits. Two custom requests/month. Ten seats, forever.</p>
           <a href="https://patreon.com/starkstudiolabs" class="btn btn-tier" target="_blank" rel="noopener">Join Tier</a>
         </div>
       </div>
@@ -526,7 +529,7 @@
       <div class="footer-top">
         <div class="footer-brand">
           <a href="#" class="footer-logo">
-            <span class="nav-icon">⚡</span>
+            <span class="nav-icon"><svg width="18" height="18" viewBox="0 0 100 100"><polygon points="50,5 10,42 50,95 90,42" fill="#4ade80"/></svg></span>
             <span>Stark Labs</span>
           </a>
           <p class="footer-tagline">Better Sims 4. Free to start.</p>
