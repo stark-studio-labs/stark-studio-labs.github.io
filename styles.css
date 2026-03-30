@@ -1566,6 +1566,159 @@ img {
   color: var(--text-secondary);
 }
 
+/* ── Footer Grid (blog, compare, docs, mods, research pages) ────────── */
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1.5fr repeat(4, 1fr);
+  gap: 32px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--space-lg);
+}
+
+@media (max-width: 768px) {
+  .footer-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+  .footer-grid .footer-brand {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 480px) {
+  .footer-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ── Support / Donate Section (download.html) ───────────────────────── */
+
+.section-support {
+  padding: 96px 0 64px;
+  background: var(--bg);
+  border-top: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.support-header {
+  text-align: center;
+  margin-bottom: 48px;
+}
+
+.support-header h2 {
+  font-size: clamp(28px, 4vw, 40px);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--text);
+  margin-bottom: 12px;
+}
+
+.support-header p {
+  font-size: 17px;
+  color: var(--text-secondary);
+  max-width: 520px;
+  margin: 0 auto;
+}
+
+.support-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+  .support-grid {
+    grid-template-columns: 1fr;
+    max-width: 480px;
+  }
+}
+
+.support-card {
+  display: flex;
+  flex-direction: column;
+  padding: 32px 28px;
+  background: var(--bg-elevated);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 16px;
+  text-decoration: none;
+  color: var(--text);
+  transition: border-color 0.25s, transform 0.25s;
+}
+
+.support-card:hover {
+  border-color: rgba(255, 255, 255, 0.15);
+  transform: translateY(-2px);
+}
+
+.support-card-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.support-card-icon svg {
+  width: 28px;
+  height: 28px;
+}
+
+.support-card--patreon .support-card-icon {
+  background: rgba(255, 66, 77, 0.12);
+  color: #ff424d;
+}
+
+.support-card--kofi .support-card-icon {
+  background: rgba(52, 211, 153, 0.12);
+  color: var(--accent-green);
+}
+
+.support-card--github .support-card-icon {
+  background: rgba(167, 139, 250, 0.12);
+  color: var(--accent-purple);
+}
+
+.support-card h3 {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: var(--text);
+}
+
+.support-card p {
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--text-secondary);
+  margin-bottom: 16px;
+  flex: 1;
+}
+
+.support-card-cta {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--accent-green);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.support-card:hover .support-card-cta,
+.support-card-cta:hover {
+  color: var(--text);
+}
+
+.kofi-widget-container {
+  margin-top: 16px;
+}
+
+.kofi-widget-container iframe {
+  border-radius: 8px !important;
+}
+
 
 /* ── 16. SCROLL REVEAL ANIMATIONS ────────────────────────────────────── */
 
