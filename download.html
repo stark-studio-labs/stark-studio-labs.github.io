@@ -347,38 +347,43 @@
 
     /* ── Persona Flow Cards ──────────────────────────────────────── */
     .persona-section {
-      padding: 0 24px 80px;
+      padding: 80px 24px 100px;
       background: #000;
+      border-top: 1px solid rgba(255,255,255,0.06);
     }
     .persona-header {
       text-align: center;
-      max-width: 600px;
-      margin: 0 auto 48px;
+      max-width: 640px;
+      margin: 0 auto 56px;
+    }
+    .persona-header .section-eyebrow {
+      margin-bottom: 16px;
     }
     .persona-header h2 {
-      font-size: clamp(28px, 4vw, 40px);
+      font-size: clamp(32px, 5vw, 48px);
       font-weight: 700;
       color: #fff;
-      letter-spacing: -0.02em;
-      margin-bottom: 10px;
+      letter-spacing: -0.03em;
+      margin-bottom: 14px;
     }
     .persona-header p {
-      font-size: 15px;
+      font-size: 17px;
       color: var(--text-secondary);
+      line-height: 1.6;
     }
     .persona-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
-      max-width: 1060px;
+      gap: 24px;
+      max-width: 1100px;
       margin: 0 auto;
     }
     .persona-card {
       position: relative;
       background: rgba(255,255,255,0.03);
-      border: 2px solid rgba(255,255,255,0.08);
+      border: 2px solid rgba(255,255,255,0.10);
       border-radius: var(--radius);
-      padding: 40px 32px 36px;
+      padding: 44px 32px 40px;
       text-align: center;
       cursor: pointer;
       transition: all 0.35s cubic-bezier(0.25,0.1,0.25,1);
@@ -417,9 +422,9 @@
 
     /* Plumbob */
     .persona-plumbob {
-      width: 48px;
-      height: 56px;
-      margin: 0 auto 20px;
+      width: 54px;
+      height: 64px;
+      margin: 0 auto 24px;
       clip-path: polygon(50% 0%, 100% 35%, 100% 65%, 50% 100%, 0% 65%, 0% 35%);
       transition: transform 0.4s cubic-bezier(0.25,0.1,0.25,1), filter 0.4s;
     }
@@ -444,11 +449,11 @@
     .persona-card[data-persona="power"] .persona-label { color: #ffd60a; }
 
     .persona-name {
-      font-size: 22px;
+      font-size: 24px;
       font-weight: 700;
       color: #fff;
-      margin-bottom: 12px;
-      letter-spacing: -0.01em;
+      margin-bottom: 14px;
+      letter-spacing: -0.02em;
     }
     .persona-desc {
       font-size: 14px;
@@ -642,14 +647,14 @@
         <!-- macOS button (shown by default; JS swaps for Windows if needed) -->
         <a href="https://github.com/stark-studio-labs/sims4-mod-manager/releases/latest" class="dl-btn" id="dl-btn-mac">
           <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
-          Download for macOS
+          Download App for macOS
         </a>
         <a href="https://github.com/stark-studio-labs/sims4-mod-manager/releases/latest" class="dl-btn" id="dl-btn-win" style="display:none;">
           <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 12V6.75l8-1.25V12H3zm8.5 0V5.35L21 3v9h-9.5zM3 12.5h8v6.5l-8-1.25V12.5zm8.5 0H21v9l-9.5-1.65V12.5z"/></svg>
-          Download for Windows
+          Download App for Windows
         </a>
         <div class="dl-other-os" id="dl-other-os">
-          Also available for <a href="https://github.com/stark-studio-labs/sims4-mod-manager/releases/latest" id="dl-alt-link">Windows</a>
+          Also available for <a href="https://github.com/stark-studio-labs/sims4-mod-manager/releases/latest" id="dl-alt-link">Windows</a> &middot; <a href="#manual-downloads">Manual .zip downloads</a>
         </div>
       </div>
 
@@ -673,8 +678,9 @@
   <!-- PERSONA FLOW -->
   <section class="persona-section" id="persona-flow">
     <div class="persona-header">
+      <span class="section-eyebrow">Choose Your Path</span>
       <h2>How do you mod?</h2>
-      <p>Pick your path. We'll show you exactly how to get started.</p>
+      <p>Pick your experience level. We'll show you exactly how to get started with the right tools for where you are.</p>
     </div>
     <div class="persona-grid">
 
@@ -853,12 +859,12 @@
   </section>
 
   <!-- MANUAL DOWNLOADS -->
-  <section class="section-dark" style="padding-top: 0;">
+  <section class="section-dark" style="padding-top: 0;" id="manual-downloads">
     <div class="container">
       <div class="section-header reveal">
         <span class="section-eyebrow">Individual Mods</span>
         <h2 class="section-title">Or download mods manually.</h2>
-        <p class="section-sub">Prefer to install mods yourself? Grab individual .zip packages from our GitHub releases.</p>
+        <p class="section-sub">Prefer to install mods yourself? Grab individual .zip packages from our GitHub releases. No app required.</p>
       </div>
       <div class="dl-mods-grid">
         <a href="https://github.com/stark-studio-labs/sims4-mod-manager/releases/latest" class="dl-mod-card reveal" target="_blank" rel="noopener">
@@ -1053,7 +1059,8 @@
         <h2>Ready to play?</h2>
         <p>Download Stark Labs and start modding The Sims 4 the way it should have been from day one.</p>
         <div class="dl-cta-actions">
-          <a href="https://github.com/stark-studio-labs/sims4-mod-manager/releases/latest" class="btn btn-primary">Download Stark Labs</a>
+          <a href="https://github.com/stark-studio-labs/sims4-mod-manager/releases/latest" class="btn btn-primary">Download the App</a>
+          <a href="#manual-downloads" class="btn btn-ghost">Manual .zip Downloads</a>
           <a href="https://github.com/stark-studio-labs" class="btn btn-ghost" target="_blank" rel="noopener">View on GitHub</a>
         </div>
       </div>
