@@ -8,7 +8,7 @@
 
 :root {
   /* Colors — Dark */
-  --bg:                  #0d1117;
+  --bg:                  #030303;
   --bg-surface:          #161b22;
   --bg-elevated:         #1c2128;
 
@@ -804,7 +804,7 @@ img {
 }
 
 .section-community {
-  background: #050508;
+  background: #0a0a0c;
   padding: var(--section-pad) 0;
 }
 
