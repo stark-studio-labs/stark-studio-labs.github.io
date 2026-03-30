@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI-Powered Sims: How We Use Local LLMs for Personality — Stark Studio Labs</title>
+  <meta name="description" content="We replaced The Sims 4's autonomy system with a local LLM. Now every Sim has a real personality.">
+  <meta name="theme-color" content="#0d1117">
+  <meta property="og:title" content="AI-Powered Sims: How We Use Local LLMs for Personality — Stark Studio Labs">
+  <meta property="og:description" content="We replaced The Sims 4's autonomy system with a local LLM. Now every Sim has a real personality.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://stark-studio-labs.github.io/blog/ai-powered-sims.html">
+  <meta property="og:image" content="https://stark-studio-labs.github.io/assets/banner.png">
+  <meta property="og:site_name" content="Stark Studio Labs">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="AI-Powered Sims: How We Use Local LLMs for Personality — Stark Studio Labs">
+  <meta name="twitter:description" content="We replaced The Sims 4's autonomy system with a local LLM. Now every Sim has a real personality.">
+  <meta name="twitter:image" content="https://stark-studio-labs.github.io/assets/banner.png">
+  <link rel="stylesheet" href="../styles.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
+  <script src="../script.js" defer></script>
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-LF8E245M6W"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-LF8E245M6W');
+  </script>
+
+  <style>
+    .post-container { max-width: 760px; margin: 0 auto; padding: 120px 24px 80px; }
+    .post-back { display: inline-flex; align-items: center; gap: 6px; color: var(--color-text-muted, #8b949e); text-decoration: none; font-size: 0.875rem; margin-bottom: 32px; transition: color 0.2s; }
+    .post-back:hover { color: var(--color-accent, #58a6ff); }
+    .post-header { margin-bottom: 48px; }
+    .post-meta { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; flex-wrap: wrap; }
+    .post-date { color: var(--color-text-muted, #8b949e); font-size: 0.875rem; }
+    .post-tag { background: rgba(88,166,255,0.1); color: var(--color-accent, #58a6ff); padding: 2px 10px; border-radius: 12px; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; }
+    .post-title { font-size: 2.5rem; font-weight: 800; line-height: 1.2; color: var(--color-text, #e6edf3); margin: 0 0 16px; }
+    .post-excerpt { font-size: 1.125rem; color: var(--color-text-muted, #8b949e); line-height: 1.6; margin: 0; }
+    .post-body { color: var(--color-text-secondary, #c9d1d9); line-height: 1.8; font-size: 1.0625rem; }
+    .post-body h2 { font-size: 1.5rem; font-weight: 700; color: var(--color-text, #e6edf3); margin: 48px 0 16px; padding-bottom: 8px; border-bottom: 1px solid var(--color-border, #21262d); }
+    .post-body h3 { font-size: 1.25rem; font-weight: 600; color: var(--color-text, #e6edf3); margin: 32px 0 12px; }
+    .post-body p { margin: 0 0 20px; }
+    .post-body a { color: var(--color-accent, #58a6ff); text-decoration: none; }
+    .post-body a:hover { text-decoration: underline; }
+    .post-body ul, .post-body ol { margin: 0 0 20px; padding-left: 24px; }
+    .post-body li { margin-bottom: 8px; }
+    .post-body strong { color: var(--color-text, #e6edf3); }
+    .post-body code { background: rgba(110,118,129,0.15); color: #e6edf3; padding: 2px 6px; border-radius: 4px; font-size: 0.9em; font-family: 'SF Mono', 'Fira Code', monospace; }
+    .post-body pre { background: #161b22; border: 1px solid var(--color-border, #21262d); border-radius: 8px; padding: 20px; overflow-x: auto; margin: 0 0 24px; }
+    .post-body pre code { background: none; padding: 0; font-size: 0.875rem; line-height: 1.6; color: #e6edf3; }
+    .post-body table { width: 100%; border-collapse: collapse; margin: 0 0 24px; font-size: 0.9375rem; }
+    .post-body th { text-align: left; padding: 10px 14px; background: #161b22; color: var(--color-text, #e6edf3); font-weight: 600; border: 1px solid var(--color-border, #21262d); }
+    .post-body td { padding: 10px 14px; border: 1px solid var(--color-border, #21262d); }
+    .post-body blockquote { border-left: 3px solid var(--color-accent, #58a6ff); margin: 0 0 24px; padding: 12px 20px; background: rgba(88,166,255,0.05); border-radius: 0 8px 8px 0; }
+    .post-footer-nav { display: flex; justify-content: space-between; align-items: center; margin-top: 64px; padding-top: 32px; border-top: 1px solid var(--color-border, #21262d); }
+    .post-footer-link { color: var(--color-accent, #58a6ff); text-decoration: none; font-weight: 600; }
+    .post-footer-link:hover { text-decoration: underline; }
+    @media (max-width: 640px) { .post-title { font-size: 1.75rem; } .post-container { padding: 100px 16px 60px; } }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="nav nav-scrolled-always" id="nav">
+    <div class="nav-inner">
+      <a href="../index.html" class="nav-logo">
+        <span class="nav-icon">⚡</span>
+        <span class="nav-wordmark">Stark Studio Labs</span>
+      </a>
+      <div class="nav-links" id="navLinks">
+        <a href="../docs.html">Docs</a>
+        <a href="../blog.html" class="nav-active">Blog</a>
+        <a href="../research.html">Research</a>
+        <a href="../index.html#products">Products</a>
+        <a href="../index.html#roadmap">Roadmap</a>
+        <a href="https://github.com/stark-studio-labs" class="nav-gh" target="_blank" rel="noopener">
+          <svg width="20" height="20" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+        </a>
+      </div>
+      <button class="nav-mobile-toggle" id="nav-toggle" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- POST -->
+  <div class="post-container">
+    <a href="../blog.html" class="post-back">&larr; All Posts</a>
+
+    <header class="post-header">
+      <div class="post-meta">
+        <span class="post-date">March 30, 2026</span>
+        <span class="post-tag">Intelligence</span>
+      </div>
+      <h1 class="post-title">AI-Powered Sims: How We Use Local LLMs for Personality</h1>
+      <p class="post-excerpt">We replaced The Sims 4's autonomy system with a local LLM. Now every Sim has a real personality.</p>
+    </header>
+
+    <div class="post-body">
+
+      <p>The Sims 4 has a personality problem. Not the traits themselves -- EA designed a solid trait system with over 50 personality traits, each one modifying how a Sim behaves. The problem is <em>how little those traits actually matter</em> once the game is running.</p>
+
+      <h2>The Vanilla Autonomy System</h2>
+
+      <p>EA's autonomy engine uses a scoring model. When a Sim needs to decide what to do next, the game collects every valid interaction on the lot -- sit on the couch, cook dinner, flirt with a neighbor, insult a coworker -- and assigns each one a numerical weight. Traits modify those weights by a percentage. A "Mean" Sim gets a +20% bump to mean interactions. An "Art Lover" gets a small bonus to painting. A "Foodie" gravitates slightly toward the kitchen.</p>
+
+      <p>The result is a Sim that feels, at best, like a weighted random number generator. A "Mean" Sim will insult someone roughly one in five times instead of one in ten. That is the entire depth of their personality. There is no reasoning about <em>why</em> they are being mean, no memory of past conflicts, no awareness that they just insulted the same person three times in a row. They are a dice roll with a thumb on the scale.</p>
+
+      <p>Players have tried to fix this with mods like MCCC's MC Tuner, which lets you disable specific autonomous actions. But that is a bandaid -- you are removing behaviors, not adding intelligence. You still end up with a Sim who does not feel like a person.</p>
+
+      <h2>Our Approach: LLM-Driven Autonomy</h2>
+
+      <p>smart_sims takes a different approach. Instead of tweaking the weights on EA's scoring model, we intercept the decision point itself and hand it to a language model.</p>
+
+      <p>When a Sim is about to choose their next action, we build a decision context: who they are (traits, personality, aspirations), how they feel (current mood, needs, active buffs), what they remember (recent interactions, emotional events, relationship changes), who is nearby, and what is happening in the room. That context goes to a local LLM, which picks from the candidate actions and provides a <em>reason</em> for its choice.</p>
+
+      <p>Here is the core of the decision pipeline:</p>
+
+<pre><code>class AutonomyBrain:
+    """Intercepts EA's autonomy evaluation and routes decisions
+    through an LLM for personality-aware action selection."""
+
+    async def decide(self, sim_context, candidate_actions):
+        # Build the personality prompt from vanilla traits
+        personality = self.personality_engine.build_prompt(
+            traits=sim_context.traits,
+            mood=sim_context.current_mood,
+            aspirations=sim_context.aspirations,
+        )
+
+        # Inject recent memories as context
+        memories = self.memory.get_recent(
+            sim_id=sim_context.sim_id,
+            limit=10,
+        )
+
+        # Format candidate actions for the LLM
+        action_list = [
+            f"- {a.name}: {a.short_description}"
+            for a in candidate_actions
+        ]
+
+        prompt = DECISION_PROMPT.format(
+            personality=personality,
+            mood=sim_context.current_mood,
+            needs=sim_context.needs_summary,
+            memories=self._format_memories(memories),
+            nearby_sims=sim_context.nearby_sims_summary,
+            actions="\n".join(action_list),
+        )
+
+        # Hard latency budget -- fall back to vanilla if LLM is too slow
+        result = await self.brain.infer(
+            prompt, timeout_ms=200
+        )
+
+        if result is None:
+            return None  # Vanilla fallback
+
+        return AutonomyDecision(
+            action=result.chosen_action,
+            reason=result.reasoning,
+            confidence=result.confidence,
+        )</code></pre>
+
+      <p>The key design choice: we do not replace EA's action candidates. The game still generates the list of valid interactions based on the Sim's current state, skill levels, and lot objects. We just change <em>which one gets picked</em> and <em>why</em>.</p>
+
+      <h2>The Personality Engine</h2>
+
+      <p>The personality engine translates vanilla trait combinations into rich behavioral prompts. A Sim with "Gloomy + Bookworm + Loner" does not just get three isolated modifiers. They get a synthesized personality:</p>
+
+<pre><code>def build_prompt(self, traits, mood, aspirations):
+    """Generate a personality prompt from vanilla trait data.
+
+    Combines traits into a coherent behavioral voice rather than
+    treating each trait as an independent modifier.
+    """
+    # Trait synergy detection -- some combinations create
+    # emergent personalities that are more than their parts
+    synergies = self._detect_synergies(traits)
+
+    if {"gloomy", "bookworm", "loner"} &lt;= set(traits):
+        return (
+            "You are introspective and prefer solitude. Books are "
+            "your escape from a world that feels too loud. You find "
+            "most social situations draining, and you process your "
+            "emotions through reflection rather than conversation. "
+            "You are not unfriendly -- you are just selective about "
+            "who gets your energy."
+        )
+
+    if {"mean", "genius"} &lt;= set(traits):
+        return (
+            "You are sharply intelligent and you know it. Your wit "
+            "is a weapon -- you do not just insult people, you "
+            "dismantle them with precision. You find most people "
+            "boring, and you are not shy about letting them know."
+        )
+
+    # Fall back to compositional generation for uncommon combos
+    return self._compose_from_traits(traits, mood, aspirations)</code></pre>
+
+      <p>This is where the LLM's reasoning ability changes things. A "Mean + Genius" Sim does not just insult people 20% more often. The LLM understands that a smart, mean person makes <em>cutting intellectual remarks</em>, not random insults. A "Romantic + Foodie" Sim plans dinner dates instead of randomly flirting. The personality prompt gives the LLM enough context to make these distinctions naturally.</p>
+
+      <h2>Memory Makes It Real</h2>
+
+      <p>The personality engine handles who a Sim <em>is</em>. The memory system handles who a Sim <em>has been</em>. Every significant interaction -- a rejection, a compliment, an argument, a promotion -- gets written to short-term memory with an emotional tag and a decay timer.</p>
+
+      <p>Memory context gets injected into every decision prompt. A Sim who was rejected by another Sim yesterday will remember that. The LLM sees "You asked Morgan to dance and they said no. You felt embarrassed." in the memory window, and naturally factors that into its next decision when Morgan is nearby. Maybe the Sim avoids Morgan. Maybe they try again with more confidence. Maybe they are mean to Morgan out of spite. The LLM decides based on the full personality + memory context.</p>
+
+      <p>This creates emergent narratives that EA's system cannot produce. Grudges form. Crushes develop. Sims become hesitant around people who hurt them and warm toward people who were kind. None of this is scripted. It falls out of giving the LLM enough context to reason about social dynamics.</p>
+
+      <h2>Architecture: Four Layers</h2>
+
+      <p>The system has four main components, each with a clear responsibility:</p>
+
+      <ul>
+        <li><strong>brain.py</strong> -- Unified inference layer supporting four providers: Ollama, llama.cpp, Claude, and OpenAI. Async with hard latency budgets. If the LLM takes longer than 200ms (configurable), the decision falls back to vanilla game logic. No player ever sees a stutter.</li>
+        <li><strong>personality.py</strong> -- Translates EA trait data into behavioral prompts. Detects trait synergies, generates personality voices, and caches prompts per Sim so we are not regenerating them every tick.</li>
+        <li><strong>memory.py</strong> -- Short-term memory tracking recent interactions, emotional events, and relationship changes. Entries have decay timers (happy memories fade in ~48 game hours, traumatic ones persist for ~168). Memory windows are capped at 10 entries per decision to keep prompt size bounded.</li>
+        <li><strong>autonomy.py</strong> -- The injection layer that hooks into EA's autonomy evaluation. Intercepts the <code>_get_valid_aops_gen</code> method on the interaction pipeline, runs the LLM decision, and injects the chosen action back. Includes a scheduling layer that only routes "important" decisions through the LLM -- new social interactions, career choices, emotional responses. Routine actions (eat, sleep, use toilet) bypass the LLM entirely.</li>
+      </ul>
+
+      <h2>Why Local, Not Cloud</h2>
+
+      <p>We default to local inference for four reasons:</p>
+
+      <p><strong>Privacy.</strong> Players should not need to send their Sim's life story to a cloud API. The memory system tracks relationship dynamics, emotional events, and social interactions in detail. That data stays on the player's machine.</p>
+
+      <p><strong>Latency.</strong> Local inference on a 3B parameter model (qwen2.5 or llama3.2 via Ollama) takes 50-100ms per decision. Cloud API calls take 500-2000ms. Autonomy decisions need to be fast enough that players never notice the Sim "thinking." Our 200ms budget is tight, and local models hit it consistently. Cloud models do not.</p>
+
+      <p><strong>Cost.</strong> Cloud API calls cost money per request. A household of 8 Sims, each making 2-3 LLM decisions per game hour, at 10x game speed, would burn through API credits fast. Local inference is free after the initial model download.</p>
+
+      <p><strong>Offline.</strong> The game should work without internet. Local models run entirely on the player's hardware.</p>
+
+      <p>That said, we do support Claude and OpenAI as optional cloud providers. Some players have powerful cloud budgets and want GPT-4-class reasoning for their Sims. The inference layer abstracts over the provider -- swap a config value and the same personality prompts route to Anthropic's API instead of a local Ollama instance.</p>
+
+      <h2>The Results</h2>
+
+      <p>The difference is immediately visible in gameplay.</p>
+
+      <p>Sims feel genuinely different from each other. A "Mean + Genius" Sim does not just insult people -- they make cutting intellectual remarks and avoid conversations they find beneath them. A "Romantic + Foodie" Sim plans dinner dates, compliments cooking, and gravitates toward the kitchen when their partner is nearby. An "Active + Bro" Sim challenges everyone to competitions and gets restless sitting on the couch.</p>
+
+      <p>The memory system creates continuity that vanilla Sims have never had. A Sim who was rejected remembers it and becomes hesitant around that person. A Sim who had a great conversation yesterday seeks that person out again. Grudges persist. Friendships deepen. Rivalries escalate.</p>
+
+      <p>Performance impact is minimal. Each LLM decision takes ~50ms on local hardware, Sims make 2-3 decisions per game hour, and inference runs on a background thread. On a machine that can run The Sims 4 at all, the overhead is invisible.</p>
+
+      <h2>What Is Next</h2>
+
+      <p>Action selection is just the beginning. We are working on three extensions:</p>
+
+      <p><strong>LLM-generated conversations.</strong> Right now the LLM picks <em>which</em> interaction a Sim performs, but the dialogue is still EA's canned text. We want Sims to actually talk to each other with generated dialogue that reflects their personalities and history.</p>
+
+      <p><strong>Long-term goal planning.</strong> Currently, each decision is independent -- the LLM picks the best action for <em>right now</em>. We want a planning layer where the LLM decides what a Sim "wants" over the next game week, then biases individual decisions toward that goal. A Sim going through a breakup might set a goal to focus on their career. A Sim who just got promoted might plan a celebration.</p>
+
+      <p><strong>Relationship reasoning.</strong> Why does this Sim like that person? Right now, relationships are numbers. We want the LLM to generate explicit reasons -- "You like Morgan because they always laugh at your jokes and they helped you when you were sad" -- that feed back into decision-making and create richer social dynamics.</p>
+
+      <p>The drama engine already supports narrative threading with archetypes, consequence chains, and story arcs. Connecting LLM-driven personality to that narrative infrastructure is the next major integration. When a Sim's personality drives their decisions, and those decisions create consequences that thread into story arcs, the game stops being a dollhouse and starts being a novel that writes itself.</p>
+
+      <hr style="border: none; border-top: 1px solid var(--color-border, #21262d); margin: 48px 0 24px;">
+
+      <p><em>smart_sims is part of the <a href="https://github.com/stark-studio-labs/sims4-drama-engine">Drama Engine</a>, our open-source narrative framework for The Sims 4. The engine handles story arcs, consequence chains, and event threading. smart_sims adds the personality layer on top. Both are in active development.</em></p>
+    </div>
+
+    <nav class="post-footer-nav">
+      <a href="inside-economy-sim.html" class="post-footer-link">&larr; Inside the Economy Sim</a>
+      <a href="../blog.html" class="post-footer-link">All Posts &rarr;</a>
+    </nav>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-grid">
+      <div class="footer-col footer-brand">
+        <a href="../index.html" class="footer-logo">
+          <span class="nav-icon">⚡</span>
+          <span>Stark Studio Labs</span>
+        </a>
+        <p class="footer-tagline">The Sims 4 deserves better tools. We're building them.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Products</h4>
+        <a href="https://github.com/stark-studio-labs/sims4-mod-manager" target="_blank" rel="noopener">Mod Manager</a>
+        <a href="https://github.com/stark-studio-labs/sims4-mod-builder" target="_blank" rel="noopener">Mod Builder</a>
+        <a href="https://github.com/stark-studio-labs/sims4-smart-sims" target="_blank" rel="noopener">Smart Sims</a>
+        <a href="https://github.com/stark-studio-labs/sims4-stark-devkit" target="_blank" rel="noopener">DevKit</a>
+        <a href="https://github.com/stark-studio-labs/sims4-stark-framework" target="_blank" rel="noopener">Framework</a>
+      </div>
+      <div class="footer-col">
+        <h4>Community</h4>
+        <a href="https://github.com/stark-studio-labs" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://discord.gg/starkstudiolabs" target="_blank" rel="noopener">Discord</a>
+        <a href="https://x.com/starkstudiolabs" target="_blank" rel="noopener">X / Twitter</a>
+        <a href="https://patreon.com/starkstudiolabs" target="_blank" rel="noopener">Patreon</a>
+      </div>
+      <div class="footer-col">
+        <h4>Resources</h4>
+        <a href="../docs.html">Docs</a>
+        <a href="../blog.html">Blog</a>
+        <a href="../research.html">Research</a>
+        <a href="mailto:studio@starklabs.dev">Contact</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Stark Studio Labs. All projects MIT licensed.</p>
+    </div>
+  </footer>
+
+<script src="../events.js"></script>
+</body>
+</html>

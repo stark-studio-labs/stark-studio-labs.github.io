@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inside the Economy Sim: What We Learned from Decompiling SNB — Stark Studio Labs</title>
+  <meta name="description" content="We decompiled SimRealist's banking mod to understand how Sims 4 handles money. Then we built something much bigger.">
+  <meta name="theme-color" content="#0d1117">
+  <meta property="og:title" content="Inside the Economy Sim: What We Learned from Decompiling SNB — Stark Studio Labs">
+  <meta property="og:description" content="We decompiled SimRealist's banking mod to understand how Sims 4 handles money. Then we built something much bigger.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://stark-studio-labs.github.io/blog/inside-economy-sim.html">
+  <meta property="og:image" content="https://stark-studio-labs.github.io/assets/banner.png">
+  <meta property="og:site_name" content="Stark Studio Labs">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Inside the Economy Sim: What We Learned from Decompiling SNB">
+  <meta name="twitter:description" content="We decompiled SimRealist's banking mod to understand how Sims 4 handles money. Then we built something much bigger.">
+  <meta name="twitter:image" content="https://stark-studio-labs.github.io/assets/banner.png">
+  <link rel="stylesheet" href="../styles.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
+  <script src="../script.js" defer></script>
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-LF8E245M6W"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-LF8E245M6W');
+  </script>
+
+  <style>
+    .post-container { max-width: 760px; margin: 0 auto; padding: 120px 24px 80px; }
+    .post-back { display: inline-flex; align-items: center; gap: 6px; color: var(--color-text-muted, #8b949e); text-decoration: none; font-size: 0.875rem; margin-bottom: 32px; transition: color 0.2s; }
+    .post-back:hover { color: var(--color-accent, #58a6ff); }
+    .post-header { margin-bottom: 48px; }
+    .post-meta { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; flex-wrap: wrap; }
+    .post-date { color: var(--color-text-muted, #8b949e); font-size: 0.875rem; }
+    .post-tag { background: rgba(88,166,255,0.1); color: var(--color-accent, #58a6ff); padding: 2px 10px; border-radius: 12px; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; }
+    .post-title { font-size: 2.5rem; font-weight: 800; line-height: 1.2; color: var(--color-text, #e6edf3); margin: 0 0 16px; }
+    .post-excerpt { font-size: 1.125rem; color: var(--color-text-muted, #8b949e); line-height: 1.6; margin: 0; }
+    .post-body { color: var(--color-text-secondary, #c9d1d9); line-height: 1.8; font-size: 1.0625rem; }
+    .post-body h2 { font-size: 1.5rem; font-weight: 700; color: var(--color-text, #e6edf3); margin: 48px 0 16px; padding-bottom: 8px; border-bottom: 1px solid var(--color-border, #21262d); }
+    .post-body h3 { font-size: 1.25rem; font-weight: 600; color: var(--color-text, #e6edf3); margin: 32px 0 12px; }
+    .post-body p { margin: 0 0 20px; }
+    .post-body a { color: var(--color-accent, #58a6ff); text-decoration: none; }
+    .post-body a:hover { text-decoration: underline; }
+    .post-body ul, .post-body ol { margin: 0 0 20px; padding-left: 24px; }
+    .post-body li { margin-bottom: 8px; }
+    .post-body strong { color: var(--color-text, #e6edf3); }
+    .post-body code { background: rgba(110,118,129,0.15); color: #e6edf3; padding: 2px 6px; border-radius: 4px; font-size: 0.9em; font-family: 'SF Mono', 'Fira Code', monospace; }
+    .post-body pre { background: #161b22; border: 1px solid var(--color-border, #21262d); border-radius: 8px; padding: 20px; overflow-x: auto; margin: 0 0 24px; }
+    .post-body pre code { background: none; padding: 0; font-size: 0.875rem; line-height: 1.6; color: #e6edf3; }
+    .post-body table { width: 100%; border-collapse: collapse; margin: 0 0 24px; font-size: 0.9375rem; }
+    .post-body th { text-align: left; padding: 10px 14px; background: #161b22; color: var(--color-text, #e6edf3); font-weight: 600; border: 1px solid var(--color-border, #21262d); }
+    .post-body td { padding: 10px 14px; border: 1px solid var(--color-border, #21262d); }
+    .post-body blockquote { border-left: 3px solid var(--color-accent, #58a6ff); margin: 0 0 24px; padding: 12px 20px; background: rgba(88,166,255,0.05); border-radius: 0 8px 8px 0; }
+    .post-footer-nav { display: flex; justify-content: space-between; align-items: center; margin-top: 64px; padding-top: 32px; border-top: 1px solid var(--color-border, #21262d); }
+    .post-footer-link { color: var(--color-accent, #58a6ff); text-decoration: none; font-weight: 600; }
+    .post-footer-link:hover { text-decoration: underline; }
+    @media (max-width: 640px) { .post-title { font-size: 1.75rem; } .post-container { padding: 100px 16px 60px; } }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="nav nav-scrolled-always" id="nav">
+    <div class="nav-inner">
+      <a href="../index.html" class="nav-logo">
+        <span class="nav-icon">⚡</span>
+        <span class="nav-wordmark">Stark Studio Labs</span>
+      </a>
+      <div class="nav-links" id="navLinks">
+        <a href="../docs.html">Docs</a>
+        <a href="../blog.html" class="nav-active">Blog</a>
+        <a href="../research.html">Research</a>
+        <a href="../index.html#products">Products</a>
+        <a href="../index.html#roadmap">Roadmap</a>
+        <a href="https://github.com/stark-studio-labs" class="nav-gh" target="_blank" rel="noopener">
+          <svg width="20" height="20" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+        </a>
+      </div>
+      <button class="nav-mobile-toggle" id="nav-toggle" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- POST -->
+  <div class="post-container">
+
+    <a href="../blog.html" class="post-back">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path fill-rule="evenodd" d="M7.78 12.53a.75.75 0 01-1.06 0L2.47 8.28a.75.75 0 010-1.06l4.25-4.25a.75.75 0 011.06 1.06L4.81 7h7.44a.75.75 0 010 1.5H4.81l2.97 2.97a.75.75 0 010 1.06z"/></svg>
+      Back to Blog
+    </a>
+
+    <header class="post-header">
+      <div class="post-meta">
+        <span class="post-date">March 30, 2026</span>
+        <span class="post-tag">Gameplay</span>
+      </div>
+      <h1 class="post-title">Inside the Economy Sim: What We Learned from Decompiling SNB</h1>
+      <p class="post-excerpt">We decompiled SimRealist's banking mod to understand how Sims 4 handles money. Then we built something much bigger.</p>
+    </header>
+
+    <div class="post-body">
+
+      <p>The Sims 4 treats money as a single number. Your household has funds. You earn money, you spend money, the number goes up or down. There are no bank accounts, no savings rates, no credit cards, no loans, no investments, no realistic bills. For a life simulator, the financial layer is paper-thin.</p>
+
+      <p>SimRealist's SNB (Sim National Bank) was the closest thing the modding community had to a real banking system. We wanted to understand exactly how it worked before we built our own, so we decompiled it from bytecode. What we found was a clean, well-structured mod that solved a genuine problem -- but also one that stopped well short of what's possible.</p>
+
+      <p>This is the story of that decompilation, what we learned, and how it shaped sims4-economy-sim.</p>
+
+      <h2>Why We Went Bytecode Diving</h2>
+
+      <p>We could have just built our economy mod from scratch. But SNB had been around for years. It had solved problems we were going to face -- hooking into career pay events, handling Sim death, persisting data across save/load cycles. We wanted to learn from someone who'd already navigated EA's undocumented Python internals.</p>
+
+      <p>Sims 4 mods ship as compiled <code>.pyc</code> files. SimRealist's SNB package contained about 20 modules covering the bank itself and a companion bills system. We ran them through a bytecode disassembler and spent a few days reconstructing the Python source.</p>
+
+      <h2>What SNB Actually Does</h2>
+
+      <p>The architecture is straightforward. The package is split across roughly 20 modules, with a clear separation between the core banking logic (<code>mod_snb.py</code>), game hooks (<code>main_snb.py</code>), and UI (<code>main_snb_ui.py</code>).</p>
+
+      <p>The central design decision is how account balances are stored. SNB uses EA's Commodity/Statistic system -- the same mechanism the game uses for things like hunger, fun, and skill levels. Each account type maps to a custom commodity tuning ID:</p>
+
+<pre><code># SNB's approach: account balances as hidden commodities on the Sim
+class TuningIdSNB:
+    class Commodity:
+        ACCOUNT = {
+            Account.MAIN: 18117047674729460082
+        }</code></pre>
+
+      <p>When you deposit 500 simoleons, SNB adds 500 to a hidden commodity stat on your Sim. When you withdraw, it subtracts. The game's built-in save system handles persistence automatically because commodities are serialized with save data.</p>
+
+      <p>It's clever. And it works. But there's a catch.</p>
+
+      <p>The <code>ACCOUNT_SNB_ALL</code> tuple only contains one entry -- <code>Account.MAIN</code>. The enum defines <code>FUNDS</code> (the household wallet) and <code>MAIN</code> (the bank account), and that's it. The architecture was clearly designed to support multiple account types, but only one was ever implemented. There's a single "checking" account. No savings. No interest. No credit.</p>
+
+      <p>SNB's other major feature is direct deposit splitting. It intercepts career pay events and routes a configurable percentage to the bank account:</p>
+
+<pre><code># SNB: percentage-based paycheck splitting
+class ToggleState(enum.Int):
+    DISABLED = 0   # All pay goes to wallet
+    ENABLED = 1    # All pay goes to bank
+    CUSTOM = 2     # Custom percentage split</code></pre>
+
+      <p>It also intercepts death events to liquidate accounts (so your Sim's savings don't vanish when they die) and provides a phone menu UI for deposits, withdrawals, and Sim-to-Sim transfers. The bills companion mod is actually more ambitious -- it replaces EA's entire billing system with itemized utilities, property tax, child support, and alimony. But even the bills mod has no concept of credit or payment history.</p>
+
+      <p>We want to be clear: SNB is solid work. SimRealist built a mod that thousands of players use, and the code is functional and well-organized. Everything we built was informed by their groundwork.</p>
+
+      <h2>What We're Building on Top of It</h2>
+
+      <p>sims4-economy-sim takes the core insight from SNB -- that the game needs a real financial layer -- and extends it into six interconnected modules.</p>
+
+      <p><strong>Banking</strong> gives every Sim individual checking and savings accounts, plus a joint household account for shared expenses. Savings accounts accrue daily interest. Checking accounts have overdraft modes (block the purchase, charge a fee, or auto-transfer from savings). This is the foundation that SNB's single <code>MAIN</code> account pointed toward but never built.</p>
+
+      <p><strong>Credit scoring</strong> is entirely new. Neither SNB nor any other financial mod we've found implements credit. Our system uses five weighted components inspired by real-world FICO scoring: payment history (35%), credit utilization (30%), account age (15%), credit mix (10%), and recent inquiries (10%). Scores range from 300 to 850 and determine loan eligibility, interest rates, and deposit requirements. A new Sim starts at 600 and builds credit through on-time bill payments.</p>
+
+      <p><strong>Bills</strong> replaces EA's rabbit-hole bill payment with itemized utility bills (power, water, internet, phone), rent or mortgage payments, insurance, and subscriptions. Where SNB Bills calculates utility costs from object tags, we also factor in household behavior -- leave all the lights on and your power bill goes up.</p>
+
+      <p><strong>Jobs</strong> hooks into the career system to model realistic pay: salary minus taxes, benefit deductions, and retirement contributions. Promotions come with raises. Getting fired triggers unemployment benefits that taper off over time.</p>
+
+      <p><strong>Stocks</strong> is the most departure from anything that exists in the modding ecosystem. We simulate a market of 20+ companies -- named after Sims 4 families and institutions to feel native to the game world -- with daily price movements driven by geometric Brownian motion:</p>
+
+<pre><code># Our price model: GBM with mean reversion and sector correlation
+mu = base_drift + economy_daily + reversion
+sigma = company.annual_volatility * volatility_scale / math.sqrt(365.0)
+
+# Correlated sector shocks (70% sector, 30% idiosyncratic)
+combined_shock = 0.7 * sector_shock + 0.3 * idiosyncratic
+price_change = current_price * (mu + sigma * combined_shock)</code></pre>
+
+      <p>Prices drift with the simulated economy, revert toward fundamentals so they don't spiral to infinity, and correlate within sectors so a tech boom lifts all tech stocks. Market events from gameplay (a fire at a factory, a new invention) trigger price shocks. Some companies pay dividends. It's simplified compared to real quantitative finance, but it's enough to make "check your portfolio" a meaningful gameplay loop.</p>
+
+      <h2>The Storage Decision</h2>
+
+      <p>This is where we diverged most from SNB's architecture. SNB stores account balances as EA Commodity stats on the Sim. We considered this approach carefully and decided against it for primary storage. The reason: commodities can be culled.</p>
+
+      <p>EA's statistic system occasionally prunes commodities that haven't been accessed recently, especially during lot transitions. For a hunger bar, that's fine -- it just resets to a default. For a bank account balance, losing data is catastrophic.</p>
+
+      <p>Our approach uses the game's save data persistence layer with a dedicated JSON blob. Each module registers serializers and deserializers with a central PersistenceManager. On zone save, everything gets written to a single JSON payload under the key <code>stark_economy_sim</code>. On zone load, it's restored:</p>
+
+<pre><code># Our approach: module-keyed JSON persistence via save data
+def save_all(self) -&gt; str:
+    save_data = {"version": SAVE_VERSION, "modules": {}}
+    for key, serializer in self._serializers.items():
+        save_data["modules"][key] = serializer()
+    return json.dumps(save_data, separators=(",", ":"))</code></pre>
+
+      <p>We do still use commodity-backed storage as a secondary layer for in-game integration (so the game's native systems can read account state), but the JSON save is the source of truth.</p>
+
+      <h2>The Event Bus: How Modules Talk Without Coupling</h2>
+
+      <p>SNB's banking and bills mods are separate packages that don't directly reference each other. We wanted tighter coordination -- when your Sim gets paid, the banking module should deposit the check, the bills module should check for overdue payments, and the credit system should note the income -- but without modules importing each other.</p>
+
+      <p>The solution is a lightweight event bus. When the jobs module processes a paycheck, it publishes a <code>SALARY_DEPOSITED</code> event. The banking module subscribes and handles the deposit. The bills module subscribes and checks for overdue auto-payments. The credit module subscribes and updates income history. No module knows the others exist:</p>
+
+<pre><code># Any module can subscribe to events without importing the publisher
+@economy_event(EventType.SALARY_DEPOSITED)
+def handle_salary(event: EconomyEvent) -&gt; None:
+    account = get_checking(event.sim_id)
+    account.deposit(event.amount)</code></pre>
+
+      <p>This pattern came directly from studying how SNB handles the career pay hook. SNB's <code>main_snb.py</code> monkey-patches the career pay function to call <code>MoneyTransfer.deposit()</code>. It works, but it means the banking logic is hardcoded into the hook. Our event bus makes the same flow composable.</p>
+
+      <h2>Lessons from the Detective Work</h2>
+
+      <p>A few things we learned that apply beyond this project:</p>
+
+      <p><strong>EA's Python is well-structured but undocumented.</strong> The interaction-to-loot-to-buff chain is a powerful system once you understand it. Most modders only scratch the surface. The Commodity/Statistic system in particular is far more flexible than people realize -- SNB proved you can use it as a general-purpose per-Sim data store.</p>
+
+      <p><strong>Most financial mods take the simplest possible approach.</strong> SNB, Kuttoe's career mods, Basemental -- they all use phone menu UIs and thin wrappers around household funds. Nobody had attempted a full economic simulation layer. The opportunity is wide open.</p>
+
+      <p><strong>The phone menu UI pattern is a solved problem but clunky.</strong> Every mod that adds phone interactions uses the same picker-dialog flow that SNB uses. It works, but it's three taps to do anything. We're exploring whether a custom UI overlay (like the skill progress panel) could replace the phone menu for quick financial actions. The game's UI framework supports it in theory, but nobody's published a working example.</p>
+
+      <p><strong>Decompilation is worth the time.</strong> We could have guessed at how SNB works from its user-facing features. But reading the actual bytecode showed us the commodity storage pattern, the injection decorator approach, the save data serialization strategy -- design decisions that aren't visible from the outside. If you're building on top of what came before, go read the source.</p>
+
+      <h2>What's Next</h2>
+
+      <p>The core modules are built. The event bus is wired. The stock market generates plausible price movements. The next phase is integration testing inside the live game -- making sure our save hooks survive EA's zone lifecycle, that commodity-backed accounts stay in sync with the JSON store, and that the phone banking UI doesn't conflict with other mods.</p>
+
+      <p>We'll write about the game integration process next. In the meantime, the economy-sim source is in our GitHub org alongside the rest of the Stark Framework ecosystem.</p>
+
+      <hr style="border: none; border-top: 1px solid var(--color-border, #21262d); margin: 48px 0 24px;">
+
+      <p><em>Stark Studio Labs builds mods and tools for The Sims 4. Our work includes the Stark Framework, Drama Engine, and Economy Sim.</em></p>
+
+    </div>
+
+    <!-- Footer Nav -->
+    <nav class="post-footer-nav">
+      <a href="building-modern-framework.html" class="post-footer-link">&larr; Building a Modern Framework</a>
+      <a href="ai-powered-sims.html" class="post-footer-link">AI-Powered Sims &rarr;</a>
+    </nav>
+
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-grid">
+      <div class="footer-col footer-brand">
+        <a href="../index.html" class="footer-logo">
+          <span class="nav-icon">⚡</span>
+          <span>Stark Studio Labs</span>
+        </a>
+        <p class="footer-tagline">The Sims 4 deserves better tools. We're building them.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Products</h4>
+        <a href="https://github.com/stark-studio-labs/sims4-mod-manager" target="_blank" rel="noopener">Mod Manager</a>
+        <a href="https://github.com/stark-studio-labs/sims4-mod-builder" target="_blank" rel="noopener">Mod Builder</a>
+        <a href="https://github.com/stark-studio-labs/sims4-smart-sims" target="_blank" rel="noopener">Smart Sims</a>
+        <a href="https://github.com/stark-studio-labs/sims4-stark-devkit" target="_blank" rel="noopener">DevKit</a>
+        <a href="https://github.com/stark-studio-labs/sims4-stark-framework" target="_blank" rel="noopener">Framework</a>
+      </div>
+      <div class="footer-col">
+        <h4>Community</h4>
+        <a href="https://github.com/stark-studio-labs" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://discord.gg/starkstudiolabs" target="_blank" rel="noopener">Discord</a>
+        <a href="https://x.com/starkstudiolabs" target="_blank" rel="noopener">X / Twitter</a>
+        <a href="https://patreon.com/starkstudiolabs" target="_blank" rel="noopener">Patreon</a>
+      </div>
+      <div class="footer-col">
+        <h4>Resources</h4>
+        <a href="../docs.html">Docs</a>
+        <a href="../blog.html">Blog</a>
+        <a href="../research.html">Research</a>
+        <a href="mailto:studio@starklabs.dev">Contact</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Stark Studio Labs. All projects MIT licensed.</p>
+    </div>
+  </footer>
+
+<script src="../events.js"></script>
+</body>
+</html>

@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Why We Built a Modern Modding Framework for The Sims 4 — Stark Studio Labs</title>
+  <meta name="description" content="The Sims 4 modding ecosystem runs on Python 3.7 and monkey-patching. We built something better.">
+  <meta name="theme-color" content="#0d1117">
+  <link rel="stylesheet" href="../styles.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
+  <script src="../script.js" defer></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-LF8E245M6W"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-LF8E245M6W');</script>
+  <style>
+    .post-container { max-width: 760px; margin: 0 auto; padding: 120px 24px 80px; }
+    .post-back { display: inline-flex; align-items: center; gap: 6px; color: var(--color-text-muted, #8b949e); text-decoration: none; font-size: 0.875rem; margin-bottom: 32px; transition: color 0.2s; }
+    .post-back:hover { color: var(--color-accent, #58a6ff); }
+    .post-header { margin-bottom: 48px; }
+    .post-meta { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; flex-wrap: wrap; }
+    .post-date { color: var(--color-text-muted, #8b949e); font-size: 0.875rem; }
+    .post-tag { background: rgba(88,166,255,0.1); color: var(--color-accent, #58a6ff); padding: 2px 10px; border-radius: 12px; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; }
+    .post-title { font-size: 2.5rem; font-weight: 800; line-height: 1.2; color: var(--color-text, #e6edf3); margin: 0 0 16px; }
+    .post-excerpt { font-size: 1.125rem; color: var(--color-text-muted, #8b949e); line-height: 1.6; margin: 0; }
+    .post-body { color: var(--color-text-secondary, #c9d1d9); line-height: 1.8; font-size: 1.0625rem; }
+    .post-body h2 { font-size: 1.5rem; font-weight: 700; color: var(--color-text, #e6edf3); margin: 48px 0 16px; padding-bottom: 8px; border-bottom: 1px solid var(--color-border, #21262d); }
+    .post-body h3 { font-size: 1.25rem; font-weight: 600; color: var(--color-text, #e6edf3); margin: 32px 0 12px; }
+    .post-body p { margin: 0 0 20px; }
+    .post-body a { color: var(--color-accent, #58a6ff); text-decoration: none; }
+    .post-body a:hover { text-decoration: underline; }
+    .post-body ul, .post-body ol { margin: 0 0 20px; padding-left: 24px; }
+    .post-body li { margin-bottom: 8px; }
+    .post-body strong { color: var(--color-text, #e6edf3); }
+    .post-body code { background: rgba(110,118,129,0.15); color: #e6edf3; padding: 2px 6px; border-radius: 4px; font-size: 0.9em; font-family: 'SF Mono', 'Fira Code', monospace; }
+    .post-body pre { background: #161b22; border: 1px solid var(--color-border, #21262d); border-radius: 8px; padding: 20px; overflow-x: auto; margin: 0 0 24px; }
+    .post-body pre code { background: none; padding: 0; font-size: 0.875rem; line-height: 1.6; color: #e6edf3; }
+    .post-body table { width: 100%; border-collapse: collapse; margin: 0 0 24px; font-size: 0.9375rem; }
+    .post-body th { text-align: left; padding: 10px 14px; background: #161b22; color: var(--color-text, #e6edf3); font-weight: 600; border: 1px solid var(--color-border, #21262d); }
+    .post-body td { padding: 10px 14px; border: 1px solid var(--color-border, #21262d); }
+    .post-body blockquote { border-left: 3px solid var(--color-accent, #58a6ff); margin: 0 0 24px; padding: 12px 20px; background: rgba(88,166,255,0.05); border-radius: 0 8px 8px 0; }
+    .post-footer-nav { display: flex; justify-content: space-between; align-items: center; margin-top: 64px; padding-top: 32px; border-top: 1px solid var(--color-border, #21262d); }
+    .post-footer-link { color: var(--color-accent, #58a6ff); text-decoration: none; font-weight: 600; }
+    .post-footer-link:hover { text-decoration: underline; }
+    @media (max-width: 640px) { .post-title { font-size: 1.75rem; } .post-container { padding: 100px 16px 60px; } }
+  </style>
+</head>
+<body>
+  <nav class="nav nav-scrolled-always" id="nav">
+    <div class="nav-inner">
+      <a href="../index.html" class="nav-logo"><span class="nav-icon">⚡</span><span class="nav-wordmark">Stark Studio Labs</span></a>
+      <div class="nav-links" id="navLinks">
+        <a href="../docs.html">Docs</a>
+        <a href="../blog.html" class="nav-active">Blog</a>
+        <a href="../research.html">Research</a>
+        <a href="../index.html#products">Products</a>
+        <a href="https://github.com/stark-studio-labs" class="nav-gh" target="_blank" rel="noopener"><svg width="20" height="20" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg></a>
+      </div>
+      <button class="nav-mobile-toggle" id="nav-toggle" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
+  </nav>
+
+  <div class="post-container">
+    <a href="../blog.html" class="post-back">&larr; All posts</a>
+    <header class="post-header">
+      <div class="post-meta">
+        <span class="post-date">March 30, 2026</span>
+        <span class="post-tag">Framework</span>
+      </div>
+      <h1 class="post-title">Why We Built a Modern Modding Framework for The Sims 4</h1>
+      <p class="post-excerpt">The Sims 4 modding ecosystem runs on Python 3.7 and monkey-patching. We built something better.</p>
+    </header>
+    <article class="post-body">
+      <p>The Sims 4 has one of the most active modding communities in gaming. Millions of players rely on mods for everything from expanded careers to relationship overhauls. But the technical foundation underneath those mods hasn't evolved in a decade.</p>
+
+      <p>We built Stark Framework because we think the ecosystem deserves better infrastructure. Not a bigger utility library -- an actual architecture layer that changes how mods are designed, how they communicate, and how they fail.</p>
+
+      <h2>The state of Sims 4 modding in 2026</h2>
+
+      <p>The Sims 4 runs an embedded Python 3.7 interpreter. Python 3.7 has been end-of-life since June 2023. There are no type annotations being enforced, no <code>dataclasses</code> improvements from 3.10+, no pattern matching. Every mod author is writing code against a language version that the Python Software Foundation stopped patching three years ago.</p>
+
+      <p>The standard approach to modding is monkey-patching: you use EA's undocumented <code>@inject_to</code> decorator to replace game functions at runtime. If your replacement throws an exception, the game crashes or silently breaks. If two mods patch the same function, the last one loaded wins and the first one's changes vanish. There is no coordination mechanism, no error boundary, no way for Mod A to know that Mod B exists.</p>
+
+      <p>The closest thing to a shared foundation is <a href="https://github.com/ColonolNutty/Sims4CommunityLibrary">Sims4CommunityLibrary</a> (S4CL). It has 239 GitHub stars and provides a genuinely useful collection of utilities: dialog helpers, sim property accessors, event dispatching, logging. Many popular mods depend on it. But S4CL is a utility library, not a framework. It has grown organically over years into a kitchen-sink of helpers without strong architectural opinions about how mods should be structured, how they should communicate, or how they should handle failure.</p>
+
+      <p>That gap is what Stark Framework fills.</p>
+
+      <h2>What Stark Framework actually does</h2>
+
+      <p>Stark Framework is a thin architecture layer -- roughly 500 lines of Python across six modules. It doesn't replace S4CL. It sits underneath your mod and gives it structure.</p>
+
+      <h3>Event bus: modules talk through events, not imports</h3>
+
+      <p>The single biggest problem with Sims 4 mods is coupling. If your drama mod wants to react when the economy mod changes a Sim's job, you have two bad options: import the economy mod directly (creating a hard dependency) or monkey-patch the same game function (creating a conflict). Neither scales.</p>
+
+      <p>Stark Framework's event bus gives you a third option: typed pub/sub. Modules publish events. Other modules subscribe to event types. Nobody imports anybody.</p>
+
+<pre><code>from stark_framework.core.events import EventBus, Event
+from dataclasses import dataclass
+
+@dataclass
+class SimFiredEvent(Event):
+    sim_id: int = 0
+    sim_name: str = ""
+    former_career: str = ""
+
+# In the economy mod:
+EventBus.publish(SimFiredEvent(sim_id=42, sim_name="Bella Goth",
+                               former_career="Scientist"),
+                 source_mod="stark_economy_sim")
+
+# In the drama mod (completely separate package):
+@EventBus.on(SimFiredEvent)
+def on_sim_fired(event):
+    # Trigger a "fall from grace" story arc
+    start_career_loss_arc(event.sim_id, event.former_career)</code></pre>
+
+      <p>The economy mod doesn't know the drama mod exists. The drama mod doesn't import anything from the economy mod. They communicate through a shared event type, and either one can be installed without the other.</p>
+
+      <p>Handlers run in priority order. Events can be cancelled by any handler to veto downstream processing. And critically, if a handler throws an exception, the bus catches it and logs it instead of crashing the game. The other handlers still run.</p>
+
+      <h3>Mod registry: know what's loaded</h3>
+
+      <p>Every mod registers itself at load time with an ID, version, and dependency list:</p>
+
+<pre><code>from stark_framework.core.registry import ModRegistry
+
+ModRegistry.register(
+    mod_id="stark_drama_engine",
+    name="Drama Engine",
+    version="0.1.0",
+    author="Stark Studio Labs",
+    dependencies=["stark_framework"],
+)</code></pre>
+
+      <p>This is simple, but it unlocks real capabilities. Mods can check whether their dependencies are present before running. The diagnostics module can report exactly what's loaded and at what version. Conflict detection becomes possible -- if two mods register the same ID, the registry logs a warning instead of silently clobbering state.</p>
+
+      <h3>Safe injection, scheduling, settings, diagnostics</h3>
+
+      <p>The remaining modules address the day-to-day pain of Sims 4 mod development:</p>
+
+      <ul>
+        <li><strong>Injection management</strong> wraps the <code>@inject_to</code> pattern with error boundaries and logging. If an injection fails (because EA changed a function signature in a patch), your mod logs the error and keeps running instead of taking down the game.</li>
+        <li><strong>Scheduler</strong> provides game-tick-aware task scheduling. Instead of ad-hoc timer callbacks scattered across your codebase, you register delayed tasks with the scheduler and it fires them at the right game tick. The drama engine uses this for consequence delays -- a house fire triggers financial stress 4 sim-hours later, not immediately.</li>
+        <li><strong>Settings</strong> gives you JSON-based configuration with defaults, validation, and schema migration. Players get a consistent way to configure mods; authors get a consistent way to read those settings.</li>
+        <li><strong>Diagnostics</strong> provides health checks and error reporting. When something goes wrong at runtime, the diagnostics module captures context and writes structured logs that players can share in bug reports.</li>
+      </ul>
+
+      <h2>How this compares to S4CL</h2>
+
+      <p>S4CL and Stark Framework serve different roles:</p>
+
+      <table>
+        <thead>
+          <tr>
+            <th></th>
+            <th>S4CL</th>
+            <th>Stark Framework</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Purpose</strong></td>
+            <td>Utility library</td>
+            <td>Architecture layer</td>
+          </tr>
+          <tr>
+            <td><strong>Provides</strong></td>
+            <td>Dialog helpers, sim accessors, event dispatching, logging, testing</td>
+            <td>Event bus, mod registry, injection management, scheduler, settings, diagnostics</td>
+          </tr>
+          <tr>
+            <td><strong>Relationship to your mod</strong></td>
+            <td>Dependency your mod calls</td>
+            <td>Foundation your mod is built on</td>
+          </tr>
+          <tr>
+            <td><strong>Architectural opinion</strong></td>
+            <td>Minimal -- provides tools, you decide structure</td>
+            <td>Strong -- events over imports, registry over globals, error boundaries everywhere</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p>They are complementary. A mod built on Stark Framework can (and often will) use S4CL utilities for UI dialogs and sim property access. The difference is in what each project cares about: S4CL cares about making common tasks easier. Stark Framework cares about making complex mods maintainable.</p>
+
+      <h2>Real-world usage</h2>
+
+      <p>We are not building a framework in a vacuum. Every design decision in Stark Framework comes from building actual mods on top of it:</p>
+
+      <p><strong>sims4-drama-engine</strong> is the most event-bus-intensive consumer. It defines 10+ typed event classes (accidents, illness, crime, fortune, romance, family drama) that flow through the bus. A consequence engine subscribes to those events and schedules cascading effects -- a house fire publishes a <code>SimAccidentEvent</code>, which triggers <code>financial_stress</code> consequences 4 hours later, which can trigger <code>relationship_strain</code> 72 hours after that. Each link in the chain is a separate handler on the bus. The drama mod, consequence system, and narrative threading layer are all decoupled.</p>
+
+      <p><strong>sims4-economy-sim</strong> uses the mod registry for service coordination. Banking, billing, and employment are separate services that register themselves and discover each other through the registry. No circular imports, no initialization-order bugs.</p>
+
+      <p><strong>sims4-political-sim</strong> uses the scheduler for policy consequence delays. When a law passes, its effects don't hit immediately -- they phase in over sim-days, managed by the scheduler rather than ad-hoc timers.</p>
+
+      <p><strong>sims4-smart-sims</strong> uses the diagnostics module to monitor LLM inference latency. When AI-driven Sim behavior takes too long, diagnostics flags it before the player notices stuttering.</p>
+
+      <h2>Why open source matters here</h2>
+
+      <p>Every top-tier Sims 4 mod is closed-source. MCCC, WickedWhims, Basemental Drugs, Slice of Life -- each maintained by a single developer, distributed as compiled Python packages with no visible source. These mods have millions of users.</p>
+
+      <p>The bus factor for each of these mods is one. If DeadPool stops updating MCCC, its users have no path forward. Nobody can fork it. Nobody can patch it for a new game update. The mod simply dies, and every mod that depends on it dies too.</p>
+
+      <p>We think infrastructure should be different. A framework that mods depend on for basic architecture -- event routing, service discovery, error handling -- cannot be a single point of failure. Stark Framework is MIT-licensed, source-available on GitHub, and designed so that any competent Python developer can read, understand, and maintain it. All 500 lines of it.</p>
+
+      <p>Open source also means scrutiny. Sims 4 mods run as native code inside the game process. Players should be able to audit what that code does. Compiled, obfuscated packages ask for a level of trust that the ecosystem shouldn't require.</p>
+
+      <h2>What's next</h2>
+
+      <p>Stark Framework 0.1 covers the fundamentals: events, registry, injection, scheduling, settings, diagnostics. Future releases will add structured logging improvements, a plugin discovery system for auto-loading framework-compatible mods, and tighter integration with the game's zone/save lifecycle.</p>
+
+      <p>If you build Sims 4 mods and you are tired of debugging cross-mod conflicts, silent crashes from failed injections, and spaghetti import chains -- we built this for you. Check the <a href="/docs">documentation</a> or look at <a href="https://github.com/stark-studio-labs/sims4-drama-engine">sims4-drama-engine</a> for a worked example of what a framework-based mod looks like.</p>
+
+      <p>The Sims 4 modding community builds remarkable things. It deserves infrastructure that matches that ambition.</p>
+    </article>
+    <nav class="post-footer-nav">
+      <a href="../blog.html" class="post-footer-link">&larr; All posts</a>
+      <a href="inside-economy-sim.html" class="post-footer-link">Next: Inside the Economy Sim &rarr;</a>
+    </nav>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-grid">
+      <div class="footer-col footer-brand">
+        <a href="../index.html" class="footer-logo"><span class="nav-icon">⚡</span><span>Stark Studio Labs</span></a>
+        <p class="footer-tagline">The Sims 4 deserves better tools. We're building them.</p>
+      </div>
+      <div class="footer-col"><h4>Products</h4><a href="https://github.com/stark-studio-labs/sims4-mod-manager">Mod Manager</a><a href="https://github.com/stark-studio-labs/sims4-stark-framework">Framework</a><a href="https://github.com/stark-studio-labs/sims4-smart-sims">Smart Sims</a></div>
+      <div class="footer-col"><h4>Community</h4><a href="https://github.com/stark-studio-labs">GitHub</a><a href="https://discord.gg/starkstudiolabs">Discord</a><a href="https://x.com/starkstudiolabs">X / Twitter</a></div>
+      <div class="footer-col"><h4>Resources</h4><a href="../docs.html">Docs</a><a href="../blog.html">Blog</a><a href="../research.html">Research</a></div>
+    </div>
+    <div class="footer-bottom"><p>&copy; 2026 Stark Studio Labs. All projects MIT licensed.</p></div>
+  </footer>
+  <script src="../events.js"></script>
+</body>
+</html>
