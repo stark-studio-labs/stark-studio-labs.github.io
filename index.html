@@ -11,6 +11,7 @@
   <meta property="og:type" content="website">
   <link rel="stylesheet" href="styles.css">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
+  <script src="script.js" defer></script>
 </head>
 <body>
 
@@ -23,228 +24,145 @@
       </a>
       <div class="nav-links" id="navLinks">
         <a href="#products">Products</a>
-        <a href="#code-preview">Framework</a>
-        <a href="#layers">Gameplay</a>
-        <a href="#patreon">Support</a>
-        <a href="#community">Community</a>
+        <a href="#layers">Layers</a>
+        <a href="#roadmap">Roadmap</a>
+        <a href="#blog">Blog</a>
+        <a href="#support">Support</a>
         <a href="https://github.com/stark-studio-labs" class="nav-gh" target="_blank" rel="noopener">
           <svg width="20" height="20" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
         </a>
       </div>
-      <button class="nav-mobile-toggle" id="mobileToggle" aria-label="Menu">
+      <button class="nav-mobile-toggle" id="nav-toggle" aria-label="Menu">
         <span></span><span></span><span></span>
       </button>
     </div>
   </nav>
 
   <!-- HERO -->
-  <section class="hero" id="hero">
-    <div class="hero-gradient"></div>
-    <div class="hero-noise"></div>
-    <div class="hero-content reveal">
-      <p class="hero-eyebrow">Open Source Modding Platform</p>
-      <h1 class="hero-title">
-        The Sims 4<br>
-        <span class="hero-accent">Deserves Better Tools.</span>
-      </h1>
-      <p class="hero-sub">
-        A modern modding ecosystem with typed frameworks, intelligent gameplay,
-        and developer-grade tooling. Built by modders. For modders. Free&nbsp;forever.
-      </p>
-      <div class="hero-ctas">
-        <a href="https://github.com/stark-studio-labs" class="btn btn-primary" target="_blank" rel="noopener">
-          <svg width="20" height="20" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
-          Explore on GitHub
-        </a>
-        <a href="#products" class="btn btn-ghost">See Products</a>
+  <section id="hero">
+    <div class="hero">
+      <div class="hero-bg"></div>
+      <div class="hero-content">
+        <div class="hero-badge">Open Source &middot; Community-First</div>
+        <h1 class="hero-title">
+          <span class="hero-line-muted">The Sims 4</span>
+          <span class="hero-line-accent">Deserves Better Tools.</span>
+        </h1>
+        <p class="hero-sub">Modern modding platform, smarter gameplay, and developer-grade tooling. Built by modders, for modders. Free forever.</p>
+        <div class="hero-actions">
+          <a href="https://github.com/stark-studio-labs" class="btn btn-primary" target="_blank" rel="noopener">Explore on GitHub</a>
+          <a href="#terminal" class="btn btn-ghost">Get Started in 60s &darr;</a>
+        </div>
+        <div class="hero-stats">
+          <div class="stat">
+            <span class="stat-value">13</span>
+            <span class="stat-label">Repositories</span>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat">
+            <span class="stat-value">6</span>
+            <span class="stat-label">Gameplay Layers</span>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat">
+            <span class="stat-value">100%</span>
+            <span class="stat-label">Open Source</span>
+          </div>
+        </div>
+        <div class="hero-scroll">
+          <div class="scroll-indicator"></div>
+        </div>
       </div>
-    </div>
-    <div class="hero-scroll-indicator">
-      <div class="hero-scroll-line"></div>
     </div>
   </section>
 
   <!-- PRODUCTS -->
-  <section class="product-section" id="products">
-
-    <!-- Product 1: Stark Framework -->
-    <div class="product-row">
-      <div class="product-visual reveal">
-        <div class="product-visual-frame">
-          <div class="product-visual-icon">&#x1f3db;&#xfe0f;</div>
-          <div class="product-visual-label">stark-framework</div>
-          <div class="product-visual-code">
-            <span class="code-kw">from</span> stark.events <span class="code-kw">import</span> EventBus<br>
-            <span class="code-kw">from</span> stark.inject <span class="code-kw">import</span> override<br>
-            <br>
-            <span class="code-dec">@override</span>(<span class="code-str">"sim.autonomy"</span>)<br>
-            <span class="code-kw">def</span> <span class="code-fn">on_idle</span>(sim, ctx):
-          </div>
-        </div>
-      </div>
-      <div class="product-text reveal">
-        <span class="product-tag">Developer Tools</span>
-        <h2 class="product-title">Stark Framework</h2>
-        <p class="product-desc">A typed, event-driven modding framework that replaces S4CL. Dependency injection, typed events, settings management, diagnostics, and hot-reload. Python modding done right.</p>
-        <a href="https://github.com/stark-studio-labs/sims4-stark-framework" class="product-link" target="_blank" rel="noopener">View on GitHub <span class="arrow">&rarr;</span></a>
-      </div>
+  <section class="section" id="products">
+    <div class="section-header reveal">
+      <span class="section-tag">Products</span>
+      <h2 class="section-title">Three pillars. One ecosystem.</h2>
+      <p class="section-sub">Everything you need to create, manage, and supercharge your Sims 4 experience. From mod management to intelligent gameplay, it all works together.</p>
     </div>
-
-    <!-- Product 2: Smart Sims -->
-    <div class="product-row product-row-reverse">
-      <div class="product-visual reveal">
-        <div class="product-visual-frame product-visual-frame--intelligence">
-          <div class="product-visual-icon">&#x1f9e0;</div>
-          <div class="product-visual-label">smart-sims</div>
-          <div class="product-visual-stats">
-            <div class="pv-stat"><span class="pv-stat-val">Local LLM</span><span class="pv-stat-key">Engine</span></div>
-            <div class="pv-stat"><span class="pv-stat-val">Persistent</span><span class="pv-stat-key">Memory</span></div>
-            <div class="pv-stat"><span class="pv-stat-val">Adaptive</span><span class="pv-stat-key">Behavior</span></div>
-          </div>
-        </div>
+    <div class="product-grid">
+      <div class="product-card reveal">
+        <div class="product-icon">&#x1F3D7;&#xFE0F;</div>
+        <h3 class="product-name">Platform</h3>
+        <p class="product-desc">The foundation. Install, create, and revive mods with modern tools that just work.</p>
+        <ul class="product-repos">
+          <li><a href="https://github.com/stark-studio-labs/sims4-mod-manager" target="_blank" rel="noopener"><code>sims4-mod-manager</code> <span>One-click install, update, and conflict resolution</span></a></li>
+          <li><a href="https://github.com/stark-studio-labs/sims4-mod-builder" target="_blank" rel="noopener"><code>sims4-mod-builder</code> <span>Visual mod creation with live preview</span></a></li>
+          <li><a href="https://github.com/stark-studio-labs/sims4-mod-revival" target="_blank" rel="noopener"><code>sims4-mod-revival</code> <span>Resurrect broken mods from abandoned projects</span></a></li>
+        </ul>
       </div>
-      <div class="product-text reveal">
-        <span class="product-tag">Intelligence</span>
-        <h2 class="product-title">Smart Sims</h2>
-        <p class="product-desc">AI-powered Sim behavior using local language models. Personality-driven decisions, persistent memory, contextual dialogue, and goals that evolve over time. Your Sims finally think.</p>
-        <a href="https://github.com/stark-studio-labs/sims4-smart-sims" class="product-link" target="_blank" rel="noopener">View on GitHub <span class="arrow">&rarr;</span></a>
+      <div class="product-card product-card-accent reveal">
+        <div class="product-icon">&#x1F9E0;</div>
+        <h3 class="product-name">Intelligence</h3>
+        <p class="product-desc">Smarter Sims. Dynamic economies. Gameplay that evolves with every session.</p>
+        <ul class="product-repos">
+          <li><a href="https://github.com/stark-studio-labs/sims4-smart-sims" target="_blank" rel="noopener"><code>sims4-smart-sims</code> <span>Local LLM-powered reasoning and memory</span></a></li>
+          <li><a href="https://github.com/stark-studio-labs/sims4-economy-sim" target="_blank" rel="noopener"><code>sims4-economy-sim</code> <span>Supply, demand, and market dynamics</span></a></li>
+        </ul>
       </div>
-    </div>
-
-    <!-- Product 3: Mod Manager -->
-    <div class="product-row">
-      <div class="product-visual reveal">
-        <div class="product-visual-frame product-visual-frame--platform">
-          <div class="product-visual-icon">&#x1f4e6;</div>
-          <div class="product-visual-label">mod-manager</div>
-          <div class="product-visual-features">
-            <div class="pv-feature"><span class="pv-check">&#x2713;</span> Dependency Resolution</div>
-            <div class="pv-feature"><span class="pv-check">&#x2713;</span> Conflict Detection</div>
-            <div class="pv-feature"><span class="pv-check">&#x2713;</span> One-Click Updates</div>
-            <div class="pv-feature"><span class="pv-check">&#x2713;</span> Broken Mod Recovery</div>
-          </div>
-        </div>
-      </div>
-      <div class="product-text reveal">
-        <span class="product-tag">Platform</span>
-        <h2 class="product-title">Mod Manager</h2>
-        <p class="product-desc">The ecosystem The Sims 4 never had. Discover, install, update, and manage mods with dependency resolution and conflict detection. No more broken saves.</p>
-        <a href="https://github.com/stark-studio-labs/sims4-mod-manager" class="product-link" target="_blank" rel="noopener">View on GitHub <span class="arrow">&rarr;</span></a>
-      </div>
-    </div>
-
-    <!-- Product 4: Stark DevKit -->
-    <div class="product-row product-row-reverse">
-      <div class="product-visual reveal">
-        <div class="product-visual-frame product-visual-frame--devkit">
-          <div class="product-visual-icon">&#x1f6e0;&#xfe0f;</div>
-          <div class="product-visual-label">stark-devkit</div>
-          <div class="product-visual-code">
-            <span class="code-comment"># Scaffold, build, test, ship</span><br>
-            <span class="code-prompt">$</span> stark-devkit init my-mod<br>
-            <span class="code-prompt">$</span> stark-devkit build --watch<br>
-            <span class="code-prompt">$</span> stark-devkit test --coverage
-          </div>
-        </div>
-      </div>
-      <div class="product-text reveal">
-        <span class="product-tag">Developer Tools</span>
-        <h2 class="product-title">Stark DevKit</h2>
-        <p class="product-desc">Decompiler, packager, game API stubs, project scaffolding, CI/CD pipelines, and hot-reload. A modern Python toolchain for Sims 4 modders.</p>
-        <a href="https://github.com/stark-studio-labs/sims4-stark-devkit" class="product-link" target="_blank" rel="noopener">View on GitHub <span class="arrow">&rarr;</span></a>
-      </div>
-    </div>
-
-    <!-- Product 5: Economy Sim -->
-    <div class="product-row">
-      <div class="product-visual reveal">
-        <div class="product-visual-frame product-visual-frame--economy">
-          <div class="product-visual-icon">&#x1f4c8;</div>
-          <div class="product-visual-label">economy-sim</div>
-          <div class="product-visual-stats">
-            <div class="pv-stat"><span class="pv-stat-val">Dynamic</span><span class="pv-stat-key">Markets</span></div>
-            <div class="pv-stat"><span class="pv-stat-val">Real P&amp;L</span><span class="pv-stat-key">Business</span></div>
-            <div class="pv-stat"><span class="pv-stat-val">Wealth</span><span class="pv-stat-key">Generational</span></div>
-          </div>
-        </div>
-      </div>
-      <div class="product-text reveal">
-        <span class="product-tag">Gameplay</span>
-        <h2 class="product-title">Economy Sim</h2>
-        <p class="product-desc">A dynamic economy for The Sims 4. Stock market, real estate values, business ownership with P&L, investment portfolios, inflation, and generational wealth mechanics.</p>
-        <a href="https://github.com/stark-studio-labs/sims4-economy-sim" class="product-link" target="_blank" rel="noopener">View on GitHub <span class="arrow">&rarr;</span></a>
+      <div class="product-card reveal">
+        <div class="product-icon">&#x2699;&#xFE0F;</div>
+        <h3 class="product-name">Developer Tools</h3>
+        <p class="product-desc">Build mods faster with type-safe APIs, hot reload, and first-class debugging.</p>
+        <ul class="product-repos">
+          <li><a href="https://github.com/stark-studio-labs/sims4-stark-devkit" target="_blank" rel="noopener"><code>sims4-stark-devkit</code> <span>CLI toolchain for mod development</span></a></li>
+          <li><a href="https://github.com/stark-studio-labs/sims4-stark-framework" target="_blank" rel="noopener"><code>sims4-stark-framework</code> <span>Modern typed framework replacing S4CL</span></a></li>
+        </ul>
       </div>
     </div>
   </section>
 
-  <!-- CODE PREVIEW -->
-  <section class="section section-code" id="code-preview">
-    <div class="container">
-      <div class="section-header reveal">
-        <span class="section-tag">The Framework</span>
-        <h2 class="section-title">Typed events. Clean injection.<br>Modern Python modding.</h2>
-      </div>
-      <div class="code-block reveal">
+  <!-- CODE SHOWCASE -->
+  <section class="section section-dark" id="code">
+    <div class="section-header reveal">
+      <span class="section-tag">See It In Action</span>
+      <h2 class="section-title">Modding should feel modern.</h2>
+      <p class="section-sub">Clean APIs. Type safety. Hot reload. The Stark Framework gives you the developer experience Sims modding has always needed.</p>
+    </div>
+    <div class="code-showcase reveal">
+      <div class="code-block">
         <div class="code-header">
           <div class="code-dots">
             <span class="dot dot-red"></span>
             <span class="dot dot-yellow"></span>
             <span class="dot dot-green"></span>
           </div>
-          <span class="code-filename">my_mod/events.py</span>
+          <span class="code-filename">my_first_mod.py</span>
         </div>
-        <pre class="code-body"><code><span class="syn-kw">from</span> <span class="syn-mod">stark.events</span> <span class="syn-kw">import</span> EventBus, Event
-<span class="syn-kw">from</span> <span class="syn-mod">stark.inject</span> <span class="syn-kw">import</span> override
-<span class="syn-kw">from</span> <span class="syn-mod">stark.settings</span> <span class="syn-kw">import</span> ModSettings
-<span class="syn-kw">from</span> <span class="syn-mod">dataclasses</span> <span class="syn-kw">import</span> dataclass
+        <pre class="code-body"><code><span class="hl-keyword">from</span> <span class="hl-module">stark_framework</span> <span class="hl-keyword">import</span> <span class="hl-func">mod</span>, <span class="hl-func">on_event</span>, <span class="hl-func">inject</span>
+<span class="hl-keyword">from</span> <span class="hl-module">stark_framework.sims</span> <span class="hl-keyword">import</span> <span class="hl-type">Sim</span>, <span class="hl-type">Interaction</span>
 
+<span class="hl-decorator">@mod</span>(<span class="hl-string">"my_awesome_mod"</span>, version=<span class="hl-string">"1.0.0"</span>)
+<span class="hl-keyword">class</span> <span class="hl-type">MyMod</span>:
 
-<span class="syn-dec">@dataclass</span>
-<span class="syn-kw">class</span> <span class="syn-cls">SimPromotedEvent</span>(Event):
-    <span class="syn-com">"""Fired when a Sim earns a career promotion."""</span>
-    sim_id: <span class="syn-typ">int</span>
-    career: <span class="syn-typ">str</span>
-    new_level: <span class="syn-typ">int</span>
-    salary_increase: <span class="syn-typ">float</span>
+    <span class="hl-decorator">@on_event</span>(<span class="hl-string">"sim.interaction.start"</span>)
+    <span class="hl-keyword">def</span> <span class="hl-func">on_interaction</span>(<span class="hl-keyword">self</span>, sim: <span class="hl-type">Sim</span>, interaction: <span class="hl-type">Interaction</span>):
+        <span class="hl-keyword">if</span> interaction.is_social:
+            sim.add_buff(<span class="hl-string">"confident"</span>, duration=<span class="hl-number">240</span>)
+            <span class="hl-keyword">self</span>.log(<span class="hl-string">f"</span><span class="hl-string">{sim.name} feels extra confident!</span><span class="hl-string">"</span>)
 
-
-bus = EventBus()
-settings = ModSettings(<span class="syn-str">"stark_economy"</span>)
-
-
-<span class="syn-dec">@bus.on</span>(SimPromotedEvent)
-<span class="syn-kw">def</span> <span class="syn-fn">handle_promotion</span>(event: SimPromotedEvent):
-    <span class="syn-com"># Adjust neighborhood economy based on promotion</span>
-    multiplier = settings.get(<span class="syn-str">"economy.promotion_multiplier"</span>, <span class="syn-num">1.2</span>)
-    adjust_local_economy(event.sim_id, event.salary_increase * multiplier)
-    bus.emit(EconomyShiftEvent(
-        neighborhood=get_neighborhood(event.sim_id),
-        delta=event.salary_increase * multiplier
-    ))
-
-
-<span class="syn-dec">@override</span>(<span class="syn-str">"career.promote"</span>)
-<span class="syn-kw">def</span> <span class="syn-fn">on_career_promote</span>(sim, career, original_fn):
-    result = original_fn(sim, career)
-    bus.emit(SimPromotedEvent(
-        sim_id=sim.id,
-        career=career.name,
-        new_level=career.level,
-        salary_increase=career.salary - career.prev_salary
-    ))
-    <span class="syn-kw">return</span> result</code></pre>
+    <span class="hl-decorator">@inject</span>(<span class="hl-string">"services.sim_info_manager"</span>)
+    <span class="hl-keyword">def</span> <span class="hl-func">boost_all_sims</span>(<span class="hl-keyword">self</span>, manager):
+        <span class="hl-keyword">for</span> sim <span class="hl-keyword">in</span> manager.get_all():
+            sim.skills.painting.add_xp(<span class="hl-number">500</span>)</code></pre>
+      </div>
+      <div class="code-caption">
+        <p>Decorators handle the boilerplate. Type hints give you autocomplete. Event hooks let you react to anything in the game. And <code>@inject</code> gives you direct access to EA's internal services — no more hunting through decompiled code.</p>
       </div>
     </div>
   </section>
 
-  <!-- TERMINAL DEMO -->
-  <section class="section section-terminal">
-    <div class="container">
-      <div class="section-header reveal">
-        <span class="section-tag">Get Started</span>
-        <h2 class="section-title">From zero to modding in seconds.</h2>
-      </div>
-      <div class="terminal reveal" id="terminal">
+  <!-- TERMINAL / GET STARTED -->
+  <section class="section" id="terminal">
+    <div class="section-header reveal">
+      <span class="section-tag">Quick Start</span>
+      <h2 class="section-title">Get started in 60 seconds.</h2>
+    </div>
+    <div class="terminal-wrapper reveal">
+      <div class="terminal-window">
         <div class="terminal-header">
           <div class="code-dots">
             <span class="dot dot-red"></span>
@@ -253,289 +171,303 @@ settings = ModSettings(<span class="syn-str">"stark_economy"</span>)
           </div>
           <span class="terminal-title">Terminal</span>
         </div>
-        <div class="terminal-body">
+        <div class="terminal-body" id="terminal-body">
           <div class="terminal-line" data-delay="0">
             <span class="terminal-prompt">$</span>
-            <span class="terminal-text" data-text="pip install stark-framework"></span>
+            <span class="terminal-cmd">pip install stark-devkit</span>
           </div>
-          <div class="terminal-line terminal-output" data-delay="2200">
-            <span class="terminal-success">Successfully installed stark-framework-0.1.0</span>
+          <div class="terminal-line" data-delay="800">
+            <span class="terminal-text terminal-output dim">Successfully installed stark-devkit-1.0.0</span>
+          </div>
+          <div class="terminal-line" data-delay="1600">
+            <span class="terminal-prompt">$</span>
+            <span class="terminal-cmd">stark init my-awesome-mod</span>
+          </div>
+          <div class="terminal-line" data-delay="2400">
+            <span class="terminal-text terminal-output dim">&#x2713; Created my-awesome-mod/ with starter template</span>
           </div>
           <div class="terminal-line" data-delay="3200">
             <span class="terminal-prompt">$</span>
-            <span class="terminal-text" data-text="stark-devkit decompile mod.ts4script"></span>
+            <span class="terminal-cmd">cd my-awesome-mod &amp;&amp; stark dev</span>
           </div>
-          <div class="terminal-line terminal-output" data-delay="5600">
-            <span class="terminal-muted">Decompiling mod.ts4script...</span>
-          </div>
-          <div class="terminal-line terminal-output" data-delay="6400">
-            <span class="terminal-success">Extracted 47 Python modules to ./src/</span>
-          </div>
-          <div class="terminal-line" data-delay="7400">
-            <span class="terminal-prompt">$</span>
-            <span class="terminal-text" data-text="stark-devkit init my-first-mod --template economy"></span>
-          </div>
-          <div class="terminal-line terminal-output" data-delay="10200">
-            <span class="terminal-success">Created project: my-first-mod</span>
-          </div>
-          <div class="terminal-line terminal-output" data-delay="10800">
-            <span class="terminal-muted">  src/  tests/  stark.toml  README.md</span>
-          </div>
-          <div class="terminal-line" data-delay="11800">
-            <span class="terminal-prompt">$</span>
-            <span class="terminal-cursor">|</span>
+          <div class="terminal-line" data-delay="4000">
+            <span class="terminal-text terminal-output success">&#x26A1; Hot-reload server running &mdash; drop into The Sims 4</span>
           </div>
         </div>
+      </div>
+    </div>
+    <div class="steps-grid">
+      <div class="step-card reveal">
+        <div class="step-number">1</div>
+        <h3 class="step-title">Install</h3>
+        <p class="step-desc">One command. The DevKit handles Python setup, dependency management, and game path detection automatically.</p>
+      </div>
+      <div class="step-card reveal">
+        <div class="step-number">2</div>
+        <h3 class="step-title">Create</h3>
+        <p class="step-desc">Scaffold a new mod with the starter template. Typed APIs, event hooks, and game service injection out of the box.</p>
+      </div>
+      <div class="step-card reveal">
+        <div class="step-number">3</div>
+        <h3 class="step-title">Ship</h3>
+        <p class="step-desc">Hot-reload into a running game. Test changes instantly. Package and publish when you're ready.</p>
       </div>
     </div>
   </section>
 
   <!-- GAMEPLAY LAYERS -->
   <section class="section section-dark" id="layers">
-    <div class="container">
-      <div class="section-header reveal">
-        <span class="section-tag">The Stark Pack</span>
-        <h2 class="section-title">Six layers. One living world.</h2>
-        <p class="section-sub">Independent simulation layers that integrate into a cohesive gameplay overhaul. Install standalone or combine them all.</p>
+    <div class="section-header reveal">
+      <span class="section-tag">Gameplay Layers</span>
+      <h2 class="section-title">Six layers. One living world.</h2>
+      <p class="section-sub">Each layer adds depth to the simulation. Together, they transform The Sims 4 into something EA never imagined — a world that thinks, reacts, and evolves.</p>
+    </div>
+    <div class="layer-grid">
+      <div class="layer-card reveal">
+        <div class="layer-num">01</div>
+        <h3 class="layer-name">Economy</h3>
+        <p class="layer-desc">Dynamic supply and demand. Stock markets. Real estate bubbles. Sims make financial decisions that ripple through the world.</p>
+        <span class="layer-status status-dev">In Development</span>
       </div>
+      <div class="layer-card reveal">
+        <div class="layer-num">02</div>
+        <h3 class="layer-name">Politics</h3>
+        <p class="layer-desc">Elections, factions, policy debates. Sims form political opinions, campaign for office, and pass laws that change gameplay.</p>
+        <span class="layer-status status-research">Research</span>
+      </div>
+      <div class="layer-card reveal">
+        <div class="layer-num">03</div>
+        <h3 class="layer-name">Social</h3>
+        <p class="layer-desc">Deeper relationships. Reputation systems. Social media. Sims remember grudges, form cliques, and spread gossip.</p>
+        <span class="layer-status status-planned">Planned</span>
+      </div>
+      <div class="layer-card reveal">
+        <div class="layer-num">04</div>
+        <h3 class="layer-name">Quality of Life</h3>
+        <p class="layer-desc">The fixes EA never shipped. Better UI, smarter autonomy, fewer frustrations. Hundreds of tweaks that make the game feel polished.</p>
+        <span class="layer-status status-dev">In Development</span>
+      </div>
+      <div class="layer-card reveal">
+        <div class="layer-num">05</div>
+        <h3 class="layer-name">Drama</h3>
+        <p class="layer-desc">Emergent storylines. Betrayals, rivalries, unlikely alliances. A narrative engine that generates stories worth telling.</p>
+        <span class="layer-status status-planned">Planned</span>
+      </div>
+      <div class="layer-card reveal">
+        <div class="layer-num">06</div>
+        <h3 class="layer-name">Intelligence</h3>
+        <p class="layer-desc">Local LLM-powered Sim reasoning. Persistent memory. Contextual dialogue. Sims that actually think before they act.</p>
+        <span class="layer-status status-dev">In Development</span>
+      </div>
+    </div>
+  </section>
 
-      <div class="layer-grid">
-        <div class="layer-card reveal" data-layer="economy">
-          <div class="layer-icon-wrap"><span class="layer-icon">&#x1f4b0;</span></div>
-          <h3 class="layer-name">Economy</h3>
-          <p class="layer-desc">Dynamic property values, stock market, business P&L, investment portfolios, neighborhood economic health, and generational wealth.</p>
-          <span class="layer-status status-dev">In Development</span>
+  <!-- ROADMAP -->
+  <section class="section" id="roadmap">
+    <div class="section-header reveal">
+      <span class="section-tag">Roadmap</span>
+      <h2 class="section-title">What's next.</h2>
+    </div>
+    <div class="roadmap-timeline">
+      <div class="roadmap-item reveal">
+        <div class="roadmap-marker active"></div>
+        <div class="roadmap-content">
+          <span class="roadmap-phase">Phase 1 &mdash; Foundation</span>
+          <h3>Developer tooling and framework</h3>
+          <p>The core developer experience. A modern CLI, typed framework, and the scaffolding that makes everything else possible.</p>
+          <div class="roadmap-repos">
+            <span class="roadmap-repo">sims4-stark-devkit</span>
+            <span class="roadmap-repo">sims4-stark-framework</span>
+          </div>
         </div>
-
-        <div class="layer-card reveal" data-layer="politics">
-          <div class="layer-icon-wrap"><span class="layer-icon">&#x1f5f3;&#xfe0f;</span></div>
-          <h3 class="layer-name">Politics</h3>
-          <p class="layer-desc">Run for office. Campaign. Debate. Pass laws. Manage approval ratings. Build coalitions. Navigate scandals.</p>
-          <span class="layer-status status-research">Research</span>
+      </div>
+      <div class="roadmap-item reveal">
+        <div class="roadmap-marker active"></div>
+        <div class="roadmap-content">
+          <span class="roadmap-phase">Phase 2 &mdash; Platform</span>
+          <h3>Mod management and creation tools</h3>
+          <p>The user-facing layer. Install mods without headaches. Build mods without boilerplate. Revive mods the community lost.</p>
+          <div class="roadmap-repos">
+            <span class="roadmap-repo">sims4-mod-manager</span>
+            <span class="roadmap-repo">sims4-mod-builder</span>
+            <span class="roadmap-repo">sims4-mod-revival</span>
+          </div>
         </div>
-
-        <div class="layer-card reveal" data-layer="social">
-          <div class="layer-icon-wrap"><span class="layer-icon">&#x1f91d;</span></div>
-          <h3 class="layer-name">Social</h3>
-          <p class="layer-desc">Personality-driven relationships, social network effects, reputation systems, community dynamics, and family bonding.</p>
-          <span class="layer-status status-planned">Planned</span>
+      </div>
+      <div class="roadmap-item reveal">
+        <div class="roadmap-marker"></div>
+        <div class="roadmap-content">
+          <span class="roadmap-phase">Phase 3 &mdash; Intelligence</span>
+          <h3>Smart Sims and economic simulation</h3>
+          <p>The brains. Local LLM-powered reasoning, persistent Sim memory, and a living economy that responds to player actions.</p>
+          <div class="roadmap-repos">
+            <span class="roadmap-repo">sims4-smart-sims</span>
+            <span class="roadmap-repo">sims4-economy-sim</span>
+          </div>
         </div>
-
-        <div class="layer-card reveal" data-layer="qol">
-          <div class="layer-icon-wrap"><span class="layer-icon">&#x2728;</span></div>
-          <h3 class="layer-name">Quality of Life</h3>
-          <p class="layer-desc">Settings dashboard, conflict scanner, dependency resolver, update notifications, and one-click recovery.</p>
-          <span class="layer-status status-dev">In Development</span>
-        </div>
-
-        <div class="layer-card reveal" data-layer="drama">
-          <div class="layer-icon-wrap"><span class="layer-icon">&#x1f3ad;</span></div>
-          <h3 class="layer-name">Drama</h3>
-          <p class="layer-desc">Procedural narrative engine. Interconnected storylines, family drama arcs, neighborhood scandals, and mystery events.</p>
-          <span class="layer-status status-planned">Planned</span>
-        </div>
-
-        <div class="layer-card reveal" data-layer="intelligence">
-          <div class="layer-icon-wrap"><span class="layer-icon">&#x1f9e0;</span></div>
-          <h3 class="layer-name">Intelligence</h3>
-          <p class="layer-desc">Local AI-powered Sim reasoning. Persistent memory. Contextual dialogue. Adaptive behavior that learns from your playstyle.</p>
-          <span class="layer-status status-dev">In Development</span>
+      </div>
+      <div class="roadmap-item reveal">
+        <div class="roadmap-marker"></div>
+        <div class="roadmap-content">
+          <span class="roadmap-phase">Phase 4 &mdash; Stark Pack</span>
+          <h3>All six layers, unified</h3>
+          <p>The full vision. Economy, politics, social, QoL, drama, and intelligence — woven into a single cohesive gameplay overhaul.</p>
+          <span class="layer-status status-research">2026</span>
+          <div class="roadmap-repos">
+            <span class="roadmap-repo">sims4-stark-pack</span>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
   <!-- PATREON TIERS -->
-  <section class="section section-patreon" id="patreon">
-    <div class="container">
-      <div class="section-header reveal">
-        <span class="section-tag">Support Development</span>
-        <h2 class="section-title">Choose Your Plumbob.</h2>
-        <p class="section-sub">Every tier helps us build better tools faster. All code stays open source forever.</p>
+  <section class="section section-dark" id="support">
+    <div class="section-header reveal">
+      <span class="section-tag">Support</span>
+      <h2 class="section-title">Power the Plumbob.</h2>
+      <p class="section-sub">Every tier helps us build faster, hire better, and ship more. Pick your level and join the crew that's rewriting what The Sims can be.</p>
+    </div>
+    <div class="tier-grid">
+      <div class="tier-card reveal" data-tier="green">
+        <div class="plumbob plumbob-green"></div>
+        <h3 class="tier-name">Green</h3>
+        <div class="tier-price">$3 <span>/mo</span></div>
+        <p class="tier-desc">Early supporter badge. Name in credits. Our eternal gratitude.</p>
+        <a href="https://patreon.com/starkstudiolabs" class="btn btn-tier" target="_blank" rel="noopener">Join</a>
       </div>
-
-      <div class="tier-grid">
-        <div class="tier-card reveal" data-tier="green">
-          <div class="plumbob plumbob-green">
-            <svg viewBox="0 0 60 80" class="plumbob-svg"><polygon points="30,0 60,30 30,80 0,30"/></svg>
-          </div>
-          <h3 class="tier-name">Green</h3>
-          <div class="tier-price"><span class="tier-currency">$</span>0</div>
-          <p class="tier-desc">Community member. Access to all open-source repos and Discord.</p>
-          <a href="https://github.com/stark-studio-labs" class="btn btn-tier" target="_blank" rel="noopener">Join Free</a>
-        </div>
-
-        <div class="tier-card reveal" data-tier="blue">
-          <div class="plumbob plumbob-blue">
-            <svg viewBox="0 0 60 80" class="plumbob-svg"><polygon points="30,0 60,30 30,80 0,30"/></svg>
-          </div>
-          <h3 class="tier-name">Blue</h3>
-          <div class="tier-price"><span class="tier-currency">$</span>5<span class="tier-period">/mo</span></div>
-          <p class="tier-desc">Early access builds, dev blog posts, and Patron Discord role.</p>
-          <a href="https://patreon.com/starkstudiolabs" class="btn btn-tier" target="_blank" rel="noopener">Support</a>
-        </div>
-
-        <div class="tier-card reveal" data-tier="purple">
-          <div class="plumbob plumbob-purple">
-            <svg viewBox="0 0 60 80" class="plumbob-svg"><polygon points="30,0 60,30 30,80 0,30"/></svg>
-          </div>
-          <h3 class="tier-name">Purple</h3>
-          <div class="tier-price"><span class="tier-currency">$</span>10<span class="tier-period">/mo</span></div>
-          <p class="tier-desc">Beta access to Smart Sims, Economy Sim, and priority feature requests.</p>
-          <a href="https://patreon.com/starkstudiolabs" class="btn btn-tier" target="_blank" rel="noopener">Support</a>
-        </div>
-
-        <div class="tier-card tier-featured reveal" data-tier="gold">
-          <div class="plumbob plumbob-gold">
-            <svg viewBox="0 0 60 80" class="plumbob-svg"><polygon points="30,0 60,30 30,80 0,30"/></svg>
-          </div>
-          <h3 class="tier-name">Gold</h3>
-          <div class="tier-price"><span class="tier-currency">$</span>25<span class="tier-period">/mo</span></div>
-          <p class="tier-desc">All beta access, name in credits, vote on roadmap priorities, and private dev channel.</p>
-          <a href="https://patreon.com/starkstudiolabs" class="btn btn-tier btn-tier-featured" target="_blank" rel="noopener">Support</a>
-        </div>
-
-        <div class="tier-card reveal" data-tier="diamond">
-          <div class="plumbob plumbob-diamond">
-            <svg viewBox="0 0 60 80" class="plumbob-svg"><polygon points="30,0 60,30 30,80 0,30"/></svg>
-          </div>
-          <h3 class="tier-name">Diamond</h3>
-          <div class="tier-price"><span class="tier-currency">$</span>50<span class="tier-period">/mo</span></div>
-          <p class="tier-desc">Custom mod commissions, 1-on-1 modding mentorship, and all Gold perks.</p>
-          <a href="https://patreon.com/starkstudiolabs" class="btn btn-tier" target="_blank" rel="noopener">Support</a>
-        </div>
-
-        <div class="tier-card reveal" data-tier="crystal">
-          <div class="plumbob plumbob-crystal">
-            <svg viewBox="0 0 60 80" class="plumbob-svg"><polygon points="30,0 60,30 30,80 0,30"/></svg>
-          </div>
-          <h3 class="tier-name">Crystal</h3>
-          <div class="tier-price"><span class="tier-currency">$</span>100<span class="tier-period">/mo</span></div>
-          <p class="tier-desc">Founding supporter. Direct input on architecture decisions and permanent credits.</p>
-          <a href="https://patreon.com/starkstudiolabs" class="btn btn-tier" target="_blank" rel="noopener">Support</a>
-        </div>
+      <div class="tier-card reveal" data-tier="blue">
+        <div class="plumbob plumbob-blue"></div>
+        <h3 class="tier-name">Blue</h3>
+        <div class="tier-price">$5 <span>/mo</span></div>
+        <p class="tier-desc">Behind-the-scenes dev logs. Discord role. Vote on feature priorities.</p>
+        <a href="https://patreon.com/starkstudiolabs" class="btn btn-tier" target="_blank" rel="noopener">Join</a>
+      </div>
+      <div class="tier-card reveal" data-tier="purple">
+        <div class="plumbob plumbob-purple"></div>
+        <h3 class="tier-name">Purple</h3>
+        <div class="tier-price">$10 <span>/mo</span></div>
+        <p class="tier-desc">Beta access to every mod before public release. Private feedback channel.</p>
+        <a href="https://patreon.com/starkstudiolabs" class="btn btn-tier" target="_blank" rel="noopener">Join</a>
+      </div>
+      <div class="tier-card reveal" data-tier="gold">
+        <div class="plumbob plumbob-gold"></div>
+        <h3 class="tier-name">Gold</h3>
+        <div class="tier-price">$25 <span>/mo</span></div>
+        <p class="tier-desc">Founding member. Your Sim added to our test world. Monthly AMA access.</p>
+        <a href="https://patreon.com/starkstudiolabs" class="btn btn-tier" target="_blank" rel="noopener">Join</a>
+      </div>
+      <div class="tier-card reveal" data-tier="diamond">
+        <div class="plumbob plumbob-diamond"></div>
+        <h3 class="tier-name">Diamond</h3>
+        <div class="tier-price">$50 <span>/mo</span></div>
+        <p class="tier-desc">Studio patron. Direct feature requests. Name a gameplay system.</p>
+        <a href="https://patreon.com/starkstudiolabs" class="btn btn-tier" target="_blank" rel="noopener">Join</a>
+      </div>
+      <div class="tier-card reveal" data-tier="crystal">
+        <div class="plumbob plumbob-crystal"></div>
+        <h3 class="tier-name">Crystal</h3>
+        <div class="tier-price">$100 <span>/mo</span></div>
+        <p class="tier-desc">Inner circle. Co-design sessions. Custom mod consultation. The works.</p>
+        <a href="https://patreon.com/starkstudiolabs" class="btn btn-tier" target="_blank" rel="noopener">Join</a>
       </div>
     </div>
   </section>
 
   <!-- BLOG -->
   <section class="section" id="blog">
-    <div class="container">
-      <div class="section-header reveal">
-        <span class="section-tag">Blog</span>
-        <h2 class="section-title">From the Lab.</h2>
-      </div>
-
-      <div class="blog-grid">
-        <article class="blog-card reveal">
-          <div class="blog-img">
-            <span class="blog-soon">Coming Soon</span>
-          </div>
-          <div class="blog-body">
-            <span class="blog-date">April 2026</span>
-            <h3 class="blog-title">Why We Built a New Modding Framework</h3>
-            <p class="blog-excerpt">S4CL served the community well, but The Sims 4 modding deserves typed events, dependency injection, and modern tooling.</p>
-          </div>
-        </article>
-
-        <article class="blog-card reveal">
-          <div class="blog-img blog-img--alt">
-            <span class="blog-soon">Coming Soon</span>
-          </div>
-          <div class="blog-body">
-            <span class="blog-date">April 2026</span>
-            <h3 class="blog-title">Building a Dynamic Economy for The Sims 4</h3>
-            <p class="blog-excerpt">How we modeled real estate markets, business P&L, and inflation in a game that was never designed for it.</p>
-          </div>
-        </article>
-
-        <article class="blog-card reveal">
-          <div class="blog-img blog-img--dark">
-            <span class="blog-soon">Coming Soon</span>
-          </div>
-          <div class="blog-body">
-            <span class="blog-date">May 2026</span>
-            <h3 class="blog-title">Local AI Meets The Sims: Smart Sims Architecture</h3>
-            <p class="blog-excerpt">Running local language models to give Sims persistent memory, personality-driven decisions, and adaptive behavior.</p>
-          </div>
-        </article>
-      </div>
+    <div class="section-header reveal">
+      <span class="section-tag">From the Lab</span>
+      <h2 class="section-title">What we're thinking about.</h2>
+    </div>
+    <div class="blog-grid">
+      <article class="blog-card reveal">
+        <span class="blog-date">Coming Soon</span>
+        <h3 class="blog-title">Why We're Building a Mod Manager from Scratch</h3>
+        <p class="blog-excerpt">The current mod ecosystem is held together with duct tape and forum posts. We think modders deserve better than dragging .package files into a folder and praying nothing conflicts.</p>
+        <span class="blog-read">Read more &rarr;</span>
+      </article>
+      <article class="blog-card reveal">
+        <span class="blog-date">Coming Soon</span>
+        <h3 class="blog-title">Local LLMs Meet The Sims: How Smart Sims Works</h3>
+        <p class="blog-excerpt">What happens when you give every Sim a local language model? Persistent memories, contextual conversations, and decisions that actually make sense. No cloud. No subscription. Just smarter gameplay.</p>
+        <span class="blog-read">Read more &rarr;</span>
+      </article>
+      <article class="blog-card reveal">
+        <span class="blog-date">Coming Soon</span>
+        <h3 class="blog-title">The Stark Framework: Replacing S4CL</h3>
+        <p class="blog-excerpt">S4CL was a gift to the community, but it's showing its age. We're building a modern typed framework with decorators, dependency injection, and an event system that makes modding feel like 2026.</p>
+        <span class="blog-read">Read more &rarr;</span>
+      </article>
     </div>
   </section>
 
   <!-- COMMUNITY -->
   <section class="section section-dark" id="community">
-    <div class="container">
-      <div class="section-header reveal">
-        <span class="section-tag">Community</span>
-        <h2 class="section-title">Built Together.</h2>
-        <p class="section-sub">Open source means everyone owns this. Contribute code, report bugs, suggest features, or just star the repos.</p>
-      </div>
-
-      <div class="community-grid">
-        <a href="https://github.com/stark-studio-labs" class="community-card reveal" target="_blank" rel="noopener">
-          <div class="community-icon">
-            <svg width="40" height="40" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
-          </div>
-          <h3>GitHub</h3>
-          <p>12+ repos, all MIT licensed. Star, fork, contribute.</p>
-          <span class="community-action">Visit Organization <span class="arrow">&rarr;</span></span>
-        </a>
-
-        <div class="community-card reveal">
-          <div class="community-icon">
-            <svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.37a19.791 19.791 0 00-4.885-1.515.074.074 0 00-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 00-5.487 0 12.64 12.64 0 00-.617-1.25.077.077 0 00-.079-.037A19.736 19.736 0 003.677 4.37a.07.07 0 00-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 00.031.057 19.9 19.9 0 005.993 3.03.078.078 0 00.084-.028 14.09 14.09 0 001.226-1.994.076.076 0 00-.041-.106 13.107 13.107 0 01-1.872-.892.077.077 0 01-.008-.128 10.2 10.2 0 00.372-.292.074.074 0 01.077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 01.078.01c.12.098.246.198.373.292a.077.077 0 01-.006.127 12.299 12.299 0 01-1.873.892.077.077 0 00-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 00.084.028 19.839 19.839 0 006.002-3.03.077.077 0 00.032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 00-.031-.03z"/></svg>
-          </div>
-          <h3>Discord</h3>
-          <p>Community hub for modders, testers, and players. Coming soon.</p>
-          <span class="community-action community-action--soon">Coming Soon</span>
-        </div>
-
-        <a href="https://github.com/stark-studio-labs/sims4-stark-framework/blob/main/CONTRIBUTING.md" class="community-card reveal" target="_blank" rel="noopener">
-          <div class="community-icon">
-            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
-          </div>
-          <h3>Contributing</h3>
-          <p>Read the guide, pick an issue, submit a PR. All skill levels welcome.</p>
-          <span class="community-action">Read Guide <span class="arrow">&rarr;</span></span>
-        </a>
-      </div>
+    <div class="section-header reveal">
+      <h2 class="section-title">Join the community.</h2>
+      <p class="section-sub">We build in public. Every line of code, every design decision, every roadmap change. Come be part of it.</p>
+    </div>
+    <div class="community-grid">
+      <a href="https://github.com/stark-studio-labs" class="community-card" target="_blank" rel="noopener">
+        <svg width="32" height="32" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+        <span>GitHub</span>
+        <span class="community-sub">Star, fork, contribute</span>
+      </a>
+      <a href="https://discord.gg/starkstudiolabs" class="community-card" target="_blank" rel="noopener">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.37a19.791 19.791 0 00-4.885-1.515.074.074 0 00-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 00-5.487 0 12.64 12.64 0 00-.617-1.25.077.077 0 00-.079-.037A19.736 19.736 0 003.677 4.37a.07.07 0 00-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 00.031.057 19.9 19.9 0 005.993 3.03.078.078 0 00.084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 00-.041-.106 13.107 13.107 0 01-1.872-.892.077.077 0 01-.008-.128 10.2 10.2 0 00.372-.292.074.074 0 01.077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 01.078.01c.12.098.246.198.373.292a.077.077 0 01-.006.127 12.299 12.299 0 01-1.873.892.077.077 0 00-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 00.084.028 19.839 19.839 0 006.002-3.03.077.077 0 00.032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 00-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.947 2.418-2.157 2.418z"/></svg>
+        <span>Discord</span>
+        <span class="community-sub">Chat with modders</span>
+      </a>
+      <a href="https://x.com/starkstudiolabs" class="community-card" target="_blank" rel="noopener">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        <span>X / Twitter</span>
+        <span class="community-sub">Updates &amp; announcements</span>
+      </a>
+      <a href="https://patreon.com/starkstudiolabs" class="community-card" target="_blank" rel="noopener">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><path d="M14.82 2.41c3.96 0 7.18 3.24 7.18 7.21 0 3.96-3.22 7.18-7.18 7.18-3.97 0-7.21-3.22-7.21-7.18 0-3.97 3.24-7.21 7.21-7.21zM2 21.6h3.5V2.41H2V21.6z"/></svg>
+        <span>Patreon</span>
+        <span class="community-sub">Support the project</span>
+      </a>
     </div>
   </section>
 
   <!-- FOOTER -->
   <footer class="footer">
-    <div class="container">
-      <div class="footer-grid">
-        <div class="footer-brand">
-          <div class="footer-logo">
-            <span class="nav-icon">⚡</span>
-            <span class="nav-wordmark">Stark Studio Labs</span>
-          </div>
-          <p class="footer-tagline">Open-source modding tools for The Sims 4.</p>
-        </div>
-        <div class="footer-col">
-          <h4>Products</h4>
-          <a href="https://github.com/stark-studio-labs/sims4-stark-framework" target="_blank" rel="noopener">Stark Framework</a>
-          <a href="https://github.com/stark-studio-labs/sims4-stark-devkit" target="_blank" rel="noopener">Stark DevKit</a>
-          <a href="https://github.com/stark-studio-labs/sims4-mod-manager" target="_blank" rel="noopener">Mod Manager</a>
-          <a href="https://github.com/stark-studio-labs/sims4-smart-sims" target="_blank" rel="noopener">Smart Sims</a>
-          <a href="https://github.com/stark-studio-labs/sims4-economy-sim" target="_blank" rel="noopener">Economy Sim</a>
-        </div>
-        <div class="footer-col">
-          <h4>Community</h4>
-          <a href="https://github.com/stark-studio-labs" target="_blank" rel="noopener">GitHub</a>
-          <a href="https://patreon.com/starkstudiolabs" target="_blank" rel="noopener">Patreon</a>
-          <a href="mailto:studio@starklabs.dev">Contact</a>
-        </div>
+    <div class="footer-grid">
+      <div class="footer-col footer-brand">
+        <a href="#" class="footer-logo">
+          <span class="nav-icon">⚡</span>
+          <span>Stark Studio Labs</span>
+        </a>
+        <p class="footer-tagline">The Sims 4 deserves better tools. We're building them.</p>
       </div>
-      <div class="footer-bottom">
-        <p>&copy; 2026 Stark Studio Labs. All projects MIT licensed.</p>
-        <p class="footer-made">Made with ⚡ by Stark Studio Labs</p>
+      <div class="footer-col">
+        <h4>Products</h4>
+        <a href="https://github.com/stark-studio-labs/sims4-mod-manager" target="_blank" rel="noopener">Mod Manager</a>
+        <a href="https://github.com/stark-studio-labs/sims4-mod-builder" target="_blank" rel="noopener">Mod Builder</a>
+        <a href="https://github.com/stark-studio-labs/sims4-smart-sims" target="_blank" rel="noopener">Smart Sims</a>
+        <a href="https://github.com/stark-studio-labs/sims4-stark-devkit" target="_blank" rel="noopener">DevKit</a>
+        <a href="https://github.com/stark-studio-labs/sims4-stark-framework" target="_blank" rel="noopener">Framework</a>
       </div>
+      <div class="footer-col">
+        <h4>Community</h4>
+        <a href="https://github.com/stark-studio-labs" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://discord.gg/starkstudiolabs" target="_blank" rel="noopener">Discord</a>
+        <a href="https://x.com/starkstudiolabs" target="_blank" rel="noopener">X / Twitter</a>
+        <a href="https://patreon.com/starkstudiolabs" target="_blank" rel="noopener">Patreon</a>
+      </div>
+      <div class="footer-col">
+        <h4>Resources</h4>
+        <a href="#blog">Blog</a>
+        <a href="#roadmap">Roadmap</a>
+        <a href="mailto:studio@starklabs.dev">Contact</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Stark Studio Labs. All projects MIT licensed.</p>
     </div>
   </footer>
 
-  <script src="script.js"></script>
 </body>
 </html>

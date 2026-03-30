@@ -1,170 +1,337 @@
-/* ═══════════════════════════════════════════════════════════════
-   Stark Studio Labs — Interactions
-   Zero external dependencies
-   ═══════════════════════════════════════════════════════════════ */
+/* ═══════════════════════════════════════════════════════════════════
+   Stark Studio Labs — Interactions & Animations
+   Zero external dependencies. Apple-quality scroll animations.
+   ═══════════════════════════════════════════════════════════════════ */
 
-(function () {
+document.addEventListener('DOMContentLoaded', () => {
   'use strict';
 
-  // ── Nav: Glassmorphism on scroll + shrink ────────────────────
-  var nav = document.getElementById('nav');
-  var scrolled = false;
+  /* ── Utility: throttle via requestAnimationFrame ─────────────── */
+  const rafThrottle = (fn) => {
+    let ticking = false;
+    return (...args) => {
+      if (!ticking) {
+        ticking = true;
+        requestAnimationFrame(() => {
+          fn(...args);
+          ticking = false;
+        });
+      }
+    };
+  };
 
-  function onScroll() {
-    var y = window.scrollY;
-    var isScrolled = y > 40;
-    if (isScrolled !== scrolled) {
-      scrolled = isScrolled;
-      nav.classList.toggle('nav-scrolled', scrolled);
+  /* ── Easing: easeOutQuart ────────────────────────────────────── */
+  const easeOutQuart = (t) => 1 - Math.pow(1 - t, 4);
+
+
+  /* ═══════════════════════════════════════════════════════════════
+     1. NAV SCROLL EFFECT
+     Toggle .nav-scrolled on #nav when scrollY > 60
+     ═══════════════════════════════════════════════════════════════ */
+  const nav = document.getElementById('nav');
+  let navScrolled = false;
+
+  const updateNavScroll = () => {
+    const isScrolled = window.scrollY > 60;
+    if (isScrolled !== navScrolled) {
+      navScrolled = isScrolled;
+      if (nav) nav.classList.toggle('nav-scrolled', navScrolled);
     }
-  }
-  window.addEventListener('scroll', onScroll, { passive: true });
-  onScroll();
+  };
 
-  // ── Mobile nav toggle ────────────────────────────────────────
-  var mobileToggle = document.getElementById('mobileToggle');
-  var navLinks = document.getElementById('navLinks');
+  window.addEventListener('scroll', updateNavScroll, { passive: true });
+  updateNavScroll();
 
-  if (mobileToggle && navLinks) {
-    mobileToggle.addEventListener('click', function () {
-      navLinks.classList.toggle('nav-open');
+
+  /* ═══════════════════════════════════════════════════════════════
+     2. MOBILE NAV TOGGLE
+     #nav-toggle (or #mobileToggle) toggles .nav-open on #nav.
+     Clicking a .nav-links a also closes the menu.
+     ═══════════════════════════════════════════════════════════════ */
+  const navToggle = document.getElementById('nav-toggle') || document.getElementById('mobileToggle');
+  const navLinksContainer = document.querySelector('.nav-links');
+
+  if (navToggle && nav) {
+    navToggle.addEventListener('click', () => {
+      nav.classList.toggle('nav-open');
     });
-    // Close on link click
-    navLinks.querySelectorAll('a').forEach(function (a) {
-      a.addEventListener('click', function () {
-        navLinks.classList.remove('nav-open');
+  }
+
+  if (navLinksContainer) {
+    navLinksContainer.querySelectorAll('a').forEach((link) => {
+      link.addEventListener('click', () => {
+        if (nav) nav.classList.remove('nav-open');
       });
     });
   }
 
-  // ── Smooth scroll for anchor links ───────────────────────────
-  document.querySelectorAll('a[href^="#"]').forEach(function (a) {
-    a.addEventListener('click', function (e) {
-      var href = a.getAttribute('href');
+
+  /* ═══════════════════════════════════════════════════════════════
+     3. SMOOTH SCROLL
+     All a[href^="#"] scroll smoothly to their target.
+     ═══════════════════════════════════════════════════════════════ */
+  document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+    anchor.addEventListener('click', (e) => {
+      const href = anchor.getAttribute('href');
       if (href === '#') return;
-      var target = document.querySelector(href);
+
+      const target = document.querySelector(href);
       if (!target) return;
+
       e.preventDefault();
-      var navHeight = nav.offsetHeight;
-      var top = target.getBoundingClientRect().top + window.scrollY - navHeight - 16;
-      window.scrollTo({ top: top, behavior: 'smooth' });
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
   });
 
-  // ── Intersection Observer for reveal animations ──────────────
-  var reveals = document.querySelectorAll('.reveal');
 
-  var revealObserver = new IntersectionObserver(function (entries) {
-    entries.forEach(function (entry) {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('revealed');
-        revealObserver.unobserve(entry.target);
-      }
-    });
-  }, {
-    threshold: 0.08,
-    rootMargin: '0px 0px -60px 0px'
-  });
+  /* ═══════════════════════════════════════════════════════════════
+     4. REVEAL ON SCROLL
+     IntersectionObserver adds .revealed to .reveal elements.
+     ═══════════════════════════════════════════════════════════════ */
+  const revealElements = document.querySelectorAll('.reveal');
 
-  reveals.forEach(function (el) { revealObserver.observe(el); });
-
-  // ── Stagger delay for grid children ──────────────────────────
-  var grids = document.querySelectorAll(
-    '.layer-grid, .tier-grid, .blog-grid, .community-grid'
+  const revealObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('revealed');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    },
+    {
+      threshold: 0.1,
+      rootMargin: '0px 0px -60px 0px',
+    }
   );
-  grids.forEach(function (grid) {
-    Array.from(grid.children).forEach(function (child, i) {
-      child.style.transitionDelay = (i * 60) + 'ms';
+
+  revealElements.forEach((el) => revealObserver.observe(el));
+
+
+  /* ═══════════════════════════════════════════════════════════════
+     5. STAGGER DELAYS
+     Set incremental transitionDelay on grid children.
+     ═══════════════════════════════════════════════════════════════ */
+  const gridSelectors = [
+    '.product-grid',
+    '.layer-grid',
+    '.steps-grid',
+    '.blog-grid',
+    '.tier-grid',
+    '.community-grid',
+  ];
+
+  gridSelectors.forEach((selector) => {
+    const grid = document.querySelector(selector);
+    if (!grid) return;
+    Array.from(grid.children).forEach((child, i) => {
+      child.style.transitionDelay = `${i * 100}ms`;
     });
   });
 
-  // ── Terminal typing animation ────────────────────────────────
-  var terminal = document.getElementById('terminal');
-  var terminalAnimated = false;
+  // Roadmap timeline — stagger at 150ms per item
+  const roadmapTimeline = document.querySelector('.roadmap-timeline');
+  if (roadmapTimeline) {
+    roadmapTimeline.querySelectorAll('.roadmap-item').forEach((item, i) => {
+      item.style.transitionDelay = `${i * 150}ms`;
+    });
+  }
 
-  function typeText(element, text, speed, callback) {
-    var i = 0;
+
+  /* ═══════════════════════════════════════════════════════════════
+     6. TERMINAL TYPEWRITER
+     When #terminal-body enters viewport, sequentially reveal
+     .terminal-line children based on their data-delay attribute.
+     Also types out .terminal-text content character by character.
+     ═══════════════════════════════════════════════════════════════ */
+  const terminalBody = document.getElementById('terminal-body');
+  // Fallback: if no #terminal-body, look for .terminal-body inside #terminal
+  const terminalContainer = terminalBody || (document.getElementById('terminal')
+    ? document.getElementById('terminal').querySelector('.terminal-body')
+    : null);
+  let terminalAnimated = false;
+
+  const typeText = (element, text, speed) => {
+    let i = 0;
     element.textContent = '';
-    function tick() {
+    const tick = () => {
       if (i < text.length) {
         element.textContent += text.charAt(i);
         i++;
         setTimeout(tick, speed);
-      } else if (callback) {
-        callback();
       }
-    }
+    };
     tick();
-  }
+  };
 
-  function animateTerminal() {
-    if (terminalAnimated || !terminal) return;
+  const animateTerminal = () => {
+    if (terminalAnimated || !terminalContainer) return;
     terminalAnimated = true;
 
-    var lines = terminal.querySelectorAll('.terminal-line');
-    lines.forEach(function (line) {
-      var delay = parseInt(line.getAttribute('data-delay') || '0', 10);
-      setTimeout(function () {
+    const lines = terminalContainer.querySelectorAll('.terminal-line');
+    lines.forEach((line) => {
+      const delay = parseInt(line.getAttribute('data-delay') || '0', 10);
+      setTimeout(() => {
         line.classList.add('visible');
-        var textEl = line.querySelector('.terminal-text');
+        // Type out command text if present
+        const textEl = line.querySelector('.terminal-text');
         if (textEl) {
-          var text = textEl.getAttribute('data-text');
+          const text = textEl.getAttribute('data-text');
           if (text) {
-            typeText(textEl, text, 35);
+            typeText(textEl, text, 30);
           }
         }
       }, delay);
     });
-  }
+  };
 
-  if (terminal) {
-    var terminalObserver = new IntersectionObserver(function (entries) {
-      entries.forEach(function (entry) {
-        if (entry.isIntersecting) {
-          animateTerminal();
-          terminalObserver.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.3 });
-    terminalObserver.observe(terminal);
-  }
-
-  // ── Active nav link highlighting ─────────────────────────────
-  var sections = document.querySelectorAll('section[id]');
-  var navAnchors = document.querySelectorAll('.nav-links a[href^="#"]');
-
-  function updateActiveNav() {
-    var scrollY = window.scrollY;
-    var navHeight = nav.offsetHeight;
-
-    sections.forEach(function (section) {
-      var top = section.offsetTop - navHeight - 100;
-      var bottom = top + section.offsetHeight;
-      var id = section.getAttribute('id');
-
-      navAnchors.forEach(function (a) {
-        if (a.getAttribute('href') === '#' + id) {
-          if (scrollY >= top && scrollY < bottom) {
-            a.style.color = '#e6edf3';
-          } else {
-            a.style.color = '';
+  // Observe the terminal container for viewport entry
+  const terminalTarget = terminalContainer || document.getElementById('terminal');
+  if (terminalTarget) {
+    const terminalObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            animateTerminal();
+            terminalObserver.unobserve(entry.target);
           }
-        }
-      });
-    });
+        });
+      },
+      { threshold: 0.2 }
+    );
+    terminalObserver.observe(terminalTarget);
   }
 
-  window.addEventListener('scroll', updateActiveNav, { passive: true });
 
-  // ── Parallax effect on hero gradient ─────────────────────────
-  var heroGradient = document.querySelector('.hero-gradient');
-  if (heroGradient) {
-    window.addEventListener('scroll', function () {
-      var y = window.scrollY;
-      if (y < window.innerHeight) {
-        heroGradient.style.transform = 'translateY(' + (y * 0.3) + 'px)';
+  /* ═══════════════════════════════════════════════════════════════
+     7. HERO PARALLAX
+     Subtle parallax on .hero-bg (or .hero-gradient fallback).
+     Fades hero scroll indicator after scrollY > 200.
+     ═══════════════════════════════════════════════════════════════ */
+  const heroBg = document.querySelector('.hero-bg') || document.querySelector('.hero-gradient');
+  const heroScroll = document.querySelector('.hero-scroll') || document.querySelector('.hero-scroll-indicator');
+
+  const updateHeroParallax = () => {
+    const y = window.scrollY;
+
+    // Parallax: translate background at 0.3x scroll speed and fade
+    if (heroBg) {
+      const opacity = Math.max(0, 1 - y / 800);
+      heroBg.style.transform = `translateY(${y * 0.3}px)`;
+      heroBg.style.opacity = opacity;
+    }
+
+    // Fade out scroll indicator after 200px
+    if (heroScroll) {
+      if (y > 200) {
+        heroScroll.style.opacity = '0';
+        heroScroll.style.pointerEvents = 'none';
+      } else {
+        heroScroll.style.opacity = '1';
+        heroScroll.style.pointerEvents = '';
       }
-    }, { passive: true });
+    }
+  };
+
+  window.addEventListener('scroll', rafThrottle(updateHeroParallax), { passive: true });
+  updateHeroParallax();
+
+
+  /* ═══════════════════════════════════════════════════════════════
+     8. STAT COUNTER
+     When .hero-stats enters viewport, animate each .stat-value
+     from 0 to its target number over 1.5s with easeOutQuart.
+     Handles integers ("13", "6") and percentage ("100%").
+     Only runs once.
+     ═══════════════════════════════════════════════════════════════ */
+  const heroStats = document.querySelector('.hero-stats');
+  let statsAnimated = false;
+
+  const animateCounter = (element, target, suffix, duration) => {
+    const startTime = performance.now();
+
+    const update = (now) => {
+      const elapsed = now - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      const eased = easeOutQuart(progress);
+      const current = Math.round(eased * target);
+
+      element.textContent = current + suffix;
+
+      if (progress < 1) {
+        requestAnimationFrame(update);
+      }
+    };
+
+    requestAnimationFrame(update);
+  };
+
+  if (heroStats) {
+    const statsObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && !statsAnimated) {
+            statsAnimated = true;
+
+            heroStats.querySelectorAll('.stat-value').forEach((el) => {
+              const raw = el.textContent.trim();
+              let target;
+              let suffix = '';
+
+              if (raw.endsWith('%')) {
+                target = parseInt(raw.replace('%', ''), 10);
+                suffix = '%';
+              } else {
+                target = parseInt(raw, 10);
+              }
+
+              if (!isNaN(target)) {
+                el.textContent = '0' + suffix;
+                animateCounter(el, target, suffix, 1500);
+              }
+            });
+
+            statsObserver.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.3 }
+    );
+    statsObserver.observe(heroStats);
   }
 
-})();
+
+  /* ═══════════════════════════════════════════════════════════════
+     9. ACTIVE NAV HIGHLIGHTING
+     On scroll, determine which section is in view and add
+     .active to the corresponding .nav-links a.
+     ═══════════════════════════════════════════════════════════════ */
+  const sections = document.querySelectorAll('section[id]');
+  const navAnchors = document.querySelectorAll('.nav-links a[href^="#"]');
+
+  const updateActiveNav = () => {
+    const scrollY = window.scrollY;
+    const navHeight = nav ? nav.offsetHeight : 0;
+    let currentId = '';
+
+    sections.forEach((section) => {
+      const top = section.offsetTop - navHeight - 120;
+      const bottom = top + section.offsetHeight;
+      if (scrollY >= top && scrollY < bottom) {
+        currentId = section.getAttribute('id');
+      }
+    });
+
+    navAnchors.forEach((anchor) => {
+      const href = anchor.getAttribute('href');
+      if (href === '#' + currentId) {
+        anchor.classList.add('active');
+      } else {
+        anchor.classList.remove('active');
+      }
+    });
+  };
+
+  window.addEventListener('scroll', rafThrottle(updateActiveNav), { passive: true });
+  updateActiveNav();
+});
