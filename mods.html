@@ -4,14 +4,57 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mods — Stark Studio Labs</title>
-  <meta name="description" content="Browse the Stark mod catalog for The Sims 4. Economy, politics, social systems, quality of life, drama, and AI-powered gameplay — all open source.">
+  <meta name="description" content="Six modular gameplay layers for The Sims 4. Economy, politics, social dynamics, quality of life, drama, and AI-powered intelligence. All free, all open source.">
   <meta name="theme-color" content="#0d1117">
-  <meta property="og:title" content="Stark Mods — The Sims 4 Gameplay Overhaul">
-  <meta property="og:description" content="Six gameplay layers that transform The Sims 4. Free, open source, and built to work together.">
+  <meta property="og:title" content="Mods — Stark Studio Labs">
+  <meta property="og:description" content="Six modular gameplay layers for The Sims 4. Install what you want, skip what you don't.">
   <meta property="og:type" content="website">
   <link rel="stylesheet" href="styles.css">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
   <script src="script.js" defer></script>
+  <style>
+    /* Page hero (shorter than index hero) */
+    .page-hero { padding: 160px 24px 80px; text-align: center; position: relative; }
+    .page-hero .hero-content { max-width: 780px; margin: 0 auto; }
+    .page-hero .hero-stats { justify-content: center; margin-top: 48px; padding-top: 32px; border-top: 1px solid rgba(255,255,255,0.08); display: flex; align-items: center; gap: 40px; }
+
+    /* Mod cards */
+    .mods-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; max-width: 1120px; margin: 0 auto; }
+    .mod-card { background: #111111; border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; padding: 40px 36px; transition: all 0.4s cubic-bezier(0.25,0.1,0.25,1); }
+    .mod-card:hover { border-color: rgba(255,255,255,0.16); transform: translateY(-4px); box-shadow: 0 20px 60px rgba(0,0,0,0.5); }
+    .mod-card-header { display: flex; align-items: flex-start; gap: 16px; margin-bottom: 20px; }
+    .mod-icon { font-size: 3rem; line-height: 1; flex-shrink: 0; }
+    .mod-meta { flex: 1; }
+    .mod-name { font-size: 1.5rem; font-weight: 700; margin-bottom: 4px; }
+    .mod-tagline { font-size: 1.15rem; font-weight: 600; color: #f5f5f7; margin-bottom: 16px; }
+    .mod-description { font-size: 0.95rem; color: #a1a1a6; line-height: 1.7; margin-bottom: 24px; }
+    .mod-features h4 { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: #6e6e73; margin-bottom: 12px; font-weight: 700; }
+    .feature-list { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+    .feature-list li { font-size: 0.88rem; color: #a1a1a6; padding-left: 24px; position: relative; }
+    .feature-list li::before { content: "\2713"; position: absolute; left: 0; color: #30d158; font-weight: 700; }
+    .mod-footer { display: flex; align-items: center; justify-content: space-between; margin-top: 28px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.08); }
+
+    /* Compatibility cards */
+    .compat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; max-width: 1120px; margin: 0 auto; }
+    .compat-card { background: #111111; border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; padding: 36px 28px; text-align: center; transition: all 0.4s cubic-bezier(0.25,0.1,0.25,1); }
+    .compat-card:hover { border-color: rgba(255,255,255,0.16); transform: translateY(-4px); }
+    .compat-card h3 { font-size: 1.2rem; font-weight: 700; margin-bottom: 10px; }
+    .compat-card p { font-size: 0.9rem; color: #a1a1a6; line-height: 1.6; }
+
+    /* CTA section */
+    .cta-content { text-align: center; max-width: 600px; margin: 0 auto; }
+    .cta-content h2 { font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 700; margin-bottom: 16px; letter-spacing: -0.02em; }
+    .cta-content p { color: #a1a1a6; margin-bottom: 36px; }
+    .cta-actions { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .mods-grid { grid-template-columns: 1fr; }
+      .compat-grid { grid-template-columns: 1fr; }
+      .page-hero { padding: 120px 24px 60px; }
+      .page-hero .hero-stats { flex-direction: column; gap: 16px; }
+    }
+  </style>
 </head>
 <body>
 
@@ -23,11 +66,9 @@
         <span class="nav-wordmark">Stark Studio Labs</span>
       </a>
       <div class="nav-links" id="navLinks">
-        <a href="mods.html" class="nav-active">Mods</a>
-        
-        <a href="index.html#roadmap">Roadmap</a>
-        <a href="index.html#blog">Blog</a>
-        <a href="index.html#support">Support</a>
+        <a href="index.html">Home</a>
+        <a href="mods.html" class="active">Mods</a>
+        <a href="compare.html">Compare</a>
         <a href="https://github.com/stark-studio-labs" class="nav-gh" target="_blank" rel="noopener">
           <svg width="20" height="20" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
         </a>
@@ -40,184 +81,232 @@
 
   <!-- PAGE HERO -->
   <section class="page-hero">
-    <div class="page-hero-bg"></div>
-    <div class="page-hero-content">
-      <span class="section-tag">Mod Catalog</span>
-      <h1 class="page-hero-title">Six layers.<br>One living world.</h1>
-      <p class="page-hero-sub">Each mod adds a new dimension to your game. They work great alone, and even better together. All free, all open source.</p>
+    <div class="hero-content">
+      <div class="hero-badge">The Stark Pack</div>
+      <h1 class="hero-title">
+        <span class="hero-line-muted">Choose Your</span>
+        <span class="hero-line-accent">Gameplay Layers.</span>
+      </h1>
+      <p class="hero-sub">Each mod runs independently or combines with others. Install what you want, skip what you don't. All free, all open source.</p>
+      <div class="hero-stats">
+        <div class="stat">
+          <span class="stat-value">6</span>
+          <span class="stat-label">Layers</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat">
+          <span class="stat-value">100%</span>
+          <span class="stat-label">Free</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat">
+          <span class="stat-value">Modular</span>
+          <span class="stat-label">Install</span>
+        </div>
+      </div>
     </div>
   </section>
 
-  <!-- MOD CATALOG -->
-  <section class="section">
-    <div class="mod-grid">
+  <!-- MOD CARDS -->
+  <section class="section" id="mods-grid">
+    <div class="mods-grid">
 
-      <!-- Economy Sim -->
-      <div class="mod-card reveal" data-accent="orange">
-        <div class="mod-header">
-          <span class="mod-emoji">&#x1F4B0;</span>
-          <div>
-            <h2 class="mod-name">Economy Sim</h2>
+      <!-- Economy Layer -->
+      <div class="mod-card reveal">
+        <div class="mod-card-header">
+          <div class="mod-icon">&#x1F4B0;</div>
+          <div class="mod-meta">
+            <h2 class="mod-name">Economy Layer</h2>
             <span class="layer-status status-dev">In Development</span>
           </div>
         </div>
-        <p class="mod-desc">A real economy for your Sims world. Prices change based on supply and demand. Businesses compete. Neighborhoods get richer or poorer depending on what happens in them.</p>
-        <h3 class="mod-features-title">What it adds</h3>
-        <ul class="mod-features">
-          <li>Dynamic pricing that responds to how Sims spend money</li>
-          <li>Businesses that compete, expand, and sometimes fail</li>
-          <li>Real estate values that shift based on neighborhood activity</li>
-          <li>Job market with salaries tied to the local economy</li>
-          <li>Stock market where your Sims can invest (and lose) Simoleons</li>
-        </ul>
+        <p class="mod-tagline">Your Sims' financial decisions finally matter.</p>
+        <p class="mod-description">A living economic simulation layered into The Sims 4. Property values fluctuate based on neighborhood quality. Businesses generate real profit and loss. Sims build investment portfolios, take out mortgages, and experience the consequences of their financial choices.</p>
+        <div class="mod-features">
+          <h4>Key Features</h4>
+          <ul class="feature-list">
+            <li>Dynamic property values tied to neighborhood events</li>
+            <li>Business ownership with P&amp;L tracking</li>
+            <li>Stock market with sector rotation</li>
+            <li>Mortgage and loan systems</li>
+            <li>Generational wealth and inheritance</li>
+          </ul>
+        </div>
         <div class="mod-footer">
-          <a href="https://github.com/stark-studio-labs/sims4-economy-sim" class="btn btn-ghost btn-sm" target="_blank" rel="noopener">
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
-            View on GitHub
-          </a>
+          <span class="layer-status status-dev">In Development</span>
+          <a href="https://github.com/stark-studio-labs/sims4-economy-sim" class="btn btn-ghost" target="_blank" rel="noopener">View on GitHub &rarr;</a>
         </div>
       </div>
 
-      <!-- Political Sim -->
-      <div class="mod-card reveal" data-accent="purple">
-        <div class="mod-header">
-          <span class="mod-emoji">&#x1F3DB;&#xFE0F;</span>
-          <div>
-            <h2 class="mod-name">Political Sim</h2>
-            <span class="layer-status status-research">Coming Soon</span>
+      <!-- Politics Layer -->
+      <div class="mod-card reveal">
+        <div class="mod-card-header">
+          <div class="mod-icon">&#x1F5F3;&#xFE0F;</div>
+          <div class="mod-meta">
+            <h2 class="mod-name">Politics Layer</h2>
+            <span class="layer-status status-research">Research</span>
           </div>
         </div>
-        <p class="mod-desc">Your Sims form opinions, pick sides, and vote. Run for office, pass laws that change gameplay rules, and deal with the consequences of bad policy.</p>
-        <h3 class="mod-features-title">What it adds</h3>
-        <ul class="mod-features">
-          <li>Elections with campaigns, debates, and real voter behavior</li>
-          <li>Factions and political parties Sims join based on personality</li>
-          <li>Laws that actually change game rules (curfews, taxes, zoning)</li>
-          <li>Approval ratings that rise and fall with decisions</li>
-          <li>Political scandals and backroom deals</li>
-        </ul>
+        <p class="mod-tagline">Run for office. Pass laws. Change the world.</p>
+        <p class="mod-description">A full political career simulation for The Sims 4. Your Sims form opinions based on their traits, campaign for local office, debate rivals, build coalitions, and pass laws that actually change gameplay mechanics for the entire neighborhood.</p>
+        <div class="mod-features">
+          <h4>Key Features</h4>
+          <ul class="feature-list">
+            <li>Full election cycle with campaigning and debates</li>
+            <li>Policy system that modifies gameplay rules</li>
+            <li>Approval ratings influenced by Sim actions</li>
+            <li>Political factions and coalition building</li>
+            <li>Scandal and crisis management events</li>
+          </ul>
+        </div>
         <div class="mod-footer">
-          <a href="https://github.com/stark-studio-labs/sims4-political-sim" class="btn btn-ghost btn-sm" target="_blank" rel="noopener">
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
-            View on GitHub
-          </a>
+          <span class="layer-status status-research">Research</span>
+          <a href="https://github.com/stark-studio-labs/sims4-stark-pack" class="btn btn-ghost" target="_blank" rel="noopener">View on GitHub &rarr;</a>
         </div>
       </div>
 
-      <!-- Social Sim -->
-      <div class="mod-card reveal" data-accent="blue">
-        <div class="mod-header">
-          <span class="mod-emoji">&#x1F4AC;</span>
-          <div>
-            <h2 class="mod-name">Social Sim</h2>
+      <!-- Social Layer -->
+      <div class="mod-card reveal">
+        <div class="mod-card-header">
+          <div class="mod-icon">&#x1F91D;</div>
+          <div class="mod-meta">
+            <h2 class="mod-name">Social Layer</h2>
             <span class="layer-status status-planned">Planned</span>
           </div>
         </div>
-        <p class="mod-desc">Relationships that actually feel real. Sims remember what you did, hold grudges, form friend groups, and spread rumors. Social dynamics with real consequences.</p>
-        <h3 class="mod-features-title">What it adds</h3>
-        <ul class="mod-features">
-          <li>Reputation system based on actions, not just relationship bars</li>
-          <li>Social groups and cliques that form naturally</li>
-          <li>Gossip that spreads between Sims and changes opinions</li>
-          <li>Long-term grudges and loyalty that persist across saves</li>
-          <li>Social media feed where Sims post, react, and get into drama</li>
-        </ul>
+        <p class="mod-tagline">Relationships that actually mean something.</p>
+        <p class="mod-description">Replaces The Sims 4's shallow relationship system with personality-driven dynamics. Sims form genuine bonds based on shared experiences, remember slights and kindnesses, build reputations in their community, and create social networks that influence opportunities.</p>
+        <div class="mod-features">
+          <h4>Key Features</h4>
+          <ul class="feature-list">
+            <li>Personality-driven relationship chemistry</li>
+            <li>Long-term memory of shared experiences</li>
+            <li>Community reputation system</li>
+            <li>Social media simulation with followers and influence</li>
+            <li>Family bonding mechanics beyond simple interactions</li>
+          </ul>
+        </div>
         <div class="mod-footer">
-          <a href="https://github.com/stark-studio-labs/sims4-social-sim" class="btn btn-ghost btn-sm" target="_blank" rel="noopener">
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
-            View on GitHub
-          </a>
+          <span class="layer-status status-planned">Planned</span>
+          <a href="https://github.com/stark-studio-labs/sims4-stark-pack" class="btn btn-ghost" target="_blank" rel="noopener">View on GitHub &rarr;</a>
         </div>
       </div>
 
-      <!-- QoL Pack -->
-      <div class="mod-card reveal" data-accent="green">
-        <div class="mod-header">
-          <span class="mod-emoji">&#x2728;</span>
-          <div>
-            <h2 class="mod-name">QoL Pack</h2>
+      <!-- Quality of Life -->
+      <div class="mod-card reveal">
+        <div class="mod-card-header">
+          <div class="mod-icon">&#x2728;</div>
+          <div class="mod-meta">
+            <h2 class="mod-name">Quality of Life</h2>
             <span class="layer-status status-dev">In Development</span>
           </div>
         </div>
-        <p class="mod-desc">The fixes EA never shipped. Better menus, smarter Sim behavior, fewer annoying moments. Hundreds of small improvements that make the game feel like it should have from day one.</p>
-        <h3 class="mod-features-title">What it adds</h3>
-        <ul class="mod-features">
-          <li>Smarter autonomy so Sims stop doing dumb things</li>
-          <li>Faster menus and better UI for common actions</li>
-          <li>Performance improvements to reduce lag in large households</li>
-          <li>Build mode shortcuts and quality-of-life tweaks</li>
-          <li>One install, one update — replaces a dozen separate fix mods</li>
-        </ul>
+        <p class="mod-tagline">The fixes EA never shipped.</p>
+        <p class="mod-description">Hundreds of quality-of-life improvements packaged into one configurable mod. Better UI defaults, smarter Sim autonomy, fewer frustrating behaviors, and a settings dashboard that lets you tune everything without editing XML files.</p>
+        <div class="mod-features">
+          <h4>Key Features</h4>
+          <ul class="feature-list">
+            <li>Centralized settings dashboard with presets</li>
+            <li>Smarter autonomous behavior priorities</li>
+            <li>Reduced annoying idle animations</li>
+            <li>Improved build/buy catalog organization</li>
+            <li>One-click conflict scanner and recovery</li>
+          </ul>
+        </div>
         <div class="mod-footer">
-          <a href="https://github.com/stark-studio-labs/sims4-qol-pack" class="btn btn-ghost btn-sm" target="_blank" rel="noopener">
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
-            View on GitHub
-          </a>
+          <span class="layer-status status-dev">In Development</span>
+          <a href="https://github.com/stark-studio-labs/sims4-stark-pack" class="btn btn-ghost" target="_blank" rel="noopener">View on GitHub &rarr;</a>
         </div>
       </div>
 
-      <!-- Drama Engine -->
-      <div class="mod-card reveal" data-accent="red">
-        <div class="mod-header">
-          <span class="mod-emoji">&#x1F3AD;</span>
-          <div>
-            <h2 class="mod-name">Drama Engine</h2>
+      <!-- Drama Layer -->
+      <div class="mod-card reveal">
+        <div class="mod-card-header">
+          <div class="mod-icon">&#x1F3AD;</div>
+          <div class="mod-meta">
+            <h2 class="mod-name">Drama Layer</h2>
             <span class="layer-status status-planned">Planned</span>
           </div>
         </div>
-        <p class="mod-desc">A story engine that generates drama worth screenshotting. Betrayals, secret affairs, unlikely alliances, neighborhood feuds — emergent narratives that surprise even you.</p>
-        <h3 class="mod-features-title">What it adds</h3>
-        <ul class="mod-features">
-          <li>Emergent storylines that develop based on Sim relationships</li>
-          <li>Secret affairs, betrayals, and revenge arcs</li>
-          <li>Neighborhood-wide drama that pulls in multiple households</li>
-          <li>Narrative events with real consequences for gameplay</li>
-          <li>Story journal that tracks major plot points in your save</li>
-        </ul>
+        <p class="mod-tagline">Stories that write themselves.</p>
+        <p class="mod-description">A procedural narrative engine that generates interconnected storylines across your neighborhood. Family feuds, workplace rivalries, neighborhood scandals, and unlikely alliances &mdash; all driven by Sim personalities and past events, not random dice rolls.</p>
+        <div class="mod-features">
+          <h4>Key Features</h4>
+          <ul class="feature-list">
+            <li>Procedural story arcs that span multiple Sim days</li>
+            <li>Interconnected drama across households</li>
+            <li>Rivalry and alliance systems</li>
+            <li>Mystery and scandal event chains</li>
+            <li>Story journal that tracks ongoing narratives</li>
+          </ul>
+        </div>
         <div class="mod-footer">
-          <a href="https://github.com/stark-studio-labs/sims4-drama-engine" class="btn btn-ghost btn-sm" target="_blank" rel="noopener">
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
-            View on GitHub
-          </a>
+          <span class="layer-status status-planned">Planned</span>
+          <a href="https://github.com/stark-studio-labs/sims4-stark-pack" class="btn btn-ghost" target="_blank" rel="noopener">View on GitHub &rarr;</a>
         </div>
       </div>
 
-      <!-- Smart Sims -->
-      <div class="mod-card reveal" data-accent="purple">
-        <div class="mod-header">
-          <span class="mod-emoji">&#x1F9E0;</span>
-          <div>
-            <h2 class="mod-name">Smart Sims</h2>
+      <!-- Smart Sims / Intelligence -->
+      <div class="mod-card reveal">
+        <div class="mod-card-header">
+          <div class="mod-icon">&#x1F9E0;</div>
+          <div class="mod-meta">
+            <h2 class="mod-name">Smart Sims / Intelligence</h2>
             <span class="layer-status status-dev">In Development</span>
           </div>
         </div>
-        <p class="mod-desc">Sims that actually think. Local AI gives every Sim persistent memory, contextual conversations, and real decision-making. No cloud, no subscription — it runs on your machine.</p>
-        <h3 class="mod-features-title">What it adds</h3>
-        <ul class="mod-features">
-          <li>Sims remember past conversations and events</li>
-          <li>Contextual dialogue that reflects personality and history</li>
-          <li>Decisions based on reasoning, not random dice rolls</li>
-          <li>Runs locally using a small AI model — no internet needed</li>
-          <li>Works with all other Stark mods for richer interactions</li>
-        </ul>
+        <p class="mod-tagline">Sims that actually think before they act.</p>
+        <p class="mod-description">Powered by local language models running entirely on your machine. Smart Sims gives every Sim persistent memory, contextual reasoning, and adaptive behavior. They remember conversations, learn from experiences, and make decisions that reflect their personality &mdash; not a random number generator.</p>
+        <div class="mod-features">
+          <h4>Key Features</h4>
+          <ul class="feature-list">
+            <li>Local LLM-powered decision making (no cloud, no subscription)</li>
+            <li>Persistent memory across game sessions</li>
+            <li>Contextual dialogue that references past events</li>
+            <li>Adaptive behavior that learns from your playstyle</li>
+            <li>Personality-driven goal setting and life planning</li>
+          </ul>
+        </div>
         <div class="mod-footer">
-          <a href="https://github.com/stark-studio-labs/sims4-smart-sims" class="btn btn-ghost btn-sm" target="_blank" rel="noopener">
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
-            View on GitHub
-          </a>
+          <span class="layer-status status-dev">In Development</span>
+          <a href="https://github.com/stark-studio-labs/sims4-smart-sims" class="btn btn-ghost" target="_blank" rel="noopener">View on GitHub &rarr;</a>
         </div>
       </div>
 
+    </div>
+  </section>
+
+  <!-- COMPATIBILITY -->
+  <section class="section section-dark" id="compatibility">
+    <div class="section-header reveal">
+      <span class="section-tag">Compatibility</span>
+      <h2 class="section-title">Works with your existing mods.</h2>
+      <p class="section-sub">Stark mods are designed to coexist with the mods you already use. No conflicts, no overwrites. Each layer is an independent .ts4script package.</p>
+    </div>
+    <div class="compat-grid">
+      <div class="compat-card reveal">
+        <h3>Modular</h3>
+        <p>Install any layer independently. No dependencies between gameplay mods.</p>
+      </div>
+      <div class="compat-card reveal">
+        <h3>Non-destructive</h3>
+        <p>Doesn't modify base game files. Clean uninstall, always.</p>
+      </div>
+      <div class="compat-card reveal">
+        <h3>Tested</h3>
+        <p>Automated compatibility testing against top 50 community mods.</p>
+      </div>
     </div>
   </section>
 
   <!-- CTA -->
-  <section class="section section-dark">
-    <div class="section-header reveal">
-      <h2 class="section-title">Want the full picture?</h2>
-      <p class="section-sub">See how Stark mods compare to the popular alternatives you might already know.</p>
-      <div style="margin-top: 32px;">
-        <a href="compare.html" class="btn btn-primary">Compare Stark vs. Popular Mods</a>
+  <section class="section" id="cta">
+    <div class="cta-content">
+      <h2>Ready to transform your game?</h2>
+      <p>All mods are free, open source, and built by the community.</p>
+      <div class="cta-actions">
+        <a href="https://github.com/stark-studio-labs" class="btn btn-primary" target="_blank" rel="noopener">Browse on GitHub</a>
+        <a href="compare.html" class="btn btn-ghost">Compare with existing mods &rarr;</a>
       </div>
     </div>
   </section>
@@ -249,9 +338,9 @@
       </div>
       <div class="footer-col">
         <h4>Resources</h4>
-        <a href="mods.html">Mod Catalog</a>
-        
-        <a href="index.html#roadmap">Roadmap</a>
+        <a href="index.html">Home</a>
+        <a href="mods.html">Mods</a>
+        <a href="compare.html">Compare</a>
         <a href="mailto:studio@starklabs.dev">Contact</a>
       </div>
     </div>

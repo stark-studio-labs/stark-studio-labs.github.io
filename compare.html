@@ -2,17 +2,67 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="robots" content="noindex, nofollow">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Why Stark? — Stark Studio Labs</title>
-  <meta name="description" content="See how Stark mods compare to popular Sims 4 alternatives. Honest feature comparisons for Economy, Social, and Quality of Life mods.">
+  <title>Compare — Stark Studio Labs</title>
+  <meta name="description" content="Honest comparisons: how Stark Studio Labs mods stack up against MCCC, Slice of Life, WickedWhims, Basemental, and other popular Sims 4 mods.">
   <meta name="theme-color" content="#0d1117">
-  <meta property="og:title" content="Why Stark? — Honest Mod Comparisons">
-  <meta property="og:description" content="Stark vs. SNB, WickedWhims, Slice of Life, UI Cheats, TOOL, and more. What we do differently and what's still coming.">
+  <meta property="og:title" content="Compare — Stark Studio Labs">
+  <meta property="og:description" content="We respect the modders who came before us. Here's an honest look at what exists, what we're building, and where we think we can do better.">
   <meta property="og:type" content="website">
   <link rel="stylesheet" href="styles.css">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
   <script src="script.js" defer></script>
+  <style>
+    /* ── Page Hero (compact) ────────────────────────────────────────────── */
+    .page-hero { padding: 160px 24px 80px; text-align: center; position: relative; }
+    .page-hero .hero-content { max-width: 780px; margin: 0 auto; }
+
+    /* ── Callout card ───────────────────────────────────────────────────── */
+    .callout-card { max-width: 800px; margin: 0 auto; background: #111111; border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; padding: 40px 44px; }
+    .callout-card p { font-size: 1.05rem; color: #a1a1a6; line-height: 1.8; }
+
+    /* ── Comparison tables ──────────────────────────────────────────────── */
+    .compare-table-wrapper { max-width: 1120px; margin: 0 auto; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    .compare-table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+    .compare-table thead { position: sticky; top: 0; }
+    .compare-table th { background: #0a0a0a; padding: 16px 20px; text-align: left; font-weight: 700; font-size: 0.85rem; border-bottom: 2px solid rgba(255,255,255,0.12); color: #f5f5f7; white-space: nowrap; }
+    .compare-table th:first-child { border-radius: 10px 0 0 0; }
+    .compare-table th:last-child { border-radius: 0 10px 0 0; color: #2997ff; }
+    .compare-table td { padding: 14px 20px; border-bottom: 1px solid rgba(255,255,255,0.06); color: #a1a1a6; vertical-align: top; }
+    .compare-table tr:last-child td { border-bottom: none; }
+    .compare-table td:first-child { font-weight: 600; color: #f5f5f7; white-space: nowrap; }
+    .compare-table td:last-child { color: #f5f5f7; }
+    .compare-table tbody tr { transition: background 0.2s; }
+    .compare-table tbody tr:hover { background: rgba(255,255,255,0.02); }
+    .check { color: #30d158; font-weight: 700; }
+    .dash { color: #6e6e73; }
+    .status-cell { display: inline-block; padding: 3px 10px; border-radius: 99px; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; }
+    .status-cell.mature { color: #30d158; background: rgba(48,209,88,0.12); border: 1px solid rgba(48,209,88,0.25); }
+    .status-cell.active { color: #ffd60a; background: rgba(255,214,10,0.12); border: 1px solid rgba(255,214,10,0.25); }
+    .status-cell.dev { color: #2997ff; background: rgba(41,151,255,0.12); border: 1px solid rgba(41,151,255,0.25); }
+
+    /* ── Honest section ─────────────────────────────────────────────────── */
+    .honest-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; max-width: 1120px; margin: 0 auto; }
+    .honest-card { background: #111111; border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; padding: 32px 28px; transition: all 0.4s cubic-bezier(0.25,0.1,0.25,1); }
+    .honest-card:hover { border-color: rgba(255,255,255,0.16); }
+    .honest-card h3 { font-size: 1.15rem; font-weight: 700; margin-bottom: 10px; }
+    .honest-card p { font-size: 0.9rem; color: #a1a1a6; line-height: 1.7; }
+
+    /* ── CTA ─────────────────────────────────────────────────────────────── */
+    .cta-content { text-align: center; max-width: 600px; margin: 0 auto; }
+    .cta-content h2 { font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 700; margin-bottom: 16px; letter-spacing: -0.02em; }
+    .cta-content p { color: #a1a1a6; margin-bottom: 36px; }
+    .cta-actions { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+
+    /* ── Responsive ──────────────────────────────────────────────────────── */
+    @media (max-width: 768px) {
+      .honest-grid { grid-template-columns: 1fr; }
+      .page-hero { padding: 120px 24px 60px; }
+      .compare-table { font-size: 0.8rem; }
+      .compare-table th, .compare-table td { padding: 10px 12px; }
+      .callout-card { padding: 28px 20px; }
+    }
+  </style>
 </head>
 <body>
 
@@ -20,15 +70,13 @@
   <nav class="nav" id="nav">
     <div class="nav-inner">
       <a href="index.html" class="nav-logo">
-        <span class="nav-icon">⚡</span>
+        <span class="nav-icon">&#9889;</span>
         <span class="nav-wordmark">Stark Studio Labs</span>
       </a>
       <div class="nav-links" id="navLinks">
+        <a href="index.html">Home</a>
         <a href="mods.html">Mods</a>
-        
-        <a href="index.html#roadmap">Roadmap</a>
-        <a href="index.html#blog">Blog</a>
-        <a href="index.html#support">Support</a>
+        <a href="compare.html" class="active">Compare</a>
         <a href="https://github.com/stark-studio-labs" class="nav-gh" target="_blank" rel="noopener">
           <svg width="20" height="20" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
         </a>
@@ -41,281 +89,314 @@
 
   <!-- PAGE HERO -->
   <section class="page-hero">
-    <div class="page-hero-bg"></div>
-    <div class="page-hero-content">
-      <span class="section-tag">Honest Comparisons</span>
-      <h1 class="page-hero-title">Why Stark?</h1>
-      <p class="page-hero-sub">We respect the mods that came before us. Here's what we're building differently, and what's still on the way. No hype, just facts.</p>
+    <div class="hero-content">
+      <div class="hero-badge">Honest Comparisons</div>
+      <h1 class="hero-title">
+        <span class="hero-line-muted">How We</span>
+        <span class="hero-line-accent">Stack Up.</span>
+      </h1>
+      <p class="hero-sub">We respect the modders who came before us. Here's an honest look at what exists, what we're building, and where we think we can do better.</p>
     </div>
   </section>
 
-  <!-- INTRO NOTE -->
-  <section class="section">
-    <div class="compare-note reveal">
-      <p><strong>A note on fairness:</strong> The mods compared below are incredible community contributions that millions of players depend on. We're not here to trash them. We're building on the shoulders of giants. Where Stark is still catching up, we say so. Where we think we can do better, we explain how.</p>
+  <!-- PHILOSOPHY CALLOUT -->
+  <section class="section" id="philosophy">
+    <div class="callout-card reveal">
+      <p>These mods are built on the shoulders of giants. MCCC, Slice of Life, WickedWhims, and dozens of others created the Sims modding community. We're not here to replace them &mdash; we're here to build the infrastructure they deserve. Some of our mods complement existing ones. Some offer alternatives. We'll always be honest about which is which.</p>
     </div>
   </section>
 
-  <!-- COMPARISON 1: ECONOMY -->
-  <section class="section section-dark" id="compare-economy">
+  <!-- COMPARISON TABLE 1 — Sim Behavior & Autonomy -->
+  <section class="section section-dark" id="compare-behavior">
     <div class="section-header reveal">
-      <span class="section-tag">Economy</span>
-      <h2 class="section-title">Stark Economy vs. SNB Bank + Bills</h2>
-      <p class="section-sub">SNB's mods add banking and bills to The Sims 4. Stark Economy aims to simulate an entire economic system.</p>
+      <span class="section-tag">Sim Behavior</span>
+      <h2 class="section-title">Behavior &amp; Autonomy</h2>
     </div>
-    <div class="compare-table-wrap reveal">
+    <div class="compare-table-wrapper reveal">
       <table class="compare-table">
         <thead>
           <tr>
-            <th class="compare-feature-col">Feature</th>
-            <th>SNB Bank + Bills</th>
-            <th class="compare-stark-col">Stark Economy</th>
+            <th>Feature</th>
+            <th>MCCC</th>
+            <th>Slice of Life</th>
+            <th>Smart Sims (Stark)</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td>Bank accounts &amp; savings</td>
-            <td><span class="cmp-yes">Yes</span></td>
-            <td><span class="cmp-coming">Coming Soon</span></td>
+            <td>Sim autonomy control</td>
+            <td><span class="check">&#10003;</span> Tuning sliders</td>
+            <td><span class="dash">&mdash;</span></td>
+            <td><span class="check">&#10003;</span> Personality-driven</td>
           </tr>
           <tr>
-            <td>Bill management</td>
-            <td><span class="cmp-yes">Yes</span></td>
-            <td><span class="cmp-coming">Coming Soon</span></td>
+            <td>Emotional depth</td>
+            <td>Basic buffs</td>
+            <td><span class="check">&#10003;</span> Expanded moods</td>
+            <td><span class="check">&#10003;</span> LLM-reasoned states</td>
           </tr>
           <tr>
-            <td>Dynamic pricing (supply &amp; demand)</td>
-            <td><span class="cmp-no">No</span></td>
-            <td><span class="cmp-yes">Yes</span></td>
+            <td>Memory system</td>
+            <td><span class="dash">&mdash;</span></td>
+            <td><span class="dash">&mdash;</span></td>
+            <td><span class="check">&#10003;</span> Persistent cross-session</td>
           </tr>
           <tr>
-            <td>Neighborhood-level economy</td>
-            <td><span class="cmp-no">No</span></td>
-            <td><span class="cmp-yes">Yes</span></td>
+            <td>Contextual dialogue</td>
+            <td><span class="dash">&mdash;</span></td>
+            <td><span class="dash">&mdash;</span></td>
+            <td><span class="check">&#10003;</span> Local LLM powered</td>
           </tr>
           <tr>
-            <td>Business competition simulation</td>
-            <td><span class="cmp-no">No</span></td>
-            <td><span class="cmp-yes">Yes</span></td>
+            <td>Relationship overhaul</td>
+            <td>Basic flags</td>
+            <td><span class="check">&#10003;</span> Expanded interactions</td>
+            <td><span class="check">&#10003;</span> Personality chemistry</td>
           </tr>
           <tr>
-            <td>Stock market / investments</td>
-            <td><span class="cmp-no">No</span></td>
-            <td><span class="cmp-yes">In Development</span></td>
+            <td>Runs offline</td>
+            <td><span class="check">&#10003;</span></td>
+            <td><span class="check">&#10003;</span></td>
+            <td><span class="check">&#10003;</span> Local models only</td>
           </tr>
           <tr>
             <td>Open source</td>
-            <td><span class="cmp-no">No</span></td>
-            <td><span class="cmp-yes">Yes (MIT)</span></td>
+            <td><span class="dash">&mdash;</span></td>
+            <td><span class="dash">&mdash;</span></td>
+            <td><span class="check">&#10003;</span> MIT licensed</td>
           </tr>
           <tr>
-            <td>Automated test suite</td>
-            <td><span class="cmp-no">No</span></td>
-            <td><span class="cmp-yes">Yes</span></td>
+            <td>Price</td>
+            <td>Free</td>
+            <td>Free (Patreon extras)</td>
+            <td>Free</td>
           </tr>
           <tr>
-            <td>Maturity &amp; stability</td>
-            <td><span class="cmp-yes">Battle-tested</span></td>
-            <td><span class="cmp-coming">In Development</span></td>
-          </tr>
-          <tr>
-            <td>Ease of install</td>
-            <td><span class="cmp-yes">Drop-in .package</span></td>
-            <td><span class="cmp-yes">Drop-in .package</span></td>
+            <td>Status</td>
+            <td><span class="status-cell mature">Mature / Stable</span></td>
+            <td><span class="status-cell active">Mature / Active</span></td>
+            <td><span class="status-cell dev">In Development</span></td>
           </tr>
         </tbody>
       </table>
     </div>
-    <div class="compare-verdict reveal">
-      <h3>The takeaway</h3>
-      <p>SNB is mature and reliable for personal finance features. Stark Economy is aiming bigger — a full economic simulation — but it's still in development. If you need banking today, use SNB. If you want a living economy, keep an eye on Stark.</p>
-    </div>
   </section>
 
-  <!-- COMPARISON 2: SOCIAL -->
-  <section class="section" id="compare-social">
+  <!-- COMPARISON TABLE 2 — Game Management -->
+  <section class="section" id="compare-management">
     <div class="section-header reveal">
-      <span class="section-tag">Social &amp; Relationships</span>
-      <h2 class="section-title">Stark Social vs. WickedWhims + Slice of Life</h2>
-      <p class="section-sub">WickedWhims and Slice of Life are two of the most popular relationship and realism mods. Stark Social takes a different approach to the same problem.</p>
+      <span class="section-tag">Game Management</span>
+      <h2 class="section-title">Mod Management &amp; QoL</h2>
     </div>
-    <div class="compare-table-wrap reveal">
+    <div class="compare-table-wrapper reveal">
       <table class="compare-table">
         <thead>
           <tr>
-            <th class="compare-feature-col">Feature</th>
-            <th>WickedWhims + Slice of Life</th>
-            <th class="compare-stark-col">Stark Social</th>
+            <th>Feature</th>
+            <th>MCCC</th>
+            <th>Sims 4 Tray Importer</th>
+            <th>Stark Mod Manager</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td>Enhanced romance &amp; attraction</td>
-            <td><span class="cmp-yes">Yes (WW)</span></td>
-            <td><span class="cmp-coming">Planned</span></td>
+            <td>Mod conflict detection</td>
+            <td><span class="dash">&mdash;</span></td>
+            <td><span class="dash">&mdash;</span></td>
+            <td><span class="check">&#10003;</span> Automatic scanning</td>
           </tr>
           <tr>
-            <td>Mood &amp; personality depth</td>
-            <td><span class="cmp-yes">Yes (SoL)</span></td>
-            <td><span class="cmp-coming">Planned</span></td>
+            <td>Dependency resolution</td>
+            <td><span class="dash">&mdash;</span></td>
+            <td><span class="dash">&mdash;</span></td>
+            <td><span class="check">&#10003;</span> Auto-install deps</td>
           </tr>
           <tr>
-            <td>Reputation system</td>
-            <td><span class="cmp-partial">Limited</span></td>
-            <td><span class="cmp-coming">Planned</span></td>
+            <td>One-click updates</td>
+            <td><span class="dash">&mdash;</span></td>
+            <td><span class="dash">&mdash;</span></td>
+            <td><span class="check">&#10003;</span> Built-in updater</td>
           </tr>
           <tr>
-            <td>Gossip and rumor spreading</td>
-            <td><span class="cmp-no">No</span></td>
-            <td><span class="cmp-coming">Planned</span></td>
+            <td>Broken mod recovery</td>
+            <td>Manual removal</td>
+            <td><span class="dash">&mdash;</span></td>
+            <td><span class="check">&#10003;</span> One-click rollback</td>
           </tr>
           <tr>
-            <td>Social groups &amp; cliques</td>
-            <td><span class="cmp-no">No</span></td>
-            <td><span class="cmp-coming">Planned</span></td>
+            <td>Settings UI</td>
+            <td>In-game cheats</td>
+            <td>Desktop app</td>
+            <td><span class="check">&#10003;</span> Dashboard with presets</td>
           </tr>
           <tr>
-            <td>Works together without conflicts</td>
-            <td><span class="cmp-partial">Sometimes conflicts</span></td>
-            <td><span class="cmp-yes">Designed as one system</span></td>
+            <td>Game settings tuning</td>
+            <td><span class="check">&#10003;</span> Extensive XML</td>
+            <td><span class="dash">&mdash;</span></td>
+            <td><span class="check">&#10003;</span> Visual UI</td>
           </tr>
           <tr>
-            <td>Modular (use only what you want)</td>
-            <td><span class="cmp-partial">Separate mods, some overlap</span></td>
-            <td><span class="cmp-yes">Modular by design</span></td>
+            <td>Tray file management</td>
+            <td><span class="dash">&mdash;</span></td>
+            <td><span class="check">&#10003;</span> Import/export</td>
+            <td><span class="dash">&mdash;</span></td>
           </tr>
           <tr>
             <td>Open source</td>
-            <td><span class="cmp-no">No</span></td>
-            <td><span class="cmp-yes">Yes (MIT)</span></td>
+            <td><span class="dash">&mdash;</span></td>
+            <td><span class="dash">&mdash;</span></td>
+            <td><span class="check">&#10003;</span> MIT licensed</td>
           </tr>
           <tr>
-            <td>Explicit adult content</td>
-            <td><span class="cmp-yes">Yes (WW)</span></td>
-            <td><span class="cmp-no">No (SFW only)</span></td>
+            <td>Price</td>
+            <td>Free</td>
+            <td>Free</td>
+            <td>Free</td>
           </tr>
           <tr>
-            <td>Available now</td>
-            <td><span class="cmp-yes">Yes</span></td>
-            <td><span class="cmp-coming">Planned</span></td>
+            <td>Status</td>
+            <td><span class="status-cell mature">Mature / Stable</span></td>
+            <td><span class="status-cell mature">Mature / Stable</span></td>
+            <td><span class="status-cell dev">In Development</span></td>
           </tr>
         </tbody>
       </table>
     </div>
-    <div class="compare-verdict reveal">
-      <h3>The takeaway</h3>
-      <p>WickedWhims and Slice of Life are proven and hugely popular. Stark Social doesn't aim to replace them — especially WickedWhims' adult content, which is outside our scope. What we're building is a deeper social simulation layer (reputation, gossip, cliques) that either works alongside or independently of existing mods. It's still in the planning stage, so the honest answer is: they're available now, we're not yet.</p>
-    </div>
   </section>
 
-  <!-- COMPARISON 3: QoL -->
-  <section class="section section-dark" id="compare-qol">
+  <!-- COMPARISON TABLE 3 — Gameplay Depth -->
+  <section class="section section-dark" id="compare-gameplay">
     <div class="section-header reveal">
-      <span class="section-tag">Quality of Life</span>
-      <h2 class="section-title">Stark QoL vs. UI Cheats + TOOL + Sim Lag Fix</h2>
-      <p class="section-sub">Most players install 5-10 separate "fix" mods. Stark QoL aims to be one install that covers them all.</p>
+      <span class="section-tag">Gameplay Systems</span>
+      <h2 class="section-title">Simulation Depth</h2>
     </div>
-    <div class="compare-table-wrap reveal">
+    <div class="compare-table-wrapper reveal">
       <table class="compare-table">
         <thead>
           <tr>
-            <th class="compare-feature-col">Feature</th>
-            <th>UI Cheats + TOOL + Sim Lag Fix</th>
-            <th class="compare-stark-col">Stark QoL</th>
+            <th>Feature</th>
+            <th>SNB (SimNationBlog)</th>
+            <th>Basemental</th>
+            <th>WickedWhims</th>
+            <th>Stark Pack</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td>Click-to-edit Sim needs &amp; skills</td>
-            <td><span class="cmp-yes">Yes (UI Cheats)</span></td>
-            <td><span class="cmp-yes">In Development</span></td>
+            <td>Economic simulation</td>
+            <td>Basic bills mod</td>
+            <td>Drug economy</td>
+            <td><span class="dash">&mdash;</span></td>
+            <td><span class="check">&#10003;</span> Full market sim</td>
           </tr>
           <tr>
-            <td>Advanced object placement</td>
-            <td><span class="cmp-yes">Yes (TOOL)</span></td>
-            <td><span class="cmp-coming">Coming Soon</span></td>
+            <td>Political system</td>
+            <td><span class="dash">&mdash;</span></td>
+            <td><span class="dash">&mdash;</span></td>
+            <td><span class="dash">&mdash;</span></td>
+            <td><span class="check">&#10003;</span> Elections &amp; policy</td>
           </tr>
           <tr>
-            <td>Performance &amp; lag reduction</td>
-            <td><span class="cmp-yes">Yes (Sim Lag Fix)</span></td>
-            <td><span class="cmp-yes">In Development</span></td>
+            <td>Social network depth</td>
+            <td><span class="dash">&mdash;</span></td>
+            <td><span class="dash">&mdash;</span></td>
+            <td>Attraction system</td>
+            <td><span class="check">&#10003;</span> Reputation + memory</td>
           </tr>
           <tr>
-            <td>Smarter Sim autonomy</td>
-            <td><span class="cmp-no">No</span></td>
-            <td><span class="cmp-yes">In Development</span></td>
+            <td>Narrative engine</td>
+            <td><span class="dash">&mdash;</span></td>
+            <td>Storyline events</td>
+            <td>Storyline events</td>
+            <td><span class="check">&#10003;</span> Procedural drama</td>
           </tr>
           <tr>
-            <td>One install for everything</td>
-            <td><span class="cmp-no">3+ separate downloads</span></td>
-            <td><span class="cmp-yes">Single package</span></td>
+            <td>Adult content</td>
+            <td><span class="dash">&mdash;</span></td>
+            <td><span class="check">&#10003;</span></td>
+            <td><span class="check">&#10003;</span></td>
+            <td><span class="dash">&mdash;</span> Not planned</td>
           </tr>
           <tr>
-            <td>No conflicts between fixes</td>
-            <td><span class="cmp-partial">Occasional conflicts</span></td>
-            <td><span class="cmp-yes">Built as one system</span></td>
+            <td>Mod manager included</td>
+            <td><span class="dash">&mdash;</span></td>
+            <td><span class="dash">&mdash;</span></td>
+            <td><span class="dash">&mdash;</span></td>
+            <td><span class="check">&#10003;</span> Built-in</td>
           </tr>
           <tr>
-            <td>One update after game patches</td>
-            <td><span class="cmp-no">Wait for each mod separately</span></td>
-            <td><span class="cmp-yes">One update</span></td>
+            <td>Developer tools included</td>
+            <td><span class="dash">&mdash;</span></td>
+            <td><span class="dash">&mdash;</span></td>
+            <td><span class="dash">&mdash;</span></td>
+            <td><span class="check">&#10003;</span> Full devkit</td>
+          </tr>
+          <tr>
+            <td>Modular installation</td>
+            <td><span class="dash">&mdash;</span></td>
+            <td>Partial</td>
+            <td>Single package</td>
+            <td><span class="check">&#10003;</span> Per-layer</td>
           </tr>
           <tr>
             <td>Open source</td>
-            <td><span class="cmp-partial">Mixed (some are, some aren't)</span></td>
-            <td><span class="cmp-yes">Yes (MIT)</span></td>
+            <td><span class="dash">&mdash;</span></td>
+            <td><span class="dash">&mdash;</span></td>
+            <td><span class="dash">&mdash;</span></td>
+            <td><span class="check">&#10003;</span> MIT licensed</td>
           </tr>
           <tr>
-            <td>Maturity &amp; stability</td>
-            <td><span class="cmp-yes">Years of updates</span></td>
-            <td><span class="cmp-coming">In Development</span></td>
+            <td>Price</td>
+            <td>Free / Paid tiers</td>
+            <td>Free / Paid</td>
+            <td>Free / Paid</td>
+            <td>Free</td>
           </tr>
           <tr>
-            <td>Community size</td>
-            <td><span class="cmp-yes">Millions of users</span></td>
-            <td><span class="cmp-coming">Just getting started</span></td>
+            <td>Status</td>
+            <td><span class="status-cell active">Active</span></td>
+            <td><span class="status-cell active">Active</span></td>
+            <td><span class="status-cell active">Active</span></td>
+            <td><span class="status-cell dev">In Development</span></td>
           </tr>
         </tbody>
       </table>
     </div>
-    <div class="compare-verdict reveal">
-      <h3>The takeaway</h3>
-      <p>UI Cheats, TOOL, and Sim Lag Fix are essential mods that have been keeping the game playable for years. We're not pretending to be better than them today. The pitch is consolidation: one download, one update cycle, no conflicts. Right now, the individual mods are more mature. As Stark QoL matures, the goal is to offer the same functionality — unified and tested together.</p>
-    </div>
   </section>
 
-  <!-- WHY OPEN SOURCE -->
-  <section class="section" id="why-open-source">
+  <!-- WHAT WE DON'T DO -->
+  <section class="section" id="honest">
     <div class="section-header reveal">
-      <span class="section-tag">Philosophy</span>
-      <h2 class="section-title">Why open source matters for mods.</h2>
+      <span class="section-tag">Being Honest</span>
+      <h2 class="section-title">What we don't do (yet).</h2>
     </div>
-    <div class="philosophy-grid">
-      <div class="philosophy-card reveal">
-        <span class="philosophy-emoji">&#x1F50D;</span>
-        <h3>Transparency</h3>
-        <p>You can read every line of code. No hidden telemetry, no mystery scripts. If something looks wrong, file an issue or fix it yourself.</p>
+    <div class="honest-grid">
+      <div class="honest-card reveal">
+        <h3>Adult content</h3>
+        <p>We're focused on simulation depth, not adult interactions. WickedWhims and Basemental serve that audience well. We're not competing there.</p>
       </div>
-      <div class="philosophy-card reveal">
-        <span class="philosophy-emoji">&#x1F91D;</span>
-        <h3>Continuity</h3>
-        <p>When a popular mod creator goes quiet, the mod dies. Open source means the community can keep it alive, fork it, or build on top of it.</p>
+      <div class="honest-card reveal">
+        <h3>Tray management</h3>
+        <p>Sims 4 Tray Importer is excellent at what it does. We handle mods, not tray files.</p>
       </div>
-      <div class="philosophy-card reveal">
-        <span class="philosophy-emoji">&#x1F527;</span>
-        <h3>Quality</h3>
-        <p>Automated tests, code review, and continuous integration. Stark mods are built the way professional software is built — because your save file matters.</p>
+      <div class="honest-card reveal">
+        <h3>Years of battle testing</h3>
+        <p>MCCC has been stable through dozens of game patches. We're new. Our testing is thorough, but we haven't survived a major EA update yet.</p>
+      </div>
+      <div class="honest-card reveal">
+        <h3>Massive content packs</h3>
+        <p>Mods like Slice of Life add hundreds of interactions, buffs, and events. Our approach is different &mdash; fewer handcrafted events, more emergent behavior.</p>
       </div>
     </div>
   </section>
 
   <!-- CTA -->
-  <section class="section section-dark">
-    <div class="section-header reveal">
-      <h2 class="section-title">Ready to explore?</h2>
-      <p class="section-sub">Browse the full mod catalog or jump into the code on GitHub.</p>
-      <div class="compare-cta-buttons">
-        <a href="mods.html" class="btn btn-primary">Browse Mods</a>
+  <section class="section section-dark" id="cta">
+    <div class="cta-content">
+      <h2>Want to see for yourself?</h2>
+      <p>Every line of code is on GitHub. No paywalls. No hidden tiers. Just open source.</p>
+      <div class="cta-actions">
+        <a href="mods.html" class="btn btn-primary">Browse All Mods</a>
         <a href="https://github.com/stark-studio-labs" class="btn btn-ghost" target="_blank" rel="noopener">View on GitHub</a>
       </div>
     </div>
@@ -326,7 +407,7 @@
     <div class="footer-grid">
       <div class="footer-col footer-brand">
         <a href="index.html" class="footer-logo">
-          <span class="nav-icon">⚡</span>
+          <span class="nav-icon">&#9889;</span>
           <span>Stark Studio Labs</span>
         </a>
         <p class="footer-tagline">The Sims 4 deserves better tools. We're building them.</p>
@@ -348,9 +429,9 @@
       </div>
       <div class="footer-col">
         <h4>Resources</h4>
+        <a href="index.html">Home</a>
         <a href="mods.html">Mod Catalog</a>
-        
-        <a href="index.html#roadmap">Roadmap</a>
+        <a href="compare.html">Compare</a>
         <a href="mailto:studio@starklabs.dev">Contact</a>
       </div>
     </div>
