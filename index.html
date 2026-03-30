@@ -4,14 +4,308 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Stark Studio Labs — The Sims 4 Deserves Better Tools</title>
-  <meta name="description" content="Open-source modding platform, intelligent gameplay mods, and modern developer tools for The Sims 4. Built by modders, for modders.">
-  <meta name="theme-color" content="#0d1117">
+  <meta name="description" content="Modern modding platform, intelligent gameplay, and developer-grade tools for The Sims 4. Built by modders, for modders. Free forever.">
+  <meta name="theme-color" content="#000000">
   <meta property="og:title" content="Stark Studio Labs">
-  <meta property="og:description" content="The Sims 4 deserves better tools. We're building them.">
+  <meta property="og:description" content="The Sims 4 deserves better tools. We’re building them.">
   <meta property="og:type" content="website">
   <link rel="stylesheet" href="styles.css">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
   <script src="script.js" defer></script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black: #000;
+      --surface: #0a0a0a;
+      --white: #f5f5f7;
+      --white-dim: rgba(245,245,247,0.6);
+      --white-dimmer: rgba(245,245,247,0.35);
+      --emerald: #34d399;
+      --purple: #a78bfa;
+      --border: rgba(255,255,255,0.08);
+      --border-hover: rgba(255,255,255,0.16);
+      --font: system-ui, -apple-system, "SF Pro Display", "Helvetica Neue", Arial, sans-serif;
+      --mono: "SF Mono", "Fira Code", "Cascadia Code", Menlo, monospace;
+      --radius: 16px;
+      --radius-sm: 10px;
+      --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: var(--font);
+      font-size: 17px;
+      line-height: 1.6;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* NAV */
+    .nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      transition: background var(--transition), border-color var(--transition);
+      border-bottom: 1px solid transparent;
+    }
+    .nav.nav-scrolled {
+      background: rgba(0,0,0,0.75);
+      backdrop-filter: saturate(180%) blur(20px);
+      -webkit-backdrop-filter: saturate(180%) blur(20px);
+      border-bottom-color: var(--border);
+    }
+    .nav-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 32px;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      gap: 48px;
+    }
+    .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; flex-shrink: 0; }
+    .nav-icon { font-size: 20px; line-height: 1; }
+    .nav-wordmark { font-size: 15px; font-weight: 600; color: var(--white); letter-spacing: -0.02em; white-space: nowrap; }
+    .nav-links { display: flex; align-items: center; gap: 32px; margin-left: auto; }
+    .nav-links a { font-size: 14px; color: var(--white-dim); text-decoration: none; font-weight: 450; letter-spacing: -0.01em; transition: color var(--transition); white-space: nowrap; }
+    .nav-links a:hover { color: var(--white); }
+    .nav-gh { display: flex; align-items: center; color: var(--white-dim) !important; }
+    .nav-gh:hover { color: var(--white) !important; }
+    .nav-mobile-toggle { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 8px; margin-left: auto; }
+    .nav-mobile-toggle span { display: block; width: 22px; height: 1.5px; background: var(--white); border-radius: 2px; transition: var(--transition); }
+
+    /* HERO */
+    .hero-section { position: relative; min-height: 100vh; display: flex; align-items: center; justify-content: center; overflow: hidden; background: var(--black); }
+    .hero-gradient {
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 80% 60% at 50% -10%, rgba(52,211,153,0.12) 0%, transparent 60%),
+                  radial-gradient(ellipse 60% 50% at 80% 50%, rgba(167,139,250,0.07) 0%, transparent 50%),
+                  radial-gradient(ellipse 40% 40% at 10% 70%, rgba(52,211,153,0.05) 0%, transparent 50%);
+      pointer-events: none;
+    }
+    .hero-noise {
+      position: absolute; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+      background-size: 256px 256px; opacity: 0.4; pointer-events: none;
+    }
+    .hero-content { position: relative; z-index: 1; text-align: center; max-width: 900px; padding: 120px 32px 80px; }
+    .hero-eyebrow { display: inline-block; font-size: 13px; font-weight: 500; letter-spacing: 0.05em; text-transform: uppercase; color: var(--emerald); margin-bottom: 32px; padding: 6px 16px; border: 1px solid rgba(52,211,153,0.25); border-radius: 100px; background: rgba(52,211,153,0.06); }
+    .hero-title { font-size: clamp(56px, 8vw, 96px); font-weight: 700; letter-spacing: -0.04em; line-height: 1.02; margin-bottom: 28px; }
+    .hero-title-dim { display: block; color: rgba(245,245,247,0.35); }
+    .hero-title-bold { display: block; color: var(--white); }
+    .hero-sub { font-size: clamp(18px, 2.2vw, 22px); color: var(--white-dim); max-width: 640px; margin: 0 auto 48px; font-weight: 400; line-height: 1.5; }
+    .hero-actions { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; margin-bottom: 80px; }
+
+    /* BUTTONS */
+    .btn { display: inline-flex; align-items: center; gap: 8px; padding: 14px 28px; border-radius: 980px; font-size: 15px; font-weight: 500; text-decoration: none; letter-spacing: -0.01em; transition: all var(--transition); cursor: pointer; border: none; white-space: nowrap; }
+    .btn-primary { background: var(--emerald); color: #000; font-weight: 600; }
+    .btn-primary:hover { background: #5ee8b1; transform: translateY(-1px); box-shadow: 0 8px 32px rgba(52,211,153,0.3); }
+    .btn-ghost { background: rgba(255,255,255,0.07); color: var(--white); border: 1px solid var(--border); }
+    .btn-ghost:hover { background: rgba(255,255,255,0.12); border-color: var(--border-hover); }
+    .btn-tier { background: rgba(255,255,255,0.08); color: var(--white); border: 1px solid var(--border); padding: 11px 24px; font-size: 14px; width: 100%; justify-content: center; border-radius: 980px; }
+    .btn-tier:hover { background: rgba(255,255,255,0.14); border-color: var(--border-hover); }
+
+    /* HERO STATS */
+    .hero-stats { display: flex; align-items: center; justify-content: center; gap: 0; border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; background: rgba(255,255,255,0.03); backdrop-filter: blur(10px); max-width: 480px; margin: 0 auto; }
+    .hero-stat { flex: 1; padding: 20px 24px; text-align: center; }
+    .hero-stat-sep { width: 1px; background: var(--border); align-self: stretch; }
+    .hero-stat-num { display: block; font-size: 28px; font-weight: 700; letter-spacing: -0.03em; color: var(--white); }
+    .hero-stat-label { display: block; font-size: 12px; color: var(--white-dimmer); font-weight: 450; margin-top: 2px; }
+    .hero-scroll-cue { position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%); }
+    .scroll-dot { width: 6px; height: 6px; background: var(--white-dimmer); border-radius: 50%; animation: scrollPulse 2s ease-in-out infinite; }
+    @keyframes scrollPulse { 0%, 100% { opacity: 0.3; transform: translateY(0); } 50% { opacity: 0.8; transform: translateY(8px); } }
+
+    /* SPOTLIGHT */
+    .spotlight-section { min-height: 100vh; display: flex; align-items: center; }
+    .spotlight-dark { background: var(--surface); }
+    .spotlight-light { background: #0d0d0d; }
+    .spotlight-gradient { background: linear-gradient(135deg, #040a07 0%, #060612 50%, #040a07 100%); }
+    .spotlight-inner { max-width: 1200px; width: 100%; margin: 0 auto; padding: 120px 48px; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+    .spotlight-inner.spotlight-reversed { direction: rtl; }
+    .spotlight-inner.spotlight-reversed > * { direction: ltr; }
+    .spotlight-eyebrow { display: inline-block; font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--emerald); margin-bottom: 20px; }
+    .spotlight-title { font-size: clamp(36px, 4vw, 52px); font-weight: 700; letter-spacing: -0.035em; line-height: 1.06; color: var(--white); margin-bottom: 24px; }
+    .spotlight-desc { font-size: 18px; color: var(--white-dim); line-height: 1.65; margin-bottom: 40px; }
+    .spotlight-repos { display: flex; flex-direction: column; gap: 12px; }
+    .repo-link { display: flex; align-items: center; gap: 14px; padding: 14px 18px; background: rgba(255,255,255,0.04); border: 1px solid var(--border); border-radius: var(--radius-sm); text-decoration: none; color: var(--white); transition: all var(--transition); }
+    .repo-link:hover { background: rgba(255,255,255,0.08); border-color: var(--border-hover); transform: translateX(4px); }
+    .repo-icon { font-size: 20px; flex-shrink: 0; }
+    .repo-info { flex: 1; display: flex; flex-direction: column; gap: 2px; }
+    .repo-name { font-size: 14px; font-weight: 600; color: var(--white); font-family: var(--mono); letter-spacing: -0.01em; }
+    .repo-desc { font-size: 12px; color: var(--white-dimmer); }
+    .repo-arrow { color: var(--white-dimmer); font-size: 16px; transition: transform var(--transition), color var(--transition); }
+    .repo-link:hover .repo-arrow { transform: translateX(4px); color: var(--emerald); }
+
+    /* MOCKUPS */
+    .mockup-terminal, .mockup-code, .mockup-chat { background: #0d0d0d; border: 1px solid rgba(255,255,255,0.1); border-radius: var(--radius); overflow: hidden; box-shadow: 0 40px 120px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.04); }
+    .spotlight-light .mockup-code { background: #111; border-color: rgba(255,255,255,0.08); }
+    .mockup-bar { display: flex; align-items: center; gap: 8px; padding: 14px 18px; background: rgba(255,255,255,0.04); border-bottom: 1px solid rgba(255,255,255,0.07); }
+    .dot { width: 12px; height: 12px; border-radius: 50%; }
+    .dot-red { background: #ff5f57; } .dot-yellow { background: #febc2e; } .dot-green { background: #28c840; }
+    .mockup-title-label { font-size: 12px; color: rgba(255,255,255,0.3); font-family: var(--mono); margin-left: 8px; }
+    .mockup-body { padding: 24px 28px; font-family: var(--mono); font-size: 13px; line-height: 1.7; }
+    .mt-prompt { color: var(--emerald); } .mt-dollar { margin-right: 10px; } .mt-dim { color: rgba(255,255,255,0.35); }
+    .mt-table-head { color: rgba(255,255,255,0.25); font-size: 11px; letter-spacing: 0.05em; text-transform: uppercase; margin: 4px 0; }
+    .mt-row { display: flex; gap: 0; color: var(--white-dim); }
+    .mt-name { min-width: 120px; color: var(--white); } .mt-ext { min-width: 90px; color: rgba(255,255,255,0.35); } .mt-sz { min-width: 65px; color: rgba(255,255,255,0.5); } .mt-ct { color: rgba(255,255,255,0.35); }
+    .mt-summary { color: var(--white-dim); margin-top: 4px; } .mt-conflicts { color: rgba(255,200,100,0.9); margin-top: 4px; } .mt-warn { margin-right: 6px; }
+    .mockup-code-body { margin: 0; padding: 24px 28px; font-family: var(--mono); font-size: 13px; line-height: 1.75; overflow-x: auto; }
+    .mockup-code-body code { display: block; }
+    .hl-keyword { color: #ff79c6; } .hl-module { color: var(--emerald); } .hl-func { color: #50fa7b; } .hl-type { color: #8be9fd; } .hl-decorator { color: var(--purple); } .hl-string { color: #f1fa8c; } .hl-number { color: #bd93f9; }
+    .mockup-chat-body { padding: 20px 24px; display: flex; flex-direction: column; gap: 14px; }
+    .chat-event { font-size: 11px; color: rgba(255,255,255,0.35); text-align: center; font-family: var(--mono); padding: 6px 12px; background: rgba(255,255,255,0.03); border-radius: 6px; }
+    .chat-bubble { background: rgba(255,255,255,0.05); border: 1px solid var(--border); border-radius: 12px 12px 12px 4px; padding: 14px 18px; }
+    .chat-sim-name { font-size: 11px; font-weight: 600; color: var(--emerald); margin-bottom: 6px; letter-spacing: 0.04em; text-transform: uppercase; }
+    .chat-sim-text { font-size: 14px; color: var(--white-dim); line-height: 1.55; }
+
+    /* SECTIONS */
+    .section-dark { background: var(--black); } .section-light { background: var(--surface); } .section-community { background: #060606; }
+    .container { max-width: 1200px; margin: 0 auto; padding: 140px 48px; }
+    .section-header { text-align: center; max-width: 720px; margin: 0 auto 80px; }
+    .section-eyebrow { display: inline-block; font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--emerald); margin-bottom: 20px; }
+    .section-title { font-size: clamp(36px, 4.5vw, 56px); font-weight: 700; letter-spacing: -0.035em; line-height: 1.06; color: var(--white); margin-bottom: 20px; }
+    .section-sub { font-size: 18px; color: var(--white-dim); line-height: 1.65; }
+
+    /* GET STARTED */
+    .terminal-wrapper { max-width: 720px; margin: 0 auto 80px; }
+    .terminal-window { background: #0a0a0a; border: 1px solid rgba(255,255,255,0.1); border-radius: var(--radius); overflow: hidden; box-shadow: 0 40px 120px rgba(0,0,0,0.5); }
+    .terminal-bar { display: flex; align-items: center; gap: 8px; padding: 14px 20px; background: rgba(255,255,255,0.03); border-bottom: 1px solid rgba(255,255,255,0.07); }
+    .terminal-label { font-size: 12px; color: rgba(255,255,255,0.25); font-family: var(--mono); margin-left: 8px; }
+    .terminal-body { padding: 28px 32px; font-family: var(--mono); font-size: 14px; line-height: 2; }
+    .tl { display: flex; gap: 12px; opacity: 0; animation: fadeUp 0.4s ease forwards; }
+    .tl.visible { opacity: 1; }
+    .tp { color: var(--emerald); user-select: none; } .tc { color: var(--white); } .to { display: block; }
+    .to.dim { color: rgba(255,255,255,0.4); } .to.success { color: var(--emerald); }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+    .steps-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; max-width: 900px; margin: 0 auto; }
+    .step { text-align: center; padding: 40px 28px; background: rgba(255,255,255,0.03); border: 1px solid var(--border); border-radius: var(--radius); }
+    .step-num { width: 48px; height: 48px; border-radius: 50%; background: rgba(52,211,153,0.12); border: 1px solid rgba(52,211,153,0.3); color: var(--emerald); font-size: 18px; font-weight: 700; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; }
+    .step h3 { font-size: 18px; font-weight: 600; letter-spacing: -0.02em; color: var(--white); margin-bottom: 10px; }
+    .step p { font-size: 14px; color: var(--white-dim); line-height: 1.6; }
+
+    /* LAYERS */
+    .layers-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
+    .layer-card { padding: 48px 40px; background: rgba(255,255,255,0.02); border: 1px solid var(--border); position: relative; transition: background var(--transition), border-color var(--transition); }
+    .layer-card:hover { background: rgba(255,255,255,0.04); border-color: rgba(255,255,255,0.12); }
+    .layer-num { font-size: 13px; font-weight: 600; color: var(--emerald); font-family: var(--mono); margin-bottom: 20px; letter-spacing: 0.04em; }
+    .layer-name { font-size: 22px; font-weight: 700; letter-spacing: -0.025em; color: var(--white); margin-bottom: 14px; }
+    .layer-desc { font-size: 15px; color: var(--white-dim); line-height: 1.65; margin-bottom: 24px; }
+    .layer-badge { display: inline-block; font-size: 11px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; padding: 4px 10px; border-radius: 100px; }
+    .badge-dev { color: var(--emerald); background: rgba(52,211,153,0.1); border: 1px solid rgba(52,211,153,0.25); }
+    .badge-research { color: var(--purple); background: rgba(167,139,250,0.1); border: 1px solid rgba(167,139,250,0.25); }
+    .badge-planned { color: rgba(255,255,255,0.4); background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); }
+
+    /* ROADMAP */
+    .roadmap { max-width: 720px; margin: 0 auto; position: relative; }
+    .roadmap::before { content: ""; position: absolute; left: 0; top: 24px; bottom: 24px; width: 1px; background: var(--border); }
+    .roadmap-item { display: flex; gap: 40px; padding: 0 0 56px 0; position: relative; }
+    .rm-dot { width: 14px; height: 14px; border-radius: 50%; border: 2px solid rgba(255,255,255,0.2); background: var(--black); flex-shrink: 0; margin-top: 6px; position: relative; left: -7px; z-index: 1; }
+    .rm-dot.rm-active { border-color: var(--emerald); background: var(--emerald); box-shadow: 0 0 12px rgba(52,211,153,0.4); }
+    .rm-content { flex: 1; }
+    .rm-phase { font-size: 12px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: var(--emerald); display: block; margin-bottom: 8px; }
+    .rm-content h3 { font-size: 22px; font-weight: 700; letter-spacing: -0.025em; color: var(--white); margin-bottom: 10px; }
+    .rm-content p { font-size: 15px; color: var(--white-dim); line-height: 1.65; margin-bottom: 16px; }
+    .rm-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+    .rm-tag { font-size: 12px; font-family: var(--mono); color: var(--white-dimmer); background: rgba(255,255,255,0.05); border: 1px solid var(--border); padding: 3px 10px; border-radius: 100px; }
+
+    /* TIERS */
+    .tiers-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; max-width: 960px; margin: 0 auto; }
+    .tier { padding: 36px 28px; background: rgba(255,255,255,0.03); border: 1px solid var(--border); border-radius: var(--radius); text-align: center; position: relative; transition: all var(--transition); }
+    .tier:hover { background: rgba(255,255,255,0.06); transform: translateY(-4px); }
+    .tier-featured { background: rgba(167,139,250,0.06); border-color: rgba(167,139,250,0.3); }
+    .tier-featured:hover { background: rgba(167,139,250,0.1); }
+    .tier-popular { position: absolute; top: -13px; left: 50%; transform: translateX(-50%); font-size: 11px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; background: var(--purple); color: #fff; padding: 4px 14px; border-radius: 100px; white-space: nowrap; }
+    .plumbob { width: 32px; height: 32px; margin: 0 auto 16px; clip-path: polygon(50% 0%, 100% 35%, 50% 100%, 0% 35%); }
+    .plumbob-green { background: linear-gradient(135deg, #34d399, #059669); }
+    .plumbob-blue { background: linear-gradient(135deg, #60a5fa, #2563eb); }
+    .plumbob-purple { background: linear-gradient(135deg, #a78bfa, #7c3aed); }
+    .plumbob-gold { background: linear-gradient(135deg, #fbbf24, #d97706); }
+    .plumbob-diamond { background: linear-gradient(135deg, #e0f2fe, #7dd3fc); }
+    .plumbob-crystal { background: linear-gradient(135deg, #f0fdf4, #34d399, #a78bfa); }
+    .tier-name { font-size: 16px; font-weight: 700; letter-spacing: -0.02em; color: var(--white); margin-bottom: 8px; }
+    .tier-price { font-size: 32px; font-weight: 700; letter-spacing: -0.04em; color: var(--white); margin-bottom: 14px; }
+    .tier-price span { font-size: 16px; font-weight: 400; color: var(--white-dim); }
+    .tier-perks { font-size: 13px; color: var(--white-dim); line-height: 1.6; margin-bottom: 24px; }
+
+    /* BLOG */
+    .blog-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; max-width: 1100px; margin: 0 auto; }
+    .blog-card { padding: 36px 32px; background: rgba(255,255,255,0.02); border: 1px solid var(--border); border-radius: var(--radius); transition: all var(--transition); }
+    .blog-card:hover { background: rgba(255,255,255,0.05); border-color: var(--border-hover); transform: translateY(-4px); }
+    .blog-meta { display: flex; align-items: center; gap: 12px; margin-bottom: 18px; }
+    .blog-tag { font-size: 11px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: var(--emerald); background: rgba(52,211,153,0.1); border: 1px solid rgba(52,211,153,0.2); padding: 3px 8px; border-radius: 100px; }
+    .blog-date { font-size: 12px; color: var(--white-dimmer); }
+    .blog-title { font-size: 18px; font-weight: 700; letter-spacing: -0.025em; color: var(--white); line-height: 1.35; margin-bottom: 12px; }
+    .blog-excerpt { font-size: 14px; color: var(--white-dim); line-height: 1.65; margin-bottom: 24px; }
+    .blog-cta { font-size: 13px; color: var(--emerald); font-weight: 500; }
+
+    /* COMMUNITY */
+    .section-community .container { padding: 160px 48px; }
+    .section-community .section-title { font-size: clamp(48px, 6vw, 80px); letter-spacing: -0.04em; }
+    .community-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; max-width: 1000px; margin: 0 auto; }
+    .community-card { display: flex; flex-direction: column; align-items: center; gap: 12px; padding: 40px 24px; background: rgba(255,255,255,0.03); border: 1px solid var(--border); border-radius: var(--radius); text-decoration: none; color: var(--white); transition: all var(--transition); text-align: center; }
+    .community-card:hover { background: rgba(255,255,255,0.07); border-color: var(--border-hover); transform: translateY(-6px); }
+    .community-name { font-size: 15px; font-weight: 600; color: var(--white); }
+    .community-desc { font-size: 12px; color: var(--white-dimmer); }
+
+    /* FOOTER */
+    .footer { background: var(--black); border-top: 1px solid var(--border); }
+    .footer-inner { max-width: 1200px; margin: 0 auto; padding: 80px 48px 48px; }
+    .footer-top { display: grid; grid-template-columns: 2fr 3fr; gap: 80px; padding-bottom: 60px; border-bottom: 1px solid var(--border); margin-bottom: 40px; }
+    .footer-brand { display: flex; flex-direction: column; gap: 16px; }
+    .footer-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--white); font-weight: 600; font-size: 15px; }
+    .footer-tagline { font-size: 14px; color: var(--white-dimmer); line-height: 1.6; max-width: 280px; }
+    .footer-nav { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; }
+    .footer-col h4 { font-size: 12px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--white-dimmer); margin-bottom: 16px; }
+    .footer-col a { display: block; font-size: 14px; color: var(--white-dim); text-decoration: none; margin-bottom: 10px; transition: color var(--transition); }
+    .footer-col a:hover { color: var(--white); }
+    .footer-bottom p { font-size: 13px; color: var(--white-dimmer); }
+
+    /* REVEAL */
+    .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.65s cubic-bezier(0.4,0,0.2,1), transform 0.65s cubic-bezier(0.4,0,0.2,1); }
+    .reveal.in-view { opacity: 1; transform: translateY(0); }
+
+    /* RESPONSIVE */
+    @media (max-width: 1024px) {
+      .spotlight-inner { grid-template-columns: 1fr; gap: 60px; padding: 100px 40px; }
+      .spotlight-inner.spotlight-reversed { direction: ltr; }
+      .layers-grid { grid-template-columns: repeat(2, 1fr); }
+      .tiers-grid { grid-template-columns: repeat(2, 1fr); }
+      .blog-grid { grid-template-columns: repeat(2, 1fr); }
+      .community-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .nav-links.open { display: flex; flex-direction: column; position: fixed; top: 64px; left: 0; right: 0; background: rgba(0,0,0,0.95); backdrop-filter: blur(20px); padding: 24px 32px; border-bottom: 1px solid var(--border); gap: 20px; z-index: 99; }
+      .nav-mobile-toggle { display: flex; }
+      .hero-content { padding: 100px 24px 60px; }
+      .hero-actions { flex-direction: column; align-items: center; }
+      .hero-stats { max-width: 100%; }
+      .container { padding: 100px 24px; }
+      .spotlight-inner { padding: 80px 24px; }
+      .spotlight-title { font-size: 32px; }
+      .layers-grid { grid-template-columns: 1fr; }
+      .layer-card { padding: 36px 28px; }
+      .tiers-grid { grid-template-columns: 1fr; }
+      .blog-grid { grid-template-columns: 1fr; }
+      .steps-grid { grid-template-columns: 1fr; max-width: 100%; }
+      .community-grid { grid-template-columns: repeat(2, 1fr); }
+      .footer-top { grid-template-columns: 1fr; gap: 40px; }
+      .footer-nav { grid-template-columns: repeat(2, 1fr); }
+      .footer-inner { padding: 60px 24px 40px; }
+      .roadmap::before { left: 7px; }
+    }
+    @media (max-width: 480px) {
+      .community-grid { grid-template-columns: 1fr; }
+      .footer-nav { grid-template-columns: 1fr; }
+      .hero-stats { flex-direction: column; border-radius: 10px; }
+      .hero-stat-sep { width: 100%; height: 1px; align-self: auto; }
+    }
+  </style>
 </head>
 <body>
 
@@ -23,10 +317,10 @@
         <span class="nav-wordmark">Stark Studio Labs</span>
       </a>
       <div class="nav-links" id="navLinks">
-        <a href="#products">Products</a>
-        <a href="mods.html">Mods</a>
-        <a href="compare.html">Compare</a>
+        <a href="#platform">Products</a>
+        <a href="#layers">Layers</a>
         <a href="#roadmap">Roadmap</a>
+        <a href="#blog">Blog</a>
         <a href="#support">Support</a>
         <a href="https://github.com/stark-studio-labs" class="nav-gh" target="_blank" rel="noopener">
           <svg width="20" height="20" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
@@ -39,437 +333,546 @@
   </nav>
 
   <!-- HERO -->
-  <section id="hero">
-    <div class="hero">
-      <div class="hero-bg"></div>
-      <div class="hero-content">
-        <div class="hero-badge">Open Source &middot; Community-First</div>
-        <h1 class="hero-title">
-          <span class="hero-line-muted">The Sims 4</span>
-          <span class="hero-line-accent">Deserves Better Tools.</span>
-        </h1>
-        <p class="hero-sub">Modern modding platform, smarter gameplay, and developer-grade tooling. Built by modders, for modders. Free forever.</p>
-        <div class="hero-actions">
-          <a href="https://github.com/stark-studio-labs" class="btn btn-primary" target="_blank" rel="noopener">Explore on GitHub</a>
-          <a href="#terminal" class="btn btn-ghost">Get Started in 60s &darr;</a>
+  <section id="hero" class="hero-section">
+    <div class="hero-gradient"></div>
+    <div class="hero-noise"></div>
+    <div class="hero-content">
+      <div class="hero-eyebrow">Open Source · Free Forever · Community-Built</div>
+      <h1 class="hero-title">
+        <span class="hero-title-dim">The Sims 4</span>
+        <span class="hero-title-bold">Deserves Better Tools.</span>
+      </h1>
+      <p class="hero-sub">Modern modding platform. Smarter gameplay. Developer-grade tooling.<br>Built by modders, for modders.</p>
+      <div class="hero-actions">
+        <a href="https://github.com/stark-studio-labs" class="btn btn-primary" target="_blank" rel="noopener">Explore on GitHub</a>
+        <a href="#get-started" class="btn btn-ghost">Get Started in 60s →</a>
+      </div>
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <span class="hero-stat-num" data-target="13">13</span>
+          <span class="hero-stat-label">Repositories</span>
         </div>
-        <div class="hero-stats">
-          <div class="stat">
-            <span class="stat-value">13</span>
-            <span class="stat-label">Repositories</span>
-          </div>
-          <div class="stat-divider"></div>
-          <div class="stat">
-            <span class="stat-value">6</span>
-            <span class="stat-label">Gameplay Layers</span>
-          </div>
-          <div class="stat-divider"></div>
-          <div class="stat">
-            <span class="stat-value">100%</span>
-            <span class="stat-label">Open Source</span>
-          </div>
+        <div class="hero-stat-sep"></div>
+        <div class="hero-stat">
+          <span class="hero-stat-num" data-target="6">6</span>
+          <span class="hero-stat-label">Gameplay Layers</span>
         </div>
-        <div class="hero-scroll">
-          <div class="scroll-indicator"></div>
+        <div class="hero-stat-sep"></div>
+        <div class="hero-stat">
+          <span class="hero-stat-num" data-target="100" data-suffix="%">100%</span>
+          <span class="hero-stat-label">Open Source</span>
+        </div>
+      </div>
+    </div>
+    <div class="hero-scroll-cue"><div class="scroll-dot"></div></div>
+  </section>
+
+  <!-- SPOTLIGHT: Platform -->
+  <section id="platform" class="spotlight-section spotlight-dark">
+    <div class="spotlight-inner">
+      <div class="spotlight-text reveal">
+        <span class="spotlight-eyebrow">Platform</span>
+        <h2 class="spotlight-title">Install, create, and revive mods.<br>Without the headaches.</h2>
+        <p class="spotlight-desc">The mod manager scans for conflicts before they crash your game. The visual builder generates correct XML without touching a file. And when your favorite mod goes abandoned — revival brings it back.</p>
+        <div class="spotlight-repos">
+          <a href="https://github.com/stark-studio-labs/sims4-mod-manager" class="repo-link" target="_blank" rel="noopener">
+            <span class="repo-icon">📦</span>
+            <div class="repo-info">
+              <span class="repo-name">sims4-mod-manager</span>
+              <span class="repo-desc">Conflict detection, enable/disable, one-click install</span>
+            </div>
+            <span class="repo-arrow">→</span>
+          </a>
+          <a href="https://github.com/stark-studio-labs/sims4-mod-builder" class="repo-link" target="_blank" rel="noopener">
+            <span class="repo-icon">🎨</span>
+            <div class="repo-info">
+              <span class="repo-name">sims4-mod-builder</span>
+              <span class="repo-desc">Visual mod creation — no XML required</span>
+            </div>
+            <span class="repo-arrow">→</span>
+          </a>
+          <a href="https://github.com/stark-studio-labs/sims4-mod-revival" class="repo-link" target="_blank" rel="noopener">
+            <span class="repo-icon">🔬</span>
+            <div class="repo-info">
+              <span class="repo-name">sims4-mod-revival</span>
+              <span class="repo-desc">Resurrect abandoned community mods</span>
+            </div>
+            <span class="repo-arrow">→</span>
+          </a>
+        </div>
+      </div>
+      <div class="spotlight-visual reveal">
+        <div class="mockup-terminal">
+          <div class="mockup-bar">
+            <span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span>
+            <span class="mockup-title-label">Terminal</span>
+          </div>
+          <div class="mockup-body">
+            <p class="mt-prompt"><span class="mt-dollar">$</span>s4mm scan</p>
+            <p class="mt-dim">Scanning ~/Documents/EA/The Sims 4/Mods/</p>
+            <br>
+            <p class="mt-table-head">Name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Type&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Size&nbsp;&nbsp;&nbsp;&nbsp;Resources</p>
+            <p class="mt-row"><span class="mt-name">mc_cmd_center</span><span class="mt-ext">.ts4script</span><span class="mt-sz">12 MB</span><span class="mt-ct">—</span></p>
+            <p class="mt-row"><span class="mt-name">basemental</span><span class="mt-ext">.package</span><span class="mt-sz">85 MB</span><span class="mt-ct">3,412</span></p>
+            <p class="mt-row"><span class="mt-name">ui_cheats</span><span class="mt-ext">.package</span><span class="mt-sz">2 MB</span><span class="mt-ct">156</span></p>
+            <p class="mt-row"><span class="mt-name">slice_of_life</span><span class="mt-ext">.package</span><span class="mt-sz">24 MB</span><span class="mt-ct">891</span></p>
+            <br>
+            <p class="mt-summary">47 active · 3 disabled · 412 MB total</p>
+            <p class="mt-conflicts"><span class="mt-warn">⚠</span> 2 conflicts detected — run <code>s4mm conflicts</code></p>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- PRODUCTS -->
-  <section class="section" id="products">
-    <div class="section-header reveal">
-      <span class="section-tag">Products</span>
-      <h2 class="section-title">Three pillars. One ecosystem.</h2>
-      <p class="section-sub">Everything you need to create, manage, and supercharge your Sims 4 experience. From mod management to intelligent gameplay, it all works together.</p>
-    </div>
-    <div class="product-grid">
-      <div class="product-card reveal">
-        <div class="product-icon">&#x1F3D7;&#xFE0F;</div>
-        <h3 class="product-name">Platform</h3>
-        <p class="product-desc">The foundation. Install, create, and revive mods with modern tools that just work.</p>
-        <ul class="product-repos">
-          <li><a href="https://github.com/stark-studio-labs/sims4-mod-manager" target="_blank" rel="noopener"><code>sims4-mod-manager</code> <span>One-click install, update, and conflict resolution</span></a></li>
-          <li><a href="https://github.com/stark-studio-labs/sims4-mod-builder" target="_blank" rel="noopener"><code>sims4-mod-builder</code> <span>Visual mod creation with live preview</span></a></li>
-          <li><a href="https://github.com/stark-studio-labs/sims4-mod-revival" target="_blank" rel="noopener"><code>sims4-mod-revival</code> <span>Resurrect broken mods from abandoned projects</span></a></li>
-        </ul>
-      </div>
-      <div class="product-card product-card-accent reveal">
-        <div class="product-icon">&#x1F9E0;</div>
-        <h3 class="product-name">Intelligence</h3>
-        <p class="product-desc">Smarter Sims. Dynamic economies. Gameplay that evolves with every session.</p>
-        <ul class="product-repos">
-          <li><a href="https://github.com/stark-studio-labs/sims4-smart-sims" target="_blank" rel="noopener"><code>sims4-smart-sims</code> <span>Local LLM-powered reasoning and memory</span></a></li>
-          <li><a href="https://github.com/stark-studio-labs/sims4-economy-sim" target="_blank" rel="noopener"><code>sims4-economy-sim</code> <span>Supply, demand, and market dynamics</span></a></li>
-        </ul>
-      </div>
-      <div class="product-card reveal">
-        <div class="product-icon">&#x2699;&#xFE0F;</div>
-        <h3 class="product-name">Developer Tools</h3>
-        <p class="product-desc">Build mods faster with type-safe APIs, hot reload, and first-class debugging.</p>
-        <ul class="product-repos">
-          <li><a href="https://github.com/stark-studio-labs/sims4-stark-devkit" target="_blank" rel="noopener"><code>sims4-stark-devkit</code> <span>CLI toolchain for mod development</span></a></li>
-          <li><a href="https://github.com/stark-studio-labs/sims4-stark-framework" target="_blank" rel="noopener"><code>sims4-stark-framework</code> <span>Modern typed framework replacing S4CL</span></a></li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
-  <!-- CODE SHOWCASE -->
-  <section class="section section-dark" id="code">
-    <div class="section-header reveal">
-      <span class="section-tag">See It In Action</span>
-      <h2 class="section-title">Modding should feel modern.</h2>
-      <p class="section-sub">Clean APIs. Type safety. Hot reload. The Stark Framework gives you the developer experience Sims modding has always needed.</p>
-    </div>
-    <div class="code-showcase reveal">
-      <div class="code-block">
-        <div class="code-header">
-          <div class="code-dots">
-            <span class="dot dot-red"></span>
-            <span class="dot dot-yellow"></span>
-            <span class="dot dot-green"></span>
+  <!-- SPOTLIGHT: Developer Tools -->
+  <section id="devtools" class="spotlight-section spotlight-light">
+    <div class="spotlight-inner spotlight-reversed">
+      <div class="spotlight-visual reveal">
+        <div class="mockup-code">
+          <div class="mockup-bar">
+            <span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span>
+            <span class="mockup-title-label">my_first_mod.py</span>
           </div>
-          <span class="code-filename">my_first_mod.py</span>
-        </div>
-        <pre class="code-body"><code><span class="hl-keyword">from</span> <span class="hl-module">stark_framework</span> <span class="hl-keyword">import</span> <span class="hl-func">mod</span>, <span class="hl-func">on_event</span>, <span class="hl-func">inject</span>
-<span class="hl-keyword">from</span> <span class="hl-module">stark_framework.sims</span> <span class="hl-keyword">import</span> <span class="hl-type">Sim</span>, <span class="hl-type">Interaction</span>
+          <pre class="mockup-code-body"><code><span class="hl-keyword">from</span> <span class="hl-module">stark_framework</span> <span class="hl-keyword">import</span> <span class="hl-func">mod</span>, <span class="hl-func">on_event</span>
+<span class="hl-keyword">from</span> <span class="hl-module">stark_framework.sims</span> <span class="hl-keyword">import</span> <span class="hl-type">Sim</span>
 
-<span class="hl-decorator">@mod</span>(<span class="hl-string">"my_awesome_mod"</span>, version=<span class="hl-string">"1.0.0"</span>)
-<span class="hl-keyword">class</span> <span class="hl-type">MyMod</span>:
+<span class="hl-decorator">@mod</span>(<span class="hl-string">"confidence_boost"</span>, version=<span class="hl-string">"1.0.0"</span>)
+<span class="hl-keyword">class</span> <span class="hl-type">ConfidenceMod</span>:
 
     <span class="hl-decorator">@on_event</span>(<span class="hl-string">"sim.interaction.start"</span>)
-    <span class="hl-keyword">def</span> <span class="hl-func">on_interaction</span>(<span class="hl-keyword">self</span>, sim: <span class="hl-type">Sim</span>, interaction: <span class="hl-type">Interaction</span>):
-        <span class="hl-keyword">if</span> interaction.is_social:
+    <span class="hl-keyword">def</span> <span class="hl-func">on_interact</span>(<span class="hl-keyword">self</span>, sim: <span class="hl-type">Sim</span>):
+        <span class="hl-keyword">if</span> sim.interaction.is_social:
             sim.add_buff(<span class="hl-string">"confident"</span>, duration=<span class="hl-number">240</span>)
-            <span class="hl-keyword">self</span>.log(<span class="hl-string">f"</span><span class="hl-string">{sim.name} feels extra confident!</span><span class="hl-string">"</span>)
 
-    <span class="hl-decorator">@inject</span>(<span class="hl-string">"services.sim_info_manager"</span>)
-    <span class="hl-keyword">def</span> <span class="hl-func">boost_all_sims</span>(<span class="hl-keyword">self</span>, manager):
-        <span class="hl-keyword">for</span> sim <span class="hl-keyword">in</span> manager.get_all():
-            sim.skills.painting.add_xp(<span class="hl-number">500</span>)</code></pre>
+    <span class="hl-decorator">@on_event</span>(<span class="hl-string">"sim.skill.level_up"</span>)
+    <span class="hl-keyword">def</span> <span class="hl-func">on_skill</span>(<span class="hl-keyword">self</span>, sim: <span class="hl-type">Sim</span>, skill, level: <span class="hl-type">int</span>):
+        <span class="hl-keyword">self</span>.log(<span class="hl-string">f"{sim.name} reached {skill} {level}"</span>)</code></pre>
+        </div>
       </div>
-      <div class="code-caption">
-        <p>Decorators handle the boilerplate. Type hints give you autocomplete. Event hooks let you react to anything in the game. And <code>@inject</code> gives you direct access to EA's internal services — no more hunting through decompiled code.</p>
+      <div class="spotlight-text reveal">
+        <span class="spotlight-eyebrow">Developer Tools</span>
+        <h2 class="spotlight-title">Build mods at the speed of thought.</h2>
+        <p class="spotlight-desc">Type-safe APIs. Decorator-driven hooks. Hot reload into a running game. The Stark Framework gives Sims modding the developer experience it’s always deserved — and the DevKit puts the entire toolchain in one command.</p>
+        <div class="spotlight-repos">
+          <a href="https://github.com/stark-studio-labs/sims4-stark-framework" class="repo-link" target="_blank" rel="noopener">
+            <span class="repo-icon">🧱</span>
+            <div class="repo-info">
+              <span class="repo-name">sims4-stark-framework</span>
+              <span class="repo-desc">Modern typed framework — replaces S4CL patterns</span>
+            </div>
+            <span class="repo-arrow">→</span>
+          </a>
+          <a href="https://github.com/stark-studio-labs/sims4-stark-devkit" class="repo-link" target="_blank" rel="noopener">
+            <span class="repo-icon">🔧</span>
+            <div class="repo-info">
+              <span class="repo-name">sims4-stark-devkit</span>
+              <span class="repo-desc">CLI toolkit — decompile, package, scaffold, test</span>
+            </div>
+            <span class="repo-arrow">→</span>
+          </a>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- TERMINAL / GET STARTED -->
-  <section class="section" id="terminal">
-    <div class="section-header reveal">
-      <span class="section-tag">Quick Start</span>
-      <h2 class="section-title">Get started in 60 seconds.</h2>
-    </div>
-    <div class="terminal-wrapper reveal">
-      <div class="terminal-window">
-        <div class="terminal-header">
-          <div class="code-dots">
-            <span class="dot dot-red"></span>
-            <span class="dot dot-yellow"></span>
-            <span class="dot dot-green"></span>
-          </div>
-          <span class="terminal-title">Terminal</span>
-        </div>
-        <div class="terminal-body" id="terminal-body">
-          <div class="terminal-line" data-delay="0">
-            <span class="terminal-prompt">$</span>
-            <span class="terminal-cmd">pip install stark-devkit</span>
-          </div>
-          <div class="terminal-line" data-delay="800">
-            <span class="terminal-text terminal-output dim">Successfully installed stark-devkit-1.0.0</span>
-          </div>
-          <div class="terminal-line" data-delay="1600">
-            <span class="terminal-prompt">$</span>
-            <span class="terminal-cmd">stark init my-awesome-mod</span>
-          </div>
-          <div class="terminal-line" data-delay="2400">
-            <span class="terminal-text terminal-output dim">&#x2713; Created my-awesome-mod/ with starter template</span>
-          </div>
-          <div class="terminal-line" data-delay="3200">
-            <span class="terminal-prompt">$</span>
-            <span class="terminal-cmd">cd my-awesome-mod &amp;&amp; stark dev</span>
-          </div>
-          <div class="terminal-line" data-delay="4000">
-            <span class="terminal-text terminal-output success">&#x26A1; Hot-reload server running &mdash; drop into The Sims 4</span>
-          </div>
+  <!-- SPOTLIGHT: Smart Sims -->
+  <section id="smart-sims" class="spotlight-section spotlight-gradient">
+    <div class="spotlight-inner">
+      <div class="spotlight-text reveal">
+        <span class="spotlight-eyebrow">Intelligence</span>
+        <h2 class="spotlight-title">Sims that actually think before they act.</h2>
+        <p class="spotlight-desc">Local AI-powered reasoning gives each Sim persistent memory, contextual conversations, and decisions that match their personality. No cloud. No subscription. Runs entirely on your machine.</p>
+        <div class="spotlight-repos">
+          <a href="https://github.com/stark-studio-labs/sims4-smart-sims" class="repo-link" target="_blank" rel="noopener">
+            <span class="repo-icon">🧠</span>
+            <div class="repo-info">
+              <span class="repo-name">sims4-smart-sims</span>
+              <span class="repo-desc">Local AI-powered Sim behavior and memory</span>
+            </div>
+            <span class="repo-arrow">→</span>
+          </a>
+          <a href="https://github.com/stark-studio-labs/sims4-economy-sim" class="repo-link" target="_blank" rel="noopener">
+            <span class="repo-icon">💰</span>
+            <div class="repo-info">
+              <span class="repo-name">sims4-economy-sim</span>
+              <span class="repo-desc">Dynamic supply, demand, and market simulation</span>
+            </div>
+            <span class="repo-arrow">→</span>
+          </a>
         </div>
       </div>
+      <div class="spotlight-visual reveal">
+        <div class="mockup-chat">
+          <div class="mockup-bar">
+            <span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span>
+            <span class="mockup-title-label">Sim Memory — Aria Chen</span>
+          </div>
+          <div class="mockup-chat-body">
+            <div class="chat-event">📅 Day 47 — Cooking skill reached level 8</div>
+            <div class="chat-bubble">
+              <div class="chat-sim-name">Aria</div>
+              <div class="chat-sim-text">I remember when I burned those first pancakes for Marco. He pretended to like them anyway. I think that’s why I kept practicing.</div>
+            </div>
+            <div class="chat-event">🎯 Motivation: Impress Marco → pursue mastery</div>
+            <div class="chat-bubble">
+              <div class="chat-sim-name">Aria</div>
+              <div class="chat-sim-text">Maybe I should open that restaurant Marco always teased me about.</div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="steps-grid">
-      <div class="step-card reveal">
-        <div class="step-number">1</div>
-        <h3 class="step-title">Install</h3>
-        <p class="step-desc">One command. The DevKit handles Python setup, dependency management, and game path detection automatically.</p>
+  </section>
+
+  <!-- GET STARTED -->
+  <section id="get-started" class="section-dark">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-eyebrow">Quick Start</span>
+        <h2 class="section-title">Get started in 60 seconds.</h2>
       </div>
-      <div class="step-card reveal">
-        <div class="step-number">2</div>
-        <h3 class="step-title">Create</h3>
-        <p class="step-desc">Scaffold a new mod with the starter template. Typed APIs, event hooks, and game service injection out of the box.</p>
+      <div class="terminal-wrapper reveal">
+        <div class="terminal-window">
+          <div class="terminal-bar">
+            <span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span>
+            <span class="terminal-label">Terminal</span>
+          </div>
+          <div class="terminal-body" id="terminal-body">
+            <div class="tl" data-delay="0"><span class="tp">$</span><span class="tc">pip install stark-devkit</span></div>
+            <div class="tl" data-delay="800"><span class="to dim">✓ Successfully installed stark-devkit-1.0.0</span></div>
+            <div class="tl" data-delay="1600"><span class="tp">$</span><span class="tc">stark init my-awesome-mod</span></div>
+            <div class="tl" data-delay="2400"><span class="to dim">✓ Created my-awesome-mod/ with starter template</span></div>
+            <div class="tl" data-delay="3200"><span class="tp">$</span><span class="tc">cd my-awesome-mod &amp;&amp; stark dev</span></div>
+            <div class="tl" data-delay="4000"><span class="to success">⚡ Hot-reload server running — drop into The Sims 4</span></div>
+          </div>
+        </div>
       </div>
-      <div class="step-card reveal">
-        <div class="step-number">3</div>
-        <h3 class="step-title">Ship</h3>
-        <p class="step-desc">Hot-reload into a running game. Test changes instantly. Package and publish when you're ready.</p>
+      <div class="steps-grid">
+        <div class="step reveal">
+          <div class="step-num">1</div>
+          <h3>Install</h3>
+          <p>One pip install. Auto-detects your game path and configures the Python environment.</p>
+        </div>
+        <div class="step reveal">
+          <div class="step-num">2</div>
+          <h3>Create</h3>
+          <p>Scaffold a mod with the starter template. Typed APIs, event hooks, and service injection included.</p>
+        </div>
+        <div class="step reveal">
+          <div class="step-num">3</div>
+          <h3>Ship</h3>
+          <p>Hot-reload into a running game. Test live. Package and distribute when you’re ready.</p>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- GAMEPLAY LAYERS -->
-  <section class="section section-dark" id="layers">
-    <div class="section-header reveal">
-      <span class="section-tag">Gameplay Layers</span>
-      <h2 class="section-title">Six layers. One living world.</h2>
-      <p class="section-sub">Each layer adds depth to the simulation. Together, they transform The Sims 4 into something EA never imagined — a world that thinks, reacts, and evolves.</p>
-    </div>
-    <div class="layer-grid">
-      <div class="layer-card reveal">
-        <div class="layer-num">01</div>
-        <h3 class="layer-name">Economy</h3>
-        <p class="layer-desc">Dynamic supply and demand. Stock markets. Real estate bubbles. Sims make financial decisions that ripple through the world.</p>
-        <span class="layer-status status-dev">In Development</span>
+  <section id="layers" class="section-light">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-eyebrow">Gameplay Layers</span>
+        <h2 class="section-title">Six layers. One living world.</h2>
+        <p class="section-sub">Each layer adds depth to the simulation. Together, they transform The Sims 4 into something EA never imagined — a world that thinks, reacts, and evolves.</p>
       </div>
-      <div class="layer-card reveal">
-        <div class="layer-num">02</div>
-        <h3 class="layer-name">Politics</h3>
-        <p class="layer-desc">Elections, factions, policy debates. Sims form political opinions, campaign for office, and pass laws that change gameplay.</p>
-        <span class="layer-status status-research">Research</span>
-      </div>
-      <div class="layer-card reveal">
-        <div class="layer-num">03</div>
-        <h3 class="layer-name">Social</h3>
-        <p class="layer-desc">Deeper relationships. Reputation systems. Social media. Sims remember grudges, form cliques, and spread gossip.</p>
-        <span class="layer-status status-planned">Planned</span>
-      </div>
-      <div class="layer-card reveal">
-        <div class="layer-num">04</div>
-        <h3 class="layer-name">Quality of Life</h3>
-        <p class="layer-desc">The fixes EA never shipped. Better UI, smarter autonomy, fewer frustrations. Hundreds of tweaks that make the game feel polished.</p>
-        <span class="layer-status status-dev">In Development</span>
-      </div>
-      <div class="layer-card reveal">
-        <div class="layer-num">05</div>
-        <h3 class="layer-name">Drama</h3>
-        <p class="layer-desc">Emergent storylines. Betrayals, rivalries, unlikely alliances. A narrative engine that generates stories worth telling.</p>
-        <span class="layer-status status-planned">Planned</span>
-      </div>
-      <div class="layer-card reveal">
-        <div class="layer-num">06</div>
-        <h3 class="layer-name">Intelligence</h3>
-        <p class="layer-desc">Local LLM-powered Sim reasoning. Persistent memory. Contextual dialogue. Sims that actually think before they act.</p>
-        <span class="layer-status status-dev">In Development</span>
+      <div class="layers-grid">
+        <div class="layer-card reveal">
+          <div class="layer-num">01</div>
+          <h3 class="layer-name">Economy</h3>
+          <p class="layer-desc">Dynamic supply and demand. Stock markets. Real estate bubbles. Sims make financial decisions that ripple through the world.</p>
+          <span class="layer-badge badge-dev">In Development</span>
+        </div>
+        <div class="layer-card reveal">
+          <div class="layer-num">02</div>
+          <h3 class="layer-name">Politics</h3>
+          <p class="layer-desc">Elections, factions, policy debates. Sims form political opinions, campaign for office, and pass laws that change gameplay.</p>
+          <span class="layer-badge badge-research">Research</span>
+        </div>
+        <div class="layer-card reveal">
+          <div class="layer-num">03</div>
+          <h3 class="layer-name">Social</h3>
+          <p class="layer-desc">Deeper relationships. Reputation systems. Social media. Sims remember grudges, form cliques, and spread gossip.</p>
+          <span class="layer-badge badge-planned">Planned</span>
+        </div>
+        <div class="layer-card reveal">
+          <div class="layer-num">04</div>
+          <h3 class="layer-name">Quality of Life</h3>
+          <p class="layer-desc">The fixes EA never shipped. Better UI, smarter autonomy, fewer frustrations. Hundreds of tweaks that make the game feel polished.</p>
+          <span class="layer-badge badge-dev">In Development</span>
+        </div>
+        <div class="layer-card reveal">
+          <div class="layer-num">05</div>
+          <h3 class="layer-name">Drama</h3>
+          <p class="layer-desc">Emergent storylines. Betrayals, rivalries, unlikely alliances. A narrative engine that generates stories worth telling.</p>
+          <span class="layer-badge badge-planned">Planned</span>
+        </div>
+        <div class="layer-card reveal">
+          <div class="layer-num">06</div>
+          <h3 class="layer-name">Intelligence</h3>
+          <p class="layer-desc">Local AI-powered Sim behavior. Persistent memory. Contextual dialogue. Sims that actually think before they act.</p>
+          <span class="layer-badge badge-dev">In Development</span>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- ROADMAP -->
-  <section class="section" id="roadmap">
-    <div class="section-header reveal">
-      <span class="section-tag">Roadmap</span>
-      <h2 class="section-title">What's next.</h2>
-    </div>
-    <div class="roadmap-timeline">
-      <div class="roadmap-item reveal">
-        <div class="roadmap-marker active"></div>
-        <div class="roadmap-content">
-          <span class="roadmap-phase">Phase 1 &mdash; Foundation</span>
-          <h3>Developer tooling and framework</h3>
-          <p>The core developer experience. A modern CLI, typed framework, and the scaffolding that makes everything else possible.</p>
-          <div class="roadmap-repos">
-            <span class="roadmap-repo">sims4-stark-devkit</span>
-            <span class="roadmap-repo">sims4-stark-framework</span>
+  <section id="roadmap" class="section-dark">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-eyebrow">Roadmap</span>
+        <h2 class="section-title">What’s next.</h2>
+      </div>
+      <div class="roadmap">
+        <div class="roadmap-item reveal">
+          <div class="rm-dot rm-active"></div>
+          <div class="rm-content">
+            <span class="rm-phase">Phase 1 — Foundation</span>
+            <h3>Developer tooling and framework</h3>
+            <p>The core developer experience. A modern CLI, typed framework, and the scaffolding that makes everything else possible.</p>
+            <div class="rm-tags"><span class="rm-tag">sims4-stark-devkit</span><span class="rm-tag">sims4-stark-framework</span></div>
           </div>
         </div>
-      </div>
-      <div class="roadmap-item reveal">
-        <div class="roadmap-marker active"></div>
-        <div class="roadmap-content">
-          <span class="roadmap-phase">Phase 2 &mdash; Platform</span>
-          <h3>Mod management and creation tools</h3>
-          <p>The user-facing layer. Install mods without headaches. Build mods without boilerplate. Revive mods the community lost.</p>
-          <div class="roadmap-repos">
-            <span class="roadmap-repo">sims4-mod-manager</span>
-            <span class="roadmap-repo">sims4-mod-builder</span>
-            <span class="roadmap-repo">sims4-mod-revival</span>
+        <div class="roadmap-item reveal">
+          <div class="rm-dot rm-active"></div>
+          <div class="rm-content">
+            <span class="rm-phase">Phase 2 — Platform</span>
+            <h3>Mod management and creation tools</h3>
+            <p>The user-facing layer. Install mods without headaches. Build mods without boilerplate. Revive mods the community lost.</p>
+            <div class="rm-tags"><span class="rm-tag">sims4-mod-manager</span><span class="rm-tag">sims4-mod-builder</span><span class="rm-tag">sims4-mod-revival</span></div>
           </div>
         </div>
-      </div>
-      <div class="roadmap-item reveal">
-        <div class="roadmap-marker"></div>
-        <div class="roadmap-content">
-          <span class="roadmap-phase">Phase 3 &mdash; Intelligence</span>
-          <h3>Smart Sims and economic simulation</h3>
-          <p>The brains. Local LLM-powered reasoning, persistent Sim memory, and a living economy that responds to player actions.</p>
-          <div class="roadmap-repos">
-            <span class="roadmap-repo">sims4-smart-sims</span>
-            <span class="roadmap-repo">sims4-economy-sim</span>
+        <div class="roadmap-item reveal">
+          <div class="rm-dot"></div>
+          <div class="rm-content">
+            <span class="rm-phase">Phase 3 — Intelligence</span>
+            <h3>Smart Sims and economic simulation</h3>
+            <p>The brains. Local AI-powered reasoning, persistent Sim memory, and a living economy that responds to player actions.</p>
+            <div class="rm-tags"><span class="rm-tag">sims4-smart-sims</span><span class="rm-tag">sims4-economy-sim</span></div>
           </div>
         </div>
-      </div>
-      <div class="roadmap-item reveal">
-        <div class="roadmap-marker"></div>
-        <div class="roadmap-content">
-          <span class="roadmap-phase">Phase 4 &mdash; Stark Pack</span>
-          <h3>All six layers, unified</h3>
-          <p>The full vision. Economy, politics, social, QoL, drama, and intelligence — woven into a single cohesive gameplay overhaul.</p>
-          <span class="layer-status status-research">2026</span>
-          <div class="roadmap-repos">
-            <span class="roadmap-repo">sims4-stark-pack</span>
+        <div class="roadmap-item reveal">
+          <div class="rm-dot"></div>
+          <div class="rm-content">
+            <span class="rm-phase">Phase 4 — Stark Pack</span>
+            <h3>All six layers, unified</h3>
+            <p>The full vision. Economy, politics, social, QoL, drama, and intelligence — woven into a single cohesive gameplay overhaul.</p>
+            <div class="rm-tags"><span class="rm-tag">sims4-stark-pack</span><span class="rm-tag">2026</span></div>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- PATREON TIERS -->
-  <section class="section section-dark" id="support">
-    <div class="section-header reveal">
-      <span class="section-tag">Support</span>
-      <h2 class="section-title">Power the Plumbob.</h2>
-      <p class="section-sub">Every tier helps us build faster, hire better, and ship more. Pick your level and join the crew that's rewriting what The Sims can be.</p>
-    </div>
-    <div class="tier-grid">
-      <div class="tier-card reveal" data-tier="green">
-        <div class="plumbob plumbob-green"></div>
-        <h3 class="tier-name">Green</h3>
-        <div class="tier-price">$3 <span>/mo</span></div>
-        <p class="tier-desc">Early supporter badge. Name in credits. Our eternal gratitude.</p>
-        <a href="https://patreon.com/starkstudiolabs" class="btn btn-tier" target="_blank" rel="noopener">Join</a>
+  <!-- SUPPORT / TIERS -->
+  <section id="support" class="section-light">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-eyebrow">Support</span>
+        <h2 class="section-title">Power the Plumbob.</h2>
+        <p class="section-sub">Every tier helps us build faster, hire better, and ship more. Pick your level and join the crew that’s rewriting what The Sims can be.</p>
       </div>
-      <div class="tier-card reveal" data-tier="blue">
-        <div class="plumbob plumbob-blue"></div>
-        <h3 class="tier-name">Blue</h3>
-        <div class="tier-price">$5 <span>/mo</span></div>
-        <p class="tier-desc">Behind-the-scenes dev logs. Discord role. Vote on feature priorities.</p>
-        <a href="https://patreon.com/starkstudiolabs" class="btn btn-tier" target="_blank" rel="noopener">Join</a>
-      </div>
-      <div class="tier-card reveal" data-tier="purple">
-        <div class="plumbob plumbob-purple"></div>
-        <h3 class="tier-name">Purple</h3>
-        <div class="tier-price">$10 <span>/mo</span></div>
-        <p class="tier-desc">Beta access to every mod before public release. Private feedback channel.</p>
-        <a href="https://patreon.com/starkstudiolabs" class="btn btn-tier" target="_blank" rel="noopener">Join</a>
-      </div>
-      <div class="tier-card reveal" data-tier="gold">
-        <div class="plumbob plumbob-gold"></div>
-        <h3 class="tier-name">Gold</h3>
-        <div class="tier-price">$25 <span>/mo</span></div>
-        <p class="tier-desc">Founding member. Your Sim added to our test world. Monthly AMA access.</p>
-        <a href="https://patreon.com/starkstudiolabs" class="btn btn-tier" target="_blank" rel="noopener">Join</a>
-      </div>
-      <div class="tier-card reveal" data-tier="diamond">
-        <div class="plumbob plumbob-diamond"></div>
-        <h3 class="tier-name">Diamond</h3>
-        <div class="tier-price">$50 <span>/mo</span></div>
-        <p class="tier-desc">Studio patron. Direct feature requests. Name a gameplay system.</p>
-        <a href="https://patreon.com/starkstudiolabs" class="btn btn-tier" target="_blank" rel="noopener">Join</a>
-      </div>
-      <div class="tier-card reveal" data-tier="crystal">
-        <div class="plumbob plumbob-crystal"></div>
-        <h3 class="tier-name">Crystal</h3>
-        <div class="tier-price">$100 <span>/mo</span></div>
-        <p class="tier-desc">Inner circle. Co-design sessions. Custom mod consultation. The works.</p>
-        <a href="https://patreon.com/starkstudiolabs" class="btn btn-tier" target="_blank" rel="noopener">Join</a>
+      <div class="tiers-grid">
+        <div class="tier reveal" data-tier="green">
+          <div class="plumbob plumbob-green"></div>
+          <h3 class="tier-name">Green</h3>
+          <div class="tier-price">$3 <span>/mo</span></div>
+          <p class="tier-perks">Early supporter badge. Name in credits. Our eternal gratitude.</p>
+          <a href="https://patreon.com/starkstudiolabs" class="btn btn-tier" target="_blank" rel="noopener">Join Tier</a>
+        </div>
+        <div class="tier reveal" data-tier="blue">
+          <div class="plumbob plumbob-blue"></div>
+          <h3 class="tier-name">Blue</h3>
+          <div class="tier-price">$5 <span>/mo</span></div>
+          <p class="tier-perks">Behind-the-scenes dev logs. Discord role. Vote on feature priorities.</p>
+          <a href="https://patreon.com/starkstudiolabs" class="btn btn-tier" target="_blank" rel="noopener">Join Tier</a>
+        </div>
+        <div class="tier tier-featured reveal" data-tier="purple">
+          <div class="tier-popular">Most Popular</div>
+          <div class="plumbob plumbob-purple"></div>
+          <h3 class="tier-name">Purple</h3>
+          <div class="tier-price">$10 <span>/mo</span></div>
+          <p class="tier-perks">Beta access to every mod before public release. Private feedback channel.</p>
+          <a href="https://patreon.com/starkstudiolabs" class="btn btn-tier" target="_blank" rel="noopener">Join Tier</a>
+        </div>
+        <div class="tier reveal" data-tier="gold">
+          <div class="plumbob plumbob-gold"></div>
+          <h3 class="tier-name">Gold</h3>
+          <div class="tier-price">$25 <span>/mo</span></div>
+          <p class="tier-perks">Founding member. Your Sim added to our test world. Monthly AMA access.</p>
+          <a href="https://patreon.com/starkstudiolabs" class="btn btn-tier" target="_blank" rel="noopener">Join Tier</a>
+        </div>
+        <div class="tier reveal" data-tier="diamond">
+          <div class="plumbob plumbob-diamond"></div>
+          <h3 class="tier-name">Diamond</h3>
+          <div class="tier-price">$50 <span>/mo</span></div>
+          <p class="tier-perks">Studio patron. Direct feature requests. Name a gameplay system.</p>
+          <a href="https://patreon.com/starkstudiolabs" class="btn btn-tier" target="_blank" rel="noopener">Join Tier</a>
+        </div>
+        <div class="tier reveal" data-tier="crystal">
+          <div class="plumbob plumbob-crystal"></div>
+          <h3 class="tier-name">Crystal</h3>
+          <div class="tier-price">$100 <span>/mo</span></div>
+          <p class="tier-perks">Inner circle. Co-design sessions. Custom mod consultation. The works.</p>
+          <a href="https://patreon.com/starkstudiolabs" class="btn btn-tier" target="_blank" rel="noopener">Join Tier</a>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- BLOG -->
-  <section class="section" id="blog">
-    <div class="section-header reveal">
-      <span class="section-tag">From the Lab</span>
-      <h2 class="section-title">What we're thinking about.</h2>
-    </div>
-    <div class="blog-grid">
-      <article class="blog-card reveal">
-        <span class="blog-date">Coming Soon</span>
-        <h3 class="blog-title">Why We're Building a Mod Manager from Scratch</h3>
-        <p class="blog-excerpt">The current mod ecosystem is held together with duct tape and forum posts. We think modders deserve better than dragging .package files into a folder and praying nothing conflicts.</p>
-        <span class="blog-read">Read more &rarr;</span>
-      </article>
-      <article class="blog-card reveal">
-        <span class="blog-date">Coming Soon</span>
-        <h3 class="blog-title">Local LLMs Meet The Sims: How Smart Sims Works</h3>
-        <p class="blog-excerpt">What happens when you give every Sim a local language model? Persistent memories, contextual conversations, and decisions that actually make sense. No cloud. No subscription. Just smarter gameplay.</p>
-        <span class="blog-read">Read more &rarr;</span>
-      </article>
-      <article class="blog-card reveal">
-        <span class="blog-date">Coming Soon</span>
-        <h3 class="blog-title">The Stark Framework: Replacing S4CL</h3>
-        <p class="blog-excerpt">S4CL was a gift to the community, but it's showing its age. We're building a modern typed framework with decorators, dependency injection, and an event system that makes modding feel like 2026.</p>
-        <span class="blog-read">Read more &rarr;</span>
-      </article>
+  <section id="blog" class="section-dark">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-eyebrow">From the Lab</span>
+        <h2 class="section-title">What we’re thinking about.</h2>
+      </div>
+      <div class="blog-grid">
+        <article class="blog-card reveal">
+          <div class="blog-meta">
+            <span class="blog-tag">Engineering</span>
+            <span class="blog-date">Coming Soon</span>
+          </div>
+          <h3 class="blog-title">Why We’re Building a Mod Manager from Scratch</h3>
+          <p class="blog-excerpt">The current mod ecosystem is held together with duct tape and forum posts. Modders deserve better than dragging .package files into a folder and praying nothing conflicts.</p>
+          <span class="blog-cta">Read when it’s live →</span>
+        </article>
+        <article class="blog-card reveal">
+          <div class="blog-meta">
+            <span class="blog-tag">Intelligence</span>
+            <span class="blog-date">Coming Soon</span>
+          </div>
+          <h3 class="blog-title">Local AI Meets The Sims: How Smart Sims Works</h3>
+          <p class="blog-excerpt">What happens when every Sim has a local language model? Persistent memories, contextual conversations, and decisions that actually make sense. No cloud. No subscription.</p>
+          <span class="blog-cta">Read when it’s live →</span>
+        </article>
+        <article class="blog-card reveal">
+          <div class="blog-meta">
+            <span class="blog-tag">Framework</span>
+            <span class="blog-date">Coming Soon</span>
+          </div>
+          <h3 class="blog-title">The Stark Framework: Replacing S4CL</h3>
+          <p class="blog-excerpt">S4CL was a gift to the community, but it’s showing its age. We’re building a modern typed framework with decorators, dependency injection, and an event system that feels like 2026.</p>
+          <span class="blog-cta">Read when it’s live →</span>
+        </article>
+      </div>
     </div>
   </section>
 
   <!-- COMMUNITY -->
-  <section class="section section-dark" id="community">
-    <div class="section-header reveal">
-      <h2 class="section-title">Join the community.</h2>
-      <p class="section-sub">We build in public. Every line of code, every design decision, every roadmap change. Come be part of it.</p>
-    </div>
-    <div class="community-grid">
-      <a href="https://github.com/stark-studio-labs" class="community-card" target="_blank" rel="noopener">
-        <svg width="32" height="32" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
-        <span>GitHub</span>
-        <span class="community-sub">Star, fork, contribute</span>
-      </a>
-      <a href="https://discord.gg/starkstudiolabs" class="community-card" target="_blank" rel="noopener">
-        <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.37a19.791 19.791 0 00-4.885-1.515.074.074 0 00-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 00-5.487 0 12.64 12.64 0 00-.617-1.25.077.077 0 00-.079-.037A19.736 19.736 0 003.677 4.37a.07.07 0 00-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 00.031.057 19.9 19.9 0 005.993 3.03.078.078 0 00.084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 00-.041-.106 13.107 13.107 0 01-1.872-.892.077.077 0 01-.008-.128 10.2 10.2 0 00.372-.292.074.074 0 01.077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 01.078.01c.12.098.246.198.373.292a.077.077 0 01-.006.127 12.299 12.299 0 01-1.873.892.077.077 0 00-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 00.084.028 19.839 19.839 0 006.002-3.03.077.077 0 00.032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 00-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.947 2.418-2.157 2.418z"/></svg>
-        <span>Discord</span>
-        <span class="community-sub">Chat with modders</span>
-      </a>
-      <a href="https://x.com/starkstudiolabs" class="community-card" target="_blank" rel="noopener">
-        <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-        <span>X / Twitter</span>
-        <span class="community-sub">Updates &amp; announcements</span>
-      </a>
-      <a href="https://patreon.com/starkstudiolabs" class="community-card" target="_blank" rel="noopener">
-        <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><path d="M14.82 2.41c3.96 0 7.18 3.24 7.18 7.21 0 3.96-3.22 7.18-7.18 7.18-3.97 0-7.21-3.22-7.21-7.18 0-3.97 3.24-7.21 7.21-7.21zM2 21.6h3.5V2.41H2V21.6z"/></svg>
-        <span>Patreon</span>
-        <span class="community-sub">Support the project</span>
-      </a>
+  <section id="community" class="section-community">
+    <div class="container">
+      <div class="section-header reveal">
+        <h2 class="section-title">Join the community.</h2>
+        <p class="section-sub">We build in public. Every line of code, every design decision, every roadmap change. Come be part of it.</p>
+      </div>
+      <div class="community-grid">
+        <a href="https://github.com/stark-studio-labs" class="community-card reveal" target="_blank" rel="noopener">
+          <svg width="32" height="32" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+          <span class="community-name">GitHub</span>
+          <span class="community-desc">Star, fork, contribute</span>
+        </a>
+        <a href="https://discord.gg/starkstudiolabs" class="community-card reveal" target="_blank" rel="noopener">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.37a19.791 19.791 0 00-4.885-1.515.074.074 0 00-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 00-5.487 0 12.64 12.64 0 00-.617-1.25.077.077 0 00-.079-.037A19.736 19.736 0 003.677 4.37a.07.07 0 00-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 00.031.057 19.9 19.9 0 005.993 3.03.078.078 0 00.084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 00-.041-.106 13.107 13.107 0 01-1.872-.892.077.077 0 01-.008-.128 10.2 10.2 0 00.372-.292.074.074 0 01.077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 01.078.01c.12.098.246.198.373.292a.077.077 0 01-.006.127 12.299 12.299 0 01-1.873.892.077.077 0 00-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 00.084.028 19.839 19.839 0 006.002-3.03.077.077 0 00.032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 00-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.947 2.418-2.157 2.418z"/></svg>
+          <span class="community-name">Discord</span>
+          <span class="community-desc">Chat with modders</span>
+        </a>
+        <a href="https://x.com/starkstudiolabs" class="community-card reveal" target="_blank" rel="noopener">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          <span class="community-name">X / Twitter</span>
+          <span class="community-desc">Updates &amp; announcements</span>
+        </a>
+        <a href="https://patreon.com/starkstudiolabs" class="community-card reveal" target="_blank" rel="noopener">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><path d="M14.82 2.41c3.96 0 7.18 3.24 7.18 7.21 0 3.96-3.22 7.18-7.18 7.18-3.97 0-7.21-3.22-7.21-7.18 0-3.97 3.24-7.21 7.21-7.21zM2 21.6h3.5V2.41H2V21.6z"/></svg>
+          <span class="community-name">Patreon</span>
+          <span class="community-desc">Support the project</span>
+        </a>
+      </div>
     </div>
   </section>
 
   <!-- FOOTER -->
   <footer class="footer">
-    <div class="footer-grid">
-      <div class="footer-col footer-brand">
-        <a href="#" class="footer-logo">
-          <span class="nav-icon">⚡</span>
-          <span>Stark Studio Labs</span>
-        </a>
-        <p class="footer-tagline">The Sims 4 deserves better tools. We're building them.</p>
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a href="#" class="footer-logo">
+            <span class="nav-icon">⚡</span>
+            <span>Stark Studio Labs</span>
+          </a>
+          <p class="footer-tagline">The Sims 4 deserves better tools. We’re building them.</p>
+        </div>
+        <div class="footer-nav">
+          <div class="footer-col">
+            <h4>Products</h4>
+            <a href="https://github.com/stark-studio-labs/sims4-mod-manager" target="_blank" rel="noopener">Mod Manager</a>
+            <a href="https://github.com/stark-studio-labs/sims4-mod-builder" target="_blank" rel="noopener">Mod Builder</a>
+            <a href="https://github.com/stark-studio-labs/sims4-mod-revival" target="_blank" rel="noopener">Mod Revival</a>
+            <a href="https://github.com/stark-studios-labs/sims4-smart-sims" target="_blank" rel="noopener">Smart Sims</a>
+            <a href="https://github.com/stark-studio-labs/sims4-stark-devkit" target="_blank" rel="noopener">DevKit</a>
+          </div>
+          <div class="footer-col">
+            <h4>Community</h4>
+            <a href="https://github.com/stark-studio-labs" target="_blank" rel="noopener">GitHub</a>
+            <a href="https://discord.gg/starkstudiolabs" target="_blank" rel="noopener">Discord</a>
+            <a href="https://x.com/starkstudiolabs" target="_blank" rel="noopener">X / Twitter</a>
+            <a href="https://patreon.com/starkstudiolabs" target="_blank" rel="noopener">Patreon</a>
+          </div>
+          <div class="footer-col">
+            <h4>Resources</h4>
+            <a href="#roadmap">Roadmap</a>
+            <a href="#blog">Blog</a>
+            <a href="#layers">Gameplay Layers</a>
+            <a href="mailto:studio@starklabs.dev">Contact</a>
+          </div>
+        </div>
       </div>
-      <div class="footer-col">
-        <h4>Products</h4>
-        <a href="https://github.com/stark-studio-labs/sims4-mod-manager" target="_blank" rel="noopener">Mod Manager</a>
-        <a href="https://github.com/stark-studio-labs/sims4-mod-builder" target="_blank" rel="noopener">Mod Builder</a>
-        <a href="https://github.com/stark-studio-labs/sims4-smart-sims" target="_blank" rel="noopener">Smart Sims</a>
-        <a href="https://github.com/stark-studio-labs/sims4-stark-devkit" target="_blank" rel="noopener">DevKit</a>
-        <a href="https://github.com/stark-studio-labs/sims4-stark-framework" target="_blank" rel="noopener">Framework</a>
+      <div class="footer-bottom">
+        <p>&copy; 2026 Stark Studio Labs. All projects MIT licensed.</p>
       </div>
-      <div class="footer-col">
-        <h4>Community</h4>
-        <a href="https://github.com/stark-studio-labs" target="_blank" rel="noopener">GitHub</a>
-        <a href="https://discord.gg/starkstudiolabs" target="_blank" rel="noopener">Discord</a>
-        <a href="https://x.com/starkstudiolabs" target="_blank" rel="noopener">X / Twitter</a>
-        <a href="https://patreon.com/starkstudiolabs" target="_blank" rel="noopener">Patreon</a>
-      </div>
-      <div class="footer-col">
-        <h4>Resources</h4>
-        <a href="docs.html">Docs</a>
-        <a href="blog.html">Blog</a>
-        <a href="research.html">Research</a>
-        <a href="mods.html">Mod Catalog</a>
-        <a href="mailto:studio@starklabs.dev">Contact</a>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <p>&copy; 2026 Stark Studio Labs. All projects MIT licensed.</p>
     </div>
   </footer>
+
+  <script>
+    const nav = document.getElementById("nav");
+    window.addEventListener("scroll", () => {
+      nav.classList.toggle("nav-scrolled", window.scrollY > 20);
+    }, { passive: true });
+
+    const toggle = document.getElementById("nav-toggle");
+    const navLinks = document.getElementById("navLinks");
+    toggle.addEventListener("click", () => navLinks.classList.toggle("open"));
+    navLinks.querySelectorAll("a").forEach(a => a.addEventListener("click", () => navLinks.classList.remove("open")));
+
+    const revealObs = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) {
+          const siblings = [...e.target.parentElement.querySelectorAll(".reveal")];
+          const idx = siblings.indexOf(e.target);
+          setTimeout(() => e.target.classList.add("in-view"), idx * 80);
+          revealObs.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: "0px 0px -40px 0px" });
+    document.querySelectorAll(".reveal").forEach(el => revealObs.observe(el));
+
+    const termBody = document.getElementById("terminal-body");
+    if (termBody) {
+      let fired = false;
+      const termObs = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting && !fired) {
+          fired = true;
+          termBody.querySelectorAll(".tl").forEach(line => {
+            const delay = parseInt(line.dataset.delay || 0);
+            setTimeout(() => { line.style.animationDelay = "0ms"; line.classList.add("visible"); }, delay);
+          });
+          termObs.disconnect();
+        }
+      }, { threshold: 0.5 });
+      termObs.observe(termBody);
+    }
+  </script>
 
 </body>
 </html>
