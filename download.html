@@ -327,6 +327,248 @@
       flex-wrap: wrap;
     }
 
+    /* ── Persona Flow Cards ──────────────────────────────────────── */
+    .persona-section {
+      padding: 0 24px 80px;
+      background: #000;
+    }
+    .persona-header {
+      text-align: center;
+      max-width: 600px;
+      margin: 0 auto 48px;
+    }
+    .persona-header h2 {
+      font-size: clamp(28px, 4vw, 40px);
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: -0.02em;
+      margin-bottom: 10px;
+    }
+    .persona-header p {
+      font-size: 15px;
+      color: var(--text-secondary);
+    }
+    .persona-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      max-width: 1060px;
+      margin: 0 auto;
+    }
+    .persona-card {
+      position: relative;
+      background: rgba(255,255,255,0.03);
+      border: 2px solid rgba(255,255,255,0.08);
+      border-radius: var(--radius);
+      padding: 40px 32px 36px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.35s cubic-bezier(0.25,0.1,0.25,1);
+      overflow: hidden;
+    }
+    .persona-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      opacity: 0;
+      transition: opacity 0.35s;
+      pointer-events: none;
+    }
+    .persona-card[data-persona="beginner"]::before {
+      background: radial-gradient(ellipse at 50% 0%, rgba(48,209,88,0.12) 0%, transparent 70%);
+    }
+    .persona-card[data-persona="intermediate"]::before {
+      background: radial-gradient(ellipse at 50% 0%, rgba(191,90,242,0.12) 0%, transparent 70%);
+    }
+    .persona-card[data-persona="power"]::before {
+      background: radial-gradient(ellipse at 50% 0%, rgba(255,214,10,0.12) 0%, transparent 70%);
+    }
+    .persona-card:hover::before,
+    .persona-card.selected::before { opacity: 1; }
+    .persona-card:hover {
+      border-color: rgba(255,255,255,0.16);
+      transform: translateY(-4px);
+    }
+    .persona-card.selected {
+      transform: translateY(-4px);
+    }
+    .persona-card[data-persona="beginner"].selected { border-color: #30d158; box-shadow: 0 0 40px rgba(48,209,88,0.15); }
+    .persona-card[data-persona="intermediate"].selected { border-color: #bf5af2; box-shadow: 0 0 40px rgba(191,90,242,0.15); }
+    .persona-card[data-persona="power"].selected { border-color: #ffd60a; box-shadow: 0 0 40px rgba(255,214,10,0.15); }
+
+    /* Plumbob */
+    .persona-plumbob {
+      width: 48px;
+      height: 56px;
+      margin: 0 auto 20px;
+      clip-path: polygon(50% 0%, 100% 35%, 100% 65%, 50% 100%, 0% 65%, 0% 35%);
+      transition: transform 0.4s cubic-bezier(0.25,0.1,0.25,1), filter 0.4s;
+    }
+    .persona-card:hover .persona-plumbob,
+    .persona-card.selected .persona-plumbob {
+      transform: scale(1.1);
+      filter: brightness(1.2);
+    }
+    .plumbob-green { background: linear-gradient(180deg, #5bef8e 0%, #1a9e40 100%); }
+    .plumbob-purple { background: linear-gradient(180deg, #d18cf7 0%, #8b3abf 100%); }
+    .plumbob-gold { background: linear-gradient(180deg, #ffe566 0%, #c9a000 100%); }
+
+    .persona-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .persona-card[data-persona="beginner"] .persona-label { color: #30d158; }
+    .persona-card[data-persona="intermediate"] .persona-label { color: #bf5af2; }
+    .persona-card[data-persona="power"] .persona-label { color: #ffd60a; }
+
+    .persona-name {
+      font-size: 22px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 12px;
+      letter-spacing: -0.01em;
+    }
+    .persona-desc {
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.65;
+      margin-bottom: 24px;
+    }
+    .persona-features {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      text-align: left;
+      margin-bottom: 28px;
+    }
+    .persona-features li {
+      font-size: 13px;
+      color: var(--text-secondary);
+      padding-left: 22px;
+      position: relative;
+      line-height: 1.5;
+    }
+    .persona-features li::before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      font-weight: 700;
+    }
+    .persona-card[data-persona="beginner"] .persona-features li::before { color: #30d158; }
+    .persona-card[data-persona="intermediate"] .persona-features li::before { color: #bf5af2; }
+    .persona-card[data-persona="power"] .persona-features li::before { color: #ffd60a; }
+
+    .persona-cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      padding: 14px 24px;
+      border-radius: 100px;
+      font-size: 14px;
+      font-weight: 700;
+      border: 2px solid;
+      background: transparent;
+      cursor: pointer;
+      font-family: var(--font);
+      transition: all 0.25s cubic-bezier(0.25,0.1,0.25,1);
+      color: #fff;
+    }
+    .persona-card[data-persona="beginner"] .persona-cta { border-color: #30d158; color: #30d158; }
+    .persona-card[data-persona="beginner"] .persona-cta:hover { background: #30d158; color: #000; }
+    .persona-card[data-persona="intermediate"] .persona-cta { border-color: #bf5af2; color: #bf5af2; }
+    .persona-card[data-persona="intermediate"] .persona-cta:hover { background: #bf5af2; color: #000; }
+    .persona-card[data-persona="power"] .persona-cta { border-color: #ffd60a; color: #ffd60a; }
+    .persona-card[data-persona="power"] .persona-cta:hover { background: #ffd60a; color: #000; }
+
+    /* Expanded persona panels */
+    .persona-panel {
+      display: none;
+      max-width: 1060px;
+      margin: 32px auto 0;
+      padding: 36px 40px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: var(--radius);
+      animation: panelSlideIn 0.4s cubic-bezier(0.25,0.1,0.25,1);
+    }
+    .persona-panel.active { display: block; }
+    @keyframes panelSlideIn {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .persona-panel h3 {
+      font-size: 20px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 8px;
+    }
+    .persona-panel > p {
+      font-size: 15px;
+      color: var(--text-secondary);
+      margin-bottom: 28px;
+      line-height: 1.7;
+    }
+    .persona-panel-steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+    }
+    .persona-panel-step {
+      padding: 20px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 12px;
+    }
+    .persona-panel-step .step-num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+    .panel-beginner .step-num { background: rgba(48,209,88,0.15); color: #30d158; border: 1px solid rgba(48,209,88,0.3); }
+    .panel-intermediate .step-num { background: rgba(191,90,242,0.15); color: #bf5af2; border: 1px solid rgba(191,90,242,0.3); }
+    .panel-power .step-num { background: rgba(255,214,10,0.15); color: #ffd60a; border: 1px solid rgba(255,214,10,0.3); }
+    .persona-panel-step h4 {
+      font-size: 15px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 6px;
+    }
+    .persona-panel-step p {
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+    .persona-panel-code {
+      margin-top: 20px;
+      background: #0d1117;
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 10px;
+      padding: 20px 24px;
+      font-family: var(--font-mono);
+      font-size: 13px;
+      color: #e6edf3;
+      overflow-x: auto;
+      line-height: 1.8;
+    }
+    .persona-panel-code .cmd { color: #79c0ff; }
+    .persona-panel-code .flag { color: #a5d6ff; }
+    .persona-panel-code .comment { color: #6e7681; }
+    .persona-panel-code .success { color: #30d158; }
+
     /* ── Responsive ────────────────────────────────────────────────── */
     @media (max-width: 768px) {
       .dl-hero { padding: 140px 24px 80px; }
@@ -335,6 +577,9 @@
       .dl-reqs-grid { grid-template-columns: 1fr; }
       .dl-meta { flex-direction: column; gap: 8px; }
       .dl-btn { padding: 16px 32px; font-size: 16px; }
+      .persona-grid { grid-template-columns: 1fr; max-width: 400px; margin: 0 auto; }
+      .persona-panel { padding: 28px 24px; }
+      .persona-panel-steps { grid-template-columns: 1fr; }
     }
     @media (max-width: 480px) {
       .dl-cta-actions { flex-direction: column; align-items: center; }
@@ -403,6 +648,155 @@
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
           macOS &amp; Windows
         </span>
+      </div>
+    </div>
+  </section>
+
+  <!-- PERSONA FLOW -->
+  <section class="persona-section" id="persona-flow">
+    <div class="persona-header">
+      <h2>How do you mod?</h2>
+      <p>Pick your path. We'll show you exactly how to get started.</p>
+    </div>
+    <div class="persona-grid">
+
+      <!-- BEGINNER -->
+      <div class="persona-card" data-persona="beginner" onclick="selectPersona('beginner')">
+        <div class="persona-plumbob plumbob-green"></div>
+        <div class="persona-label">Recommended</div>
+        <div class="persona-name">New to Mods</div>
+        <p class="persona-desc">Never installed a mod before? No problem. One-click auto-setup handles everything — folder detection, conflict prevention, and safe defaults.</p>
+        <ul class="persona-features">
+          <li>Auto-detects your Sims 4 install</li>
+          <li>One-click mod installation</li>
+          <li>Built-in conflict scanner</li>
+          <li>Safe undo — disable any mod instantly</li>
+          <li>No terminal or file management needed</li>
+        </ul>
+        <button class="persona-cta">Get Started →</button>
+      </div>
+
+      <!-- INTERMEDIATE -->
+      <div class="persona-card" data-persona="intermediate" onclick="selectPersona('intermediate')">
+        <div class="persona-plumbob plumbob-purple"></div>
+        <div class="persona-label">Most Flexible</div>
+        <div class="persona-name">I Know My Way Around</div>
+        <p class="persona-desc">Already modding? Use the full manager with the mod picker — choose exactly which layers you want, configure each one, and manage your entire collection.</p>
+        <ul class="persona-features">
+          <li>Cherry-pick individual gameplay layers</li>
+          <li>Per-mod settings dashboard</li>
+          <li>Load order visualization</li>
+          <li>Batch enable/disable mod groups</li>
+          <li>Import existing mods folder</li>
+        </ul>
+        <button class="persona-cta">Choose Your Mods →</button>
+      </div>
+
+      <!-- POWER USER -->
+      <div class="persona-card" data-persona="power" onclick="selectPersona('power')">
+        <div class="persona-plumbob plumbob-gold"></div>
+        <div class="persona-label">Full Control</div>
+        <div class="persona-name">Power User</div>
+        <p class="persona-desc">Want CLI tools, direct GitHub access, or to build your own mods? Go straight to the source — clone repos, use the DevKit, and integrate with your workflow.</p>
+        <ul class="persona-features">
+          <li>CLI install via pip / stark-devkit</li>
+          <li>Clone any repo from GitHub</li>
+          <li>Hot-reload dev server for modding</li>
+          <li>Full Stark Framework access</li>
+          <li>Contribute back via pull requests</li>
+        </ul>
+        <button class="persona-cta">Go to GitHub →</button>
+      </div>
+
+    </div>
+
+    <!-- Beginner Panel -->
+    <div class="persona-panel panel-beginner" id="panel-beginner">
+      <h3>One-click setup for new modders</h3>
+      <p>Download the app, open it, and click "Auto Setup." That's it. Stark Labs detects your game, creates a safe mod folder structure, and installs sensible defaults.</p>
+      <div class="persona-panel-steps">
+        <div class="persona-panel-step">
+          <div class="step-num">1</div>
+          <h4>Download the app</h4>
+          <p>Grab the installer above for your operating system. Open the .dmg (Mac) or run the .exe (Windows).</p>
+        </div>
+        <div class="persona-panel-step">
+          <div class="step-num">2</div>
+          <h4>Click "Auto Setup"</h4>
+          <p>The app finds your Sims 4 installation, creates a backup point, and configures everything automatically.</p>
+        </div>
+        <div class="persona-panel-step">
+          <div class="step-num">3</div>
+          <h4>Browse & install</h4>
+          <p>Pick any mod from the built-in catalog. One click to install. One click to undo. No file management ever.</p>
+        </div>
+        <div class="persona-panel-step">
+          <div class="step-num">4</div>
+          <h4>Launch & play</h4>
+          <p>Start The Sims 4 normally. Stark Labs runs quietly in the background, watching for conflicts.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Intermediate Panel -->
+    <div class="persona-panel panel-intermediate" id="panel-intermediate">
+      <h3>Pick exactly what you want</h3>
+      <p>Use the mod picker to select individual gameplay layers. Each runs independently — install Economy without Politics, or Smart Sims without Drama. Your call.</p>
+      <div class="persona-panel-steps">
+        <div class="persona-panel-step">
+          <div class="step-num">1</div>
+          <h4>Open Mod Picker</h4>
+          <p>Launch Stark Labs and go to the "Layers" tab to see all available gameplay mods.</p>
+        </div>
+        <div class="persona-panel-step">
+          <div class="step-num">2</div>
+          <h4>Select your layers</h4>
+          <p>Toggle on Economy, Smart Sims, QoL — whatever combination you want. The conflict checker runs live.</p>
+        </div>
+        <div class="persona-panel-step">
+          <div class="step-num">3</div>
+          <h4>Configure each mod</h4>
+          <p>Click the gear icon on any mod to adjust settings — difficulty sliders, feature toggles, behavior tuning.</p>
+        </div>
+        <div class="persona-panel-step">
+          <div class="step-num">4</div>
+          <h4>Apply & play</h4>
+          <p>Hit "Apply Changes." Stark Labs handles file placement, load order, and cleanup. Launch your game.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Power User Panel -->
+    <div class="persona-panel panel-power" id="panel-power">
+      <h3>Full control via CLI and GitHub</h3>
+      <p>Clone repos, install via pip, use the hot-reload dev server. Everything is MIT-licensed and built for extensibility.</p>
+      <div class="persona-panel-steps">
+        <div class="persona-panel-step">
+          <div class="step-num">1</div>
+          <h4>Install the DevKit</h4>
+          <p>One pip command gets you the full CLI with project scaffolding, build tools, and the dev server.</p>
+        </div>
+        <div class="persona-panel-step">
+          <div class="step-num">2</div>
+          <h4>Scaffold a mod</h4>
+          <p>Run <code>stark init my-mod</code> to get a typed project with hot-reload, tests, and packaging ready to go.</p>
+        </div>
+        <div class="persona-panel-step">
+          <div class="step-num">3</div>
+          <h4>Develop with hot-reload</h4>
+          <p>Run <code>stark dev</code> — changes deploy into The Sims 4 instantly. No restart, no export, no waiting.</p>
+        </div>
+      </div>
+      <div class="persona-panel-code">
+        <span class="comment"># Install the Stark DevKit</span><br>
+        <span class="cmd">$</span> pip install stark-devkit<br><br>
+        <span class="comment"># Create a new mod project</span><br>
+        <span class="cmd">$</span> stark init my-mod <span class="flag">--template gameplay</span><br>
+        <span class="success">✓ Created my-mod/ with gameplay template</span><br><br>
+        <span class="comment"># Start developing with hot-reload</span><br>
+        <span class="cmd">$</span> cd my-mod && stark dev<br>
+        <span class="success">⚡ Hot-reload server running on port 8400</span><br>
+        <span class="success">⚡ Connected to The Sims 4 — drop in and test</span>
       </div>
     </div>
   </section>
@@ -672,6 +1066,34 @@
         altLink.textContent = 'Windows';
       }
     })();
+
+    /* ── Persona selection ──────────────────────────────────────────── */
+    function selectPersona(persona) {
+      const cards = document.querySelectorAll('.persona-card');
+      const panels = document.querySelectorAll('.persona-panel');
+      const clickedCard = document.querySelector(`.persona-card[data-persona="${persona}"]`);
+      const targetPanel = document.getElementById(`panel-${persona}`);
+
+      // If already selected, deselect
+      if (clickedCard.classList.contains('selected')) {
+        clickedCard.classList.remove('selected');
+        targetPanel.classList.remove('active');
+        return;
+      }
+
+      // Deselect all
+      cards.forEach(c => c.classList.remove('selected'));
+      panels.forEach(p => p.classList.remove('active'));
+
+      // Select clicked
+      clickedCard.classList.add('selected');
+      targetPanel.classList.add('active');
+
+      // Smooth scroll to panel
+      setTimeout(() => {
+        targetPanel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }, 50);
+    }
 
     /* ── Nav scroll + mobile toggle ────────────────────────────────── */
     const nav = document.getElementById("nav");
