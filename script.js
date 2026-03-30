@@ -289,7 +289,7 @@ document.addEventListener('DOMContentLoaded', () => {
     purple:  'rgba(167, 139, 250, 0.15)',
     gold:    'rgba(251, 191, 36, 0.15)',
     diamond: 'rgba(125, 211, 252, 0.15)',
-    crystal: 'rgba(192, 132, 252, 0.15)',
+    platinum: 'rgba(192, 132, 252, 0.15)',
   };
 
   document.querySelectorAll('.tier[data-tier]').forEach((card) => {
